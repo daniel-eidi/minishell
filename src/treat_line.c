@@ -6,14 +6,14 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 23:24:49 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/08/31 23:41:41 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/09/01 13:20:34 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include <minishell.h>
 
 
-char	*treat_arg(char *cmd)
+char	*treat_line(char *cmd)
 {
 	char	*arg;
 	//char	**split;

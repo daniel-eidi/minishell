@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 22:32:00 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/08/31 23:07:11 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/09/01 13:21:46 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 void	error(void);
 char	*ft_get_next_line_lim(int fd, char *limiter);
 void	free_ptr(char **str);
-char	*treat_arg(char *cmd);
+char	*treat_line(char *cmd);
 char	*space_arg(char *cmd, char *c);
 
 #endif

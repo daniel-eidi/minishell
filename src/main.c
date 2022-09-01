@@ -21,7 +21,7 @@ int main(int argc, char **argv, char **envp)
 		i=0;
 		if(ft_strlen(line) > 0)
 			add_history(line);
-		temp = treat_arg(line);
+		temp = treat_line(line);
 		cmd = space_arg(temp, "<");
 		ft_printf("comando com spaços - %s\n", cmd);
 		split = ft_split(cmd, ' ');
