@@ -14,17 +14,30 @@
 
 #include <stdio.h> //REMOVE!
 
+typedef struct s_list
+{
+	void			*content;
+	struct s_list	*next;
+}	t_list;
+
 typedef struct s_item
 {
 	char	*key;
 	char	*value;
 }	t_item;
 
+//----------list functions----------
+t_list	*ft_lstnew(void *content);
+t_list	*ft_lstlast(t_list *lst);
+void	ft_lstadd_back(t_list **lst, t_list *new);
+void	ft_lstclear(t_list **lst, void (*del)(void *));
+void	ft_lstiter(t_list *lst, void (*f)(void *));
+//----------hashtable functions----------
 int	ft_pow(int base, int exp);
 size_t	ft_strlen(const char *s);
 int	get_hash(char *s);
-t_item	**hash_table_init(int size);
-void	insert_item(t_item *item, t_item **table);
+t_list	**hash_table_init(int size);
+void	insert_item(t_item *item, t_list **table);
 t_item	*new_item(char *new_key, char *new_value);
 
 #endif

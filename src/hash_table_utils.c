@@ -10,35 +10,42 @@ t_item	*new_item(char *new_key, char *new_value)
 	return (new);
 }
 
-void	insert_item(t_item *item, t_item **table)
+void	insert_item(t_item *item, t_list **table)
 {
 	int	ind;
 	int	size;
 	t_item	*aux;
 
-	aux = *table;
 	size = 0;
 	while (table[size])
 		++size;
 	ind = get_hash(item->key) % size;
-	while (table[ind])
+	if (((t_item *)table[ind]->content)->key == NULL)
 	{
-		if (table[ind]->key == NULL)
-		{
-			aux = table[ind];
-			table[ind] = item;
-			free(aux);
-			return ;
-		}
-		else
-		{
-			ind++;
-			ind %= size;
-			printf("table[ind]->key = %s\n", table[ind]->key);
-		}
+		aux = table[ind]->content;
+		table[ind]->content = item;
+		free(aux);
+	}
+	else
+	{
+		ft_lstadd_back(&table[ind], ft_lstnew(item));
 	}
 }
 
+t_list	**hash_table_init(int size)
+{
+	t_list	**table;
+	int 	i;
+
+	table = (t_list **) malloc((size + 1) * (sizeof(t_list *)));
+	table[size] = NULL;
+	i = -1;
+	while (++i < size)
+		table[i] = ft_lstnew(new_item(NULL, NULL));
+	return (table);
+}
+
+/*
 t_item	**hash_table_init(int size)
 {
 	t_item	**table;
@@ -51,3 +58,4 @@ t_item	**hash_table_init(int size)
 		table[i] = new_item(NULL, NULL);
 	return (table);
 }
+*/

@@ -9,12 +9,14 @@ SRCDIR 		= ./src/
 OBJ_PATH	= ./obj/
 
 SRC 		= 	main.c \
-				error.c \
-				ft_get_next_line.c \
 				treat_line.c\
 				get_hash.c\
 				ft_pow.c\
 				hash_table_utils.c\
+				ft_lstnew.c\
+				ft_lstadd_back.c\
+				ft_lstclear.c\
+				ft_lstlast.c\
 			
 
 

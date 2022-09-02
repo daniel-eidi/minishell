@@ -13,8 +13,9 @@ int main(int argc, char **argv, char **envp)
 	(void)	argv;
 	(void)	argc;
 	(void)	envp;
-	t_item **hash_table;
+	t_list **hash_table;
 	t_item	*item;
+	t_list	*aux;
 
 	ft_printf("get hash moacir = %d\n", get_hash("moacir"));
 	hash_table = hash_table_init(10);
@@ -24,10 +25,25 @@ int main(int argc, char **argv, char **envp)
 	insert_item(item, hash_table);
 	item = new_item("term", "linux");
 	insert_item(item, hash_table);
+	item = new_item("derm", "linx");
+	insert_item(item, hash_table);
+	item = new_item("VAR", "lol");
+	insert_item(item, hash_table);
+	item = new_item("ARG", "cat");
+	insert_item(item, hash_table);
 	i = -1;
 	while (hash_table[++i])
-		if (hash_table[i]->key)
-			printf("%s\n", hash_table[i]->key);
+	{
+		aux = hash_table[i];
+		printf("i = %d, key = %s, value = %s\n", i, ((t_item *)aux->content)->key, ((t_item *)aux->content)->value);
+		while (aux->next)
+		{
+		aux = aux->next;
+		printf("i = %d, key = %s, value = %s\n", i, ((t_item *)aux->content)->key, ((t_item *)aux->content)->value);
+		}
+	}
+	//	if (((t_item *)hash_table[i]->content)->key)
+	//		printf("%s\n", ((t_item *)hash_table[i]->content)->key);
 	i=0;
 	line = "";
 	while(ft_strncmp(line = readline("> "), "exit", 5))
