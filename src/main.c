@@ -42,6 +42,20 @@ int main(int argc, char **argv, char **envp)
 		printf("i = %d, key = %s, value = %s\n", i, ((t_item *)aux->content)->key, ((t_item *)aux->content)->value);
 		}
 	}
+	aux = find_entry("ARG", hash_table);
+	printf("value of entry found = %s\n", ((t_item *)aux->content)->value);
+	delete_entry("VAR", hash_table);	
+	i = -1;
+	while (hash_table[++i])
+	{
+		aux = hash_table[i];
+		printf("i = %d, key = %s, value = %s\n", i, ((t_item *)aux->content)->key, ((t_item *)aux->content)->value);
+		while (aux->next)
+		{
+		aux = aux->next;
+		printf("i = %d, key = %s, value = %s\n", i, ((t_item *)aux->content)->key, ((t_item *)aux->content)->value);
+		}
+	}
 	//	if (((t_item *)hash_table[i]->content)->key)
 	//		printf("%s\n", ((t_item *)hash_table[i]->content)->key);
 	i=0;

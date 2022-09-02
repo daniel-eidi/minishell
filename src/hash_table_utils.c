@@ -13,13 +13,9 @@ t_item	*new_item(char *new_key, char *new_value)
 void	insert_item(t_item *item, t_list **table)
 {
 	int	ind;
-	int	size;
 	t_item	*aux;
 
-	size = 0;
-	while (table[size])
-		++size;
-	ind = get_hash(item->key) % size;
+	ind = get_ind(item->key, table);
 	if (((t_item *)table[ind]->content)->key == NULL)
 	{
 		aux = table[ind]->content;
@@ -27,9 +23,7 @@ void	insert_item(t_item *item, t_list **table)
 		free(aux);
 	}
 	else
-	{
 		ft_lstadd_back(&table[ind], ft_lstnew(item));
-	}
 }
 
 t_list	**hash_table_init(int size)
@@ -45,17 +39,43 @@ t_list	**hash_table_init(int size)
 	return (table);
 }
 
-/*
-t_item	**hash_table_init(int size)
+t_list	*find_entry(char *searched_key, t_list **table)
 {
-	t_item	**table;
-	int 	i;
+	t_list	*aux;
 
-	table = (t_item **) malloc((size + 1) * (sizeof(t_item *)));
-	table[size] = NULL;
-	i = -1;
-	while (++i < size)
-		table[i] = new_item(NULL, NULL);
-	return (table);
+	aux = table[get_ind(searched_key, table)];
+	while (aux)
+	{
+		if (!ft_strcmp(((t_item *)aux->content)->key, searched_key))
+			break;
+		aux = aux->next;
+	}
+	return (aux);
 }
-*/
+
+void	delete_entry(char *searched_key, t_list **table)
+{
+	t_list	*aux;
+	t_list	*aux_prev;
+
+	aux = table[get_ind(searched_key, table)];
+	aux_prev = NULL;
+	while (aux)
+	{
+		if (!ft_strcmp(((t_item *)aux->content)->key, searched_key))
+			break;
+		aux_prev = aux;
+		aux = aux->next;
+	}
+	if (aux_prev)
+	{
+		aux_prev->next = aux->next;
+		free(aux->content);
+		free(aux);
+	}
+	else
+	{
+		((t_item *)(aux->content))->key = NULL;
+		((t_item *)(aux->content))->value = NULL;
+	}
+}

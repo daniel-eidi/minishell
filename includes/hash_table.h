@@ -26,7 +26,7 @@ typedef struct s_item
 	char	*value;
 }	t_item;
 
-//----------list functions----------
+//------------list functions------------
 t_list	*ft_lstnew(void *content);
 t_list	*ft_lstlast(t_list *lst);
 void	ft_lstadd_back(t_list **lst, t_list *new);
@@ -34,9 +34,12 @@ void	ft_lstclear(t_list **lst, void (*del)(void *));
 //----------hashtable functions----------
 int	ft_pow(int base, int exp);
 size_t	ft_strlen(const char *s);
-int	get_hash(char *s);
+int	get_ind(char *key, t_list **table);
 t_list	**hash_table_init(int size);
 void	insert_item(t_item *item, t_list **table);
 t_item	*new_item(char *new_key, char *new_value);
+t_list	*find_entry(char *searched_key, t_list **table);
+int	ft_strcmp(char *s1, char *s2);
+void	delete_entry(char *searched_key, t_list **table);
 
 #endif

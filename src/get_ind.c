@@ -20,3 +20,15 @@ int	get_hash(char *s)
 	}
 	return (hash % M_PARAM);
 }
+
+int	get_ind(char *key, t_list **table)
+{
+	int	ind;
+	int	size;
+
+	size = 0;
+	while (table[size])
+		++size;
+	ind = get_hash(key) % size;
+	return (ind);
+}
