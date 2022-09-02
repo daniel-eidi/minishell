@@ -12,6 +12,9 @@ SRC 		= 	main.c \
 				error.c \
 				ft_get_next_line.c \
 				treat_line.c\
+				get_hash.c\
+				ft_pow.c\
+				hash_table_utils.c\
 			
 
 

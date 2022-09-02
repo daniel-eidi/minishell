@@ -45,11 +45,11 @@ char	*space_arg(char *cmd, char *c)
 {
 	char	*arg;
 	//char	**split;
-	char	inside;
+//	char	inside;
 	int		i;
 
 	arg = ft_calloc(ft_strlen(cmd) + 1, 1);
-	inside = 0;
+//	inside = 0;
 	i = 0;
 	while (*cmd)
 	{
