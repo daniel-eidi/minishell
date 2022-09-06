@@ -41,5 +41,6 @@ t_item	*new_item(char *new_key, char *new_value);
 t_list	*find_entry(char *searched_key, t_list **table);
 int	ft_strcmp(char *s1, char *s2);
 void	delete_entry(char *searched_key, t_list **table);
+void	clear_table(t_list **table);
 
 #endif

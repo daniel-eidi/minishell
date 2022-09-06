@@ -32,10 +32,13 @@ t_list	**hash_table_init(int size)
 	int 	i;
 
 	table = (t_list **) malloc((size + 1) * (sizeof(t_list *)));
-	table[size] = NULL;
-	i = -1;
-	while (++i < size)
-		table[i] = ft_lstnew(new_item(NULL, NULL));
+	if (table)
+	{
+		table[size] = NULL;
+		i = -1;
+		while (++i < size)
+			table[i] = ft_lstnew(new_item(NULL, NULL));
+	}
 	return (table);
 }
 
@@ -78,4 +81,14 @@ void	delete_entry(char *searched_key, t_list **table)
 		((t_item *)(aux->content))->key = NULL;
 		((t_item *)(aux->content))->value = NULL;
 	}
+}
+
+void	clear_table(t_list **table)
+{
+	int	i;
+
+	i = -1;
+	while (table[++i])
+		ft_lstclear(&table[i], free);
+	free(table);
 }

@@ -5,10 +5,10 @@
 
 int main(int argc, char **argv, char **envp)
 {
-	static char	*line;
-	char		*cmd;
-	char		*temp;
-	char		**split;
+//	static char	*line;
+//	char		*cmd;
+//	char		*temp;
+//	char		**split;
 	int			i;
 	(void)	argv;
 	(void)	argc;
@@ -17,7 +17,7 @@ int main(int argc, char **argv, char **envp)
 	t_item	*item;
 	t_list	*aux;
 
-	ft_printf("get hash moacir = %d\n", get_hash("moacir"));
+//	ft_printf("get hash moacir = %d\n", get_ind("moacir"));
 	hash_table = hash_table_init(10);
 	item = new_item("XAR", "moacir");
 	insert_item(item, hash_table);
@@ -56,8 +56,10 @@ int main(int argc, char **argv, char **envp)
 		printf("i = %d, key = %s, value = %s\n", i, ((t_item *)aux->content)->key, ((t_item *)aux->content)->value);
 		}
 	}
+	clear_table(hash_table);
 	//	if (((t_item *)hash_table[i]->content)->key)
 	//		printf("%s\n", ((t_item *)hash_table[i]->content)->key);
+	/*
 	i=0;
 	line = "";
 	while(ft_strncmp(line = readline("> "), "exit", 5))
@@ -74,5 +76,6 @@ int main(int argc, char **argv, char **envp)
 			ft_printf("%s\n", split[i++]);
 		free(line);
 	}
+	*/
 	return(0);
 }
