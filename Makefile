@@ -12,6 +12,14 @@ SRC 		= 	main.c \
 				treat_line.c\
 				utils_treat_line.c\
 				free.c\
+				get_ind.c\
+				ft_pow.c\
+				hash_table_utils.c\
+				ft_lstnew.c\
+				ft_lstadd_back.c\
+				ft_lstclear.c\
+				ft_lstlast.c\
+				ft_strcmp.c\
 			
 
 

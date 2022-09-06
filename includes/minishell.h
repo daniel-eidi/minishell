@@ -14,9 +14,9 @@
 # define MINISHELL_H
 
 // -----------------	ALLOWED LIBS	----------------
+# include <stdio.h>				// printf()
 # include <readline/readline.h>	// readline(), etc.
 # include <readline/history.h>	// add_history()
-# include <stdio.h>				// printf()
 # include <unistd.h>			// write(), close(), access(), fork(), pipe()
 # include <stdlib.h>			// free()
 # include <stdbool.h>			// C99+ standard <bool> typedef
@@ -27,6 +27,9 @@
 # include <sys/types.h>			// <pid_t> typedef
 # include <sys/wait.h>			// wait()
 # include <signal.h>			// sigaction()
+
+
+# include <hash_table.h>
 
 /*
 ** My own libft library, completed with previously implemented functions such as
@@ -40,5 +43,6 @@ char	*treat_line(char *cmd);
 void 	free_split(void **ptr);
 char	**token_line(char *line);
 char	*ft_strnjoin(char *s1, char *s2, int x);
+
 
 #endif
