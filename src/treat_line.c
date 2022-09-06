@@ -6,73 +6,103 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 23:24:49 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/01 15:33:59 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/09/06 12:48:22 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <minishell.h>
+#	include<minishell.h>
 
-
-char	*treat_line(char *cmd)
+static char	*space_arg(char **s, char *cmd, char *c, int *i)
 {
 	char	*arg;
-	//char	**split;
-	char	inside;
-	int		i;
 
-	arg = ft_calloc(ft_strlen(cmd) + 1, 1);
-	inside = 0;
-	i = 0;
-	while (*cmd)
+	arg = *s;
+	if (!ft_strncmp(&cmd[*i], c, 1) && !ft_strncmp(&cmd[*i + 1], c, 1))
 	{
-		if ((*cmd == '\'' || *cmd == '\"') && inside == 0)
-			inside = *cmd ;
-		else if (inside != 0 && *cmd == inside)
-			inside = 0;
-		else if (inside != 0 && *cmd == ' ')
-			arg[i++] = -1;
-		else
-			arg[i++] = *cmd;
-		cmd++;
+		arg = ft_strnjoin(arg, " ", 1);
+		arg = ft_strnjoin(arg, &cmd[*i], 1);
+		arg = ft_strnjoin(arg, &cmd[*i], 1);
+		arg = ft_strnjoin(arg, " ", 1);
+		*i = *i + 2;
 	}
-	//split = ft_split(arg, ' ');
-	//free(arg);
-	//restore_spaces(split);
+	else if (!ft_strncmp(&cmd[*i], c, 1) && ft_strncmp(&cmd[*i +1], c, 1))
+	{
+		arg = ft_strnjoin(arg, " ", 1);
+		arg = ft_strnjoin(arg, &cmd[*i], 1);
+		arg = ft_strnjoin(arg, " ", 1);
+		*i = *i + 1;
+	}
 	return (arg);
 }
 
-char	*space_arg(char *cmd, char *c)
+static char	*check_spaces(char **s, char *line, int *i, char inside)
 {
 	char	*arg;
-	//char	**split;
+
+	arg = *s;
+	if (inside == 0)
+	{
+		arg = space_arg(&arg, line, ">", i);
+		arg = space_arg(&arg, line, "<", i);
+		arg = space_arg(&arg, line, "|", i);
+		arg = space_arg(&arg, line, "$", i);
+	}
+	arg = ft_strnjoin(arg, &line[*i], 1);
+	return (arg);
+}
+
+char	*treat_line(char *line)
+{
+	char	*arg;
 	char	inside;
 	int		i;
+	char	change;
 
-	arg = ft_calloc(ft_strlen(cmd) + 1, 1);
+	arg = ft_strdup("");
 	inside = 0;
+	change = -1;
 	i = 0;
-	while (*cmd)
+	while (line[i] != '\0')
 	{
-		if (!ft_strncmp(cmd, c, 1) && !ft_strncmp(cmd + 1, c, 1))
-		{
-			arg[i++] = ' ';
-			arg[i++] = *cmd;
-			arg[i++] = *cmd;
-			arg[i++] = ' ';
-			cmd = cmd + 2;
-		}
-		else if (!ft_strncmp(cmd, c, 1) && ft_strncmp(cmd + 1, c, 1))
-		{
-			arg[i++] = ' ';
-			arg[i++] = *cmd;
-			arg[i++] = ' ';
-			cmd++;
-		}
-		arg[i++] = *cmd;	
-		cmd++;
+		if ((line[i] == '\'' || line[i] == '\"') && inside == 0)
+					inside = line[i];
+		else if (inside != 0 && line[i] == inside)
+					inside = 0;
+		else if (inside != 0 && line[i] == ' ')
+			arg = ft_strnjoin(arg, &change, 1);
+		else
+			arg = check_spaces(&arg, line, &i, inside);
+		i++;
 	}
-	//split = ft_split(arg, ' ');
-	//free(arg);
-	//restore_spaces(split);
 	return (arg);
+}
+
+static void	restore_spaces(char **exec_args)
+{
+	char	*str;
+
+	while (*exec_args)
+	{
+		str = *exec_args;
+		while (*str)
+		{
+			if (*str == -1)
+				*str = ' ';
+			str++;
+		}
+		exec_args++;
+	}
+	return ;
+}
+
+char	**token_line(char *line)
+{
+	char	*token;
+	char	**split;
+
+	token = line;
+	token = treat_line(line);
+	split = ft_split(token, ' ');
+	restore_spaces(split);
+	return (split);
 }
