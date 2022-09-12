@@ -1,0 +1,13 @@
+total 28328
+-rw-r--r-- 1 coder coder       13 Sep  7 17:30 c
+drwxr-xr-x 2 coder coder     4096 Sep  6 23:03 includes
+drwxr-xr-x 2 coder coder     4096 Sep  8 22:46 libft
+-rw-r--r-- 1 coder coder     2184 Sep  8 23:09 Makefile
+-rwxr-xr-x 1 coder coder    32832 Sep 12 16:30 minishell
+drwxr-xr-x 2 coder coder     4096 Sep 12 16:30 obj
+-rw-r--r-- 1 coder coder      473 Sep  6 19:49 readline.supp
+drwxr-xr-x 3 coder coder     4096 Sep  8 22:51 src
+-rw-r--r-- 1 coder coder        0 Sep 12 16:41 teste
+-rw------- 1 coder coder 10702848 Sep  8 23:31 vgcore.17307
+-rw------- 1 coder coder 10702848 Sep  8 23:33 vgcore.17419
+-rw------- 1 coder coder  7540736 Sep  9 19:05 vgcore.18875
