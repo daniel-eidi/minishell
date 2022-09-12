@@ -9,12 +9,14 @@ SRCDIR 		= ./src/
 OBJ_PATH	= ./obj/
 
 SRC 		= 	main.c \
-				error.c \
-				ft_get_next_line.c \
 				treat_line.c\
-			
-
-
+				ft_lstadd_back.c\
+				ft_lstlast.c\
+				ft_lstnew.c\
+				make_cmd_table.c\
+				ft_strcmp.c\
+				ft_lstclear.c\
+				ft_strdup.c\
 
 OBJ= $(addprefix $(OBJ_PATH), $(notdir $(SRC:.c=.o)))
 

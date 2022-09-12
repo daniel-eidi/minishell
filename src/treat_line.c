@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 23:24:49 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/01 13:20:34 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/09/01 15:33:59 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ char	*space_arg(char *cmd, char *c)
 {
 	char	*arg;
 	//char	**split;
-	char	inside;
+	//char	inside;
 	int		i;
 
 	arg = ft_calloc(ft_strlen(cmd) + 1, 1);
-	inside = 0;
+	//inside = 0;
 	i = 0;
 	while (*cmd)
 	{
