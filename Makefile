@@ -20,11 +20,14 @@ SRC 		= 	main.c \
 				ft_lstclear.c\
 				ft_lstlast.c\
 				ft_strcmp.c\
+				init_data.c\
+				hash_envp.c\
 			
 
 
 
 OBJ= $(addprefix $(OBJ_PATH), $(notdir $(SRC:.c=.o)))
+OBJ1 = $(SRC:%.c=$(OBJ_PATH)%.o)
 
 
 #compilation
@@ -50,7 +53,7 @@ LEAKS_FILE	= valgrind-out.txt
 RM =rm -f
 
 #rules
-all: $(NAME)
+all: $(NAME)	
 
 $(NAME): $(OBJ) $(LIBFT)
 	@printf "\n$(CY)Generating Push_swap executable...$(RC)\n"

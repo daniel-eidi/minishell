@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 22:32:00 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/06 12:47:21 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/09/10 14:41:52 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,18 @@
 ** get_next_line
 */
 # include "../libft/libft.h"
+
+
+
+typedef struct s_data
+{
+	struct s_list	**hash_table;
+	char			**token;
+}	t_data;
+
+//extern t_data	data;
+void	hash_envp(t_data *data, char **envp);
+t_data	*init_data(void);
 void	error(void);
 char	*ft_get_next_line_lim(int fd, char *limiter);
 void	free_ptr(void **str);

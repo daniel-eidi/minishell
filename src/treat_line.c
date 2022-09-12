@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 23:24:49 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/06 19:55:49 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/09/08 20:14:58 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ static char	*check_spaces(char **s, char *line, int *i, char inside)
 		arg = space_arg(&arg, line, "<", i);
 		arg = space_arg(&arg, line, "|", i);
 		arg = space_arg(&arg, line, "$", i);
+		arg = space_arg(&arg, line, "&", i);
 	}
-	arg = ft_strnjoin(arg, &line[*i], 1);
 	return (arg);
 }
 
@@ -65,14 +65,17 @@ char	*treat_line(char *line)
 	while (line[i] != '\0')
 	{
 		if ((line[i] == '\'' || line[i] == '\"') && inside == 0)
-					inside = line[i];
+			inside = line[i];
 		else if (inside != 0 && line[i] == inside)
-					inside = 0;
+			inside = 0;
 		else if (inside != 0 && line[i] == ' ')
+		{
 			arg = ft_strnjoin(arg, &change, 1);
+			i++;
+		}
 		else
 			arg = check_spaces(&arg, line, &i, inside);
-		i++;
+		arg = ft_strnjoin(arg, &line[i++], 1);
 	}
 	return (arg);
 }
@@ -100,9 +103,10 @@ char	**token_line(char *line)
 	char	*token;
 	char	**split;
 
-	token = line;
 	token = treat_line(line);
 	split = ft_split(token, ' ');
 	restore_spaces(split);
+	free_ptr((void *)&token);
+	free_ptr((void *)&line);
 	return (split);
 }

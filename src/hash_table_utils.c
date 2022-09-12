@@ -16,11 +16,13 @@ void	insert_item(t_item *item, t_list **table)
 	t_item	*aux;
 
 	ind = get_ind(item->key, table);
+	printf("item->key no insert= %s\n", item->key);
 	if (((t_item *)table[ind]->content)->key == NULL)
 	{
 		aux = table[ind]->content;
 		table[ind]->content = item;
 		free(aux);
+		printf("item->key apos insert no indicador %d= key =%s e value=%s\n", ind, ((t_item *)table[ind]->content)->key, ((t_item *)table[ind]->content)->value);
 	}
 	else
 		ft_lstadd_back(&table[ind], ft_lstnew(item));

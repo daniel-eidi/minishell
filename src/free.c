@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 12:13:29 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/06 12:16:03 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/09/08 23:25:02 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	free_ptr(void **ptr)
 {
 	if (*ptr)
 	{
-		free(*ptr);
 		*ptr = NULL;
+		free(*ptr);
 	}
 }
 
