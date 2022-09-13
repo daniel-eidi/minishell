@@ -3,12 +3,14 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+t_data	*data;
+
 int main(int argc, char **argv, char **envp)
 {
 	static char	*line;
 //	char		*cmd;
 //	char		*temp;
-	char		**split;
+	char		**token;
 	int			i;
 	(void)	argv;
 	(void)	argc;
@@ -19,6 +21,8 @@ int main(int argc, char **argv, char **envp)
 	t_list	*aux4;
 
 //	i=0;
+	data = init_data();
+	hash_envp(data, envp);
 	line = "";
 	while(ft_strncmp(line = readline("> "), "exit", 5))
 	{
@@ -28,11 +32,11 @@ int main(int argc, char **argv, char **envp)
 		//temp = treat_line(line);
 		//cmd = space_arg(temp, "<");
 		//ft_printf("comando com spaços - %s\n", cmd);
-		split = ft_split(line, ' ');
+		token = token_line(line);
 		//ft_printf("--	tentativa de tokens  --- \n");
 		//while(split[i])
 		//	ft_printf("%s\n", split[i++]);
-		aux = make_cmd_table(split);
+		aux = make_cmd_table(token);
 		
 		i = 1;
 		while ((*aux))
@@ -62,10 +66,10 @@ int main(int argc, char **argv, char **envp)
 		
 		clear_cmd_table(aux);
 		i = -1;
-		while (split[++i])
-			free(split[i]);
+		while (token[++i])
+			free(token[i]);
 		//	printf("split[%d] = %s\n", i, split[i]);
-		free(split);
+		free(token);
 		free(line);
 	}
 	return(0);
