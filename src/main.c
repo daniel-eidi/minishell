@@ -8,9 +8,7 @@ t_data	*data;
 int main(int argc, char **argv, char **envp)
 {
 	static char	*line;
-	//char		**split;
-	t_list	*teste;
-	int			i;
+	char		**token;
 	(void)	argv;
 	(void)	argc;
 	t_data	*data;
@@ -21,10 +19,9 @@ int main(int argc, char **argv, char **envp)
 	cmd_env(data);
 	while(ft_strncmp(line = readline("> "), "exit", 5))
 	{
-		i=0;
 		if(ft_strlen(line) > 0)
 			add_history(line);
-
+		token=token_line(line);
 	}
 	return(0);
 }
