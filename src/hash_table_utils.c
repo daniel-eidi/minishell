@@ -48,14 +48,20 @@ t_list	**hash_table_init(int size)
 t_list	*find_entry(char *searched_key, t_list **table)
 {
 	t_list	*aux;
-
+	//printf("find = %s\n", searched_key);
+	printf("hash-table = %p\n", table);
 	aux = table[get_ind(searched_key, table)];
 	while (aux)
 	{
 		if (!ft_strcmp(((t_item *)aux->content)->key, searched_key))
+		{
+			//printf("content dentro find = %s\n", ((t_item *)aux->content)->key);
 			break;
+		}
+		//printf("c = %s\n", (char *)aux->content);
 		aux = aux->next;
 	}
+	printf("content dentro find = %s\n", ((t_item *)aux->content)->value);
 	return (aux);
 }
 

@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 22:32:00 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/10 14:41:52 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/09/13 13:14:03 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,10 @@ typedef struct s_data
 	char			**token;
 }	t_data;
 
-//extern t_data	data;
+extern t_data	*data;
+
+void	var_expand(t_list *list, t_data *data);
+void	cmd_env	(t_data *data);
 void	hash_envp(t_data *data, char **envp);
 t_data	*init_data(void);
 void	error(void);

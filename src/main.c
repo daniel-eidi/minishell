@@ -3,11 +3,13 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+t_data	*data;
 
 int main(int argc, char **argv, char **envp)
 {
 	static char	*line;
 	//char		**split;
+	t_list	*teste;
 	int			i;
 	(void)	argv;
 	(void)	argc;
@@ -16,17 +18,16 @@ int main(int argc, char **argv, char **envp)
 
 	data = init_data();
 	hash_envp(data, envp);
+	cmd_env(data);
+	ft_printf("---VARIAVEIS DE AMBIENTE OK ---- \n\n\n");
+	teste = ft_lstnew("$WDANIEL__WORKSPACE_HTTP_PORT");
+	var_expand(teste, data);
 	while(ft_strncmp(line = readline("> "), "exit", 5))
 	{
 		i=0;
 		if(ft_strlen(line) > 0)
 			add_history(line);
-		// split = token_line(line);
-		// ft_printf("envp \n");
-		// while(envp[i])
-		// 	ft_printf("%s\n", envp[i++]);
-		// free_split((void *)split);
-		// free(split);
+
 	}
 	return(0);
 }

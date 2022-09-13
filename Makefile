@@ -22,6 +22,7 @@ SRC 		= 	main.c \
 				ft_strcmp.c\
 				init_data.c\
 				hash_envp.c\
+				var_expand.c\
 			
 
 
