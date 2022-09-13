@@ -26,6 +26,14 @@ typedef struct s_item
 	char	*value;
 }	t_item;
 
+typedef struct s_cmd
+{
+	t_list	*cmd;
+	t_list	*infiles;
+	t_list	*outfiles;
+	char	*errfile;
+}	t_cmd;
+
 //------------list functions------------
 t_list	*ft_lstnew(void *content);
 t_list	*ft_lstlast(t_list *lst);

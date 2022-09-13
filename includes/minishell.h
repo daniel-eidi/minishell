@@ -58,6 +58,10 @@ char	*treat_line(char *cmd);
 void 	free_split(void **ptr);
 char	**token_line(char *line);
 char	*ft_strnjoin(char *s1, char *s2, int x);
+t_list	**make_cmd_table(char **words);
+int	ft_strcmp(char *s1, char *s2);
+void	clear_cmd(t_cmd *cmd_deleted);
+void	clear_cmd_table(t_list **cmd_table);
 
 
 #endif
