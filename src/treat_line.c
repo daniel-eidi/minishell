@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 23:24:49 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/08 20:14:58 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/09/13 14:42:30 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ static char	*check_spaces(char **s, char *line, int *i, char inside)
 		arg = space_arg(&arg, line, ">", i);
 		arg = space_arg(&arg, line, "<", i);
 		arg = space_arg(&arg, line, "|", i);
-		arg = space_arg(&arg, line, "$", i);
 		arg = space_arg(&arg, line, "&", i);
 	}
 	return (arg);
