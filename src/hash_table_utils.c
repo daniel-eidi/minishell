@@ -17,13 +17,11 @@ void	insert_item(t_item *item, t_list **table)
 	t_item	*aux;
 
 	ind = get_ind(item->key, table);
-	//printf("item->key no insert= %s\n", item->key);
 	if (((t_item *)table[ind]->content)->key == NULL)
 	{
 		aux = table[ind]->content;
 		table[ind]->content = item;
 		free(aux);
-		//printf("item->key apos insert no indicador %d= key =%s e value=%s\n", ind, ((t_item *)table[ind]->content)->key, ((t_item *)table[ind]->content)->value);
 	}
 	else
 		ft_lstadd_back(&table[ind], ft_lstnew(item));
@@ -48,20 +46,13 @@ t_list	**hash_table_init(int size)
 t_list	*find_entry(char *searched_key, t_list **table)
 {
 	t_list	*aux;
-	//printf("find = %s\n", searched_key);
-	printf("hash-table = %p\n", table);
 	aux = table[get_ind(searched_key, table)];
 	while (aux)
 	{
 		if (!ft_strcmp(((t_item *)aux->content)->key, searched_key))
-		{
-			//printf("content dentro find = %s\n", ((t_item *)aux->content)->key);
 			break;
-		}
-		//printf("c = %s\n", (char *)aux->content);
 		aux = aux->next;
 	}
-	printf("content dentro find = %s\n", ((t_item *)aux->content)->value);
 	return (aux);
 }
 
