@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "hash_table.h"
+#include <minishell.h>
 
 void	ft_lstclear(t_list **lst, void (*del)(void *))
 {

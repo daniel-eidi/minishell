@@ -10,6 +10,7 @@ OBJ_PATH	= ./obj/
 
 SRC 		= 	main.c \
 				treat_line.c\
+<<<<<<< HEAD
 				utils_treat_line.c\
 				free.c\
 				get_ind.c\
@@ -26,6 +27,15 @@ SRC 		= 	main.c \
 			
 
 
+=======
+				ft_lstadd_back.c\
+				ft_lstlast.c\
+				ft_lstnew.c\
+				make_cmd_table.c\
+				ft_strcmp.c\
+				ft_lstclear.c\
+				ft_strdup.c\
+>>>>>>> origin/cmd_table_making
 
 OBJ= $(addprefix $(OBJ_PATH), $(notdir $(SRC:.c=.o)))
 OBJ1 = $(SRC:%.c=$(OBJ_PATH)%.o)

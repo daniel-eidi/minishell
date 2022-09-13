@@ -9,9 +9,7 @@
 /*   Updated: 2022/04/27 03:13:55 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include <stdlib.h>
-#include "hash_table.h"
+#include <minishell.h>
 
 t_list	*ft_lstnew(void *content)
 {

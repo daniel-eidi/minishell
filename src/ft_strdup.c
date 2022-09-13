@@ -1,27 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/21 16:54:40 by mgaldino          #+#    #+#             */
-/*   Updated: 2022/04/27 03:13:45 by mgaldino         ###   ########.fr       */
+/*   Created: 2022/04/21 16:32:48 by mgaldino          #+#    #+#             */
+/*   Updated: 2022/04/21 16:33:27 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include <stdlib.h>
 
-t_list	*ft_lstlast(t_list *lst)
+static int	ft_strlen(char *src)
 {
-	t_list	*node_ptr;
+	int	i;
 
-	if (lst == NULL)
-		return (0);
-	node_ptr = lst;
-	while (node_ptr->next)
+	i = 0;
+	while (src[i] != '\0')
+		i++;
+	return (i);
+}
+
+static void	ft_strcpy(char *dest, char *src)
+{
+	int	i;
+
+	i = 0;
+	while (src[i] != '\0')
 	{
-		node_ptr = node_ptr->next;
+		dest[i] = src[i];
+		i++;
 	}
-	return (node_ptr);
+	dest[i] = '\0';
+}
+
+char	*ft_strdup(char *src)
+{
+	char	*dest;
+
+	dest = (char *) malloc((ft_strlen(src) + 1) * sizeof(char));
+	if (dest != NULL)
+		ft_strcpy(dest, src);
+	return (dest);
 }
