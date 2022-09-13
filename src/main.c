@@ -19,9 +19,6 @@ int main(int argc, char **argv, char **envp)
 	data = init_data();
 	hash_envp(data, envp);
 	cmd_env(data);
-	ft_printf("---VARIAVEIS DE AMBIENTE OK ---- \n\n\n");
-	teste = ft_lstnew("$WDANIEL__WORKSPACE_HTTP_PORT");
-	var_expand(teste, data);
 	while(ft_strncmp(line = readline("> "), "exit", 5))
 	{
 		i=0;

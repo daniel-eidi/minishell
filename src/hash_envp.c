@@ -48,6 +48,4 @@ void	cmd_env(t_data *data)
 		printf("%s=%s\n", ((t_item *)aux->content)->key, ((t_item *)aux->content)->value);
 		}		
 	}
-	
-	printf("table = %p\n", data->hash_table);
 }

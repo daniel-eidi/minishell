@@ -24,7 +24,6 @@ void	var_expand(t_list *list, t_data *data)
 
 	temp = list;
 	count = ft_countword(temp->content, '$');
-	//ft_printf("qtd de $ = %d \n", count);
 	if (*(char *)temp->content == '\'' && count == 0)
 		return;
 	while (count > 1)
@@ -40,7 +39,7 @@ void	var_expand(t_list *list, t_data *data)
 		new->next = aux_next;
 		temp = new;
 		
-	} ///parei aqui
+	} 
 	aux_next = temp->next;
 	dif = (void *)ft_strchr(temp->content, '$') - temp->content;
 	//ft_printf("valor dif = %d \n", dif);
