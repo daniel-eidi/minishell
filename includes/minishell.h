@@ -57,7 +57,7 @@ typedef struct s_data
 
 extern t_data	*data;
 
-void	var_expand(t_list *list, t_data *data);
+char 	*mult_var_expand(char *arg, t_list **hash_table);
 void	cmd_env	(t_data *data);
 void	hash_envp(t_data *data, char **envp);
 t_data	*init_data(void);

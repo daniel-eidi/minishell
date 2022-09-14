@@ -19,10 +19,13 @@ int main(int argc, char **argv, char **envp)
 	t_list	*aux2;
 	t_list	*aux3;
 	t_list	*aux4;
+	char *teste;
 
 //	i=0;
 	data = init_data();
 	hash_envp(data, envp);
+	teste = mult_var_expand("$PWD$PWD", data->hash_table);
+	printf("expansão de '$PWD$PWD'= %s\n", teste);
 	line = "";
 	while(ft_strncmp(line = readline("> "), "exit", 5))
 	{
