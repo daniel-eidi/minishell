@@ -25,6 +25,7 @@ SRC 		= 	main.c \
 				var_expand.c\
 				make_cmd_table.c\
 				ft_strdup.c\
+				init_var_expand.c\
 
 OBJ= $(addprefix $(OBJ_PATH), $(notdir $(SRC:.c=.o)))
 OBJ1 = $(SRC:%.c=$(OBJ_PATH)%.o)

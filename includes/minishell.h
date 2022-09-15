@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 22:32:00 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/13 13:14:03 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/09/15 01:57:47 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include <sys/wait.h>			// wait()
 # include <signal.h>			// sigaction()
 # include <hash_table.h>
+# include <var_expand.h>
 
 //----------------- command table (moacir) -----------------
 
@@ -57,6 +58,7 @@ typedef struct s_data
 
 extern t_data	*data;
 
+t_aux_expand *init_aux_expand(void);
 char 	*mult_var_expand(char *arg, t_list **hash_table);
 void	cmd_env	(t_data *data);
 void	hash_envp(t_data *data, char **envp);

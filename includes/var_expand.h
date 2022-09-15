@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_data.c                                        :+:      :+:    :+:   */
+/*   var_expand.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/08 14:22:39 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/15 02:11:45 by daeidi-h         ###   ########.fr       */
+/*   Created: 2022/03/28 22:32:00 by daeidi-h          #+#    #+#             */
+/*   Updated: 2022/09/15 01:53:14 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#ifndef VAR_EXPAND_H
+# define VAR_EXPAND_H
 
-t_data	*init_data(void)
+typedef struct s_aux_expand
 {
-	t_data	*data;
+	char	*prev;
+	char	*after;
+	char	*var;
+	char	*keyvar;
+	char	*aux1;
+	char	*aux2;
+	int		dif1;
+	int		dif2;
+	int		dif3;
+}	t_aux_expand;
 
-	data = (t_data *)ft_calloc(sizeof(t_data), 1);
-	data->hash_table = hash_table_init(20);
-	return (data);
-}
+
+#endif

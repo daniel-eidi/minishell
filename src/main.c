@@ -15,6 +15,7 @@ int main(int argc, char **argv, char **envp)
 	(void)	argv;
 	(void)	argc;
 	(void)	envp;
+	//t_list	*item;
 	t_list	**aux;
 	t_list	*aux2;
 	t_list	*aux3;
@@ -24,8 +25,10 @@ int main(int argc, char **argv, char **envp)
 //	i=0;
 	data = init_data();
 	hash_envp(data, envp);
-	teste = mult_var_expand("$PWD$PWD", data->hash_table);
-	printf("expansão de '$PWD$PWD'= %s\n", teste);
+	//item = find_entry("PW", data->hash_table);
+	//printf("PWD = %s\n",((t_item *)item->content)->value);
+	teste = mult_var_expand("gjga$OLDPWD$PWD$PWD", data->hash_table);
+	printf("expansão = %s\n", teste);
 	line = "";
 	while(ft_strncmp(line = readline("> "), "exit", 5))
 	{

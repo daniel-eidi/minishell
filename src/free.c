@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 12:13:29 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/08 23:25:02 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/09/15 02:13:31 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ void	free_ptr(void **ptr)
 	}
 }
 
-void free_split(void **ptr)
+void	free_split(void **ptr)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(ptr[i])
+	while (ptr[i])
 		free_ptr((void *) &ptr[i++]);
 }
