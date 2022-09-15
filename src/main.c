@@ -64,11 +64,27 @@ int main(int argc, char **argv, char **envp)
 			++i;
 		}
 		
+	i = -1;
+	while (data->hash_table[++i])
+	{
+		aux2 = data->hash_table[i];
+		printf("i = %d, key = %s, value = %s\n", i, ((t_item *)aux2->content)->key, ((t_item *)aux2->content)->value);
+		while (aux2->next)
+		{
+		aux2 = aux2->next;
+		printf("i = %d, key = %s, value = %s\n", i, ((t_item *)aux2->content)->key, ((t_item *)aux2->content)->value);
+		}
+	}
 		clear_cmd_table(aux);
 		i = -1;
 		while (token[++i])
 			free(token[i]);
 		//	printf("split[%d] = %s\n", i, split[i]);
+		
+			aux2 = find_entry("ARG", data->hash_table);
+			printf("aux2 = %p\n", aux2);
+	//printf("value of entry found = %s\n", ((t_item *)aux2->content)->value);
+		
 		free(token);
 		free(line);
 	}
