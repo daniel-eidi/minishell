@@ -8,6 +8,7 @@ t_data	*data;
 int main(int argc, char **argv, char **envp)
 {
 	static char	*line;
+	char	*s;
 //	char		*cmd;
 //	char		*temp;
 	char		**token;
@@ -15,10 +16,10 @@ int main(int argc, char **argv, char **envp)
 	(void)	argv;
 	(void)	argc;
 	(void)	envp;
-	t_list	**aux;
-	t_list	*aux2;
-	t_list	*aux3;
-	t_list	*aux4;
+//	t_list	**aux;
+//	t_list	*aux2;
+//	t_list	*aux3;
+//	t_list	*aux4;
 
 //	i=0;
 	data = init_data();
@@ -26,18 +27,25 @@ int main(int argc, char **argv, char **envp)
 	line = "";
 	while(ft_strncmp(line = readline("> "), "exit", 5))
 	{
-//		i=0;
+		i=0;
 		if(ft_strlen(line) > 0)
 			add_history(line);
+		process_quotes(line);
+		printf("line depois do process_quotes = %s\n", line);
 		//temp = treat_line(line);
 		//cmd = space_arg(temp, "<");
 		//ft_printf("comando com spaços - %s\n", cmd);
+		//printf("aqui\n");
 		token = token_line(line);
-		//ft_printf("--	tentativa de tokens  --- \n");
-		//while(split[i])
-		//	ft_printf("%s\n", split[i++]);
-		aux = make_cmd_table(token);
-		
+		ft_printf("--	tentativa de tokens  --- \n");
+		while(token[i])
+		{
+			ft_printf("%s\n", token[i++]);
+			s = mult_var_expand(token[i++], data->hash_table);
+		}
+		printf("s = %s\n", s);
+//		aux = make_cmd_table(token);
+		/*
 		i = 1;
 		while ((*aux))
 		{
@@ -63,7 +71,8 @@ int main(int argc, char **argv, char **envp)
 			*aux = (*aux)->next;
 			++i;
 		}
-		
+		*/	
+	/*
 	i = -1;
 	while (data->hash_table[++i])
 	{
@@ -75,6 +84,8 @@ int main(int argc, char **argv, char **envp)
 		printf("i = %d, key = %s, value = %s\n", i, ((t_item *)aux2->content)->key, ((t_item *)aux2->content)->value);
 		}
 	}
+	*/
+	/*
 		clear_cmd_table(aux);
 		i = -1;
 		while (token[++i])
@@ -84,7 +95,7 @@ int main(int argc, char **argv, char **envp)
 			aux2 = find_entry("ARG", data->hash_table);
 			printf("aux2 = %p\n", aux2);
 	//printf("value of entry found = %s\n", ((t_item *)aux2->content)->value);
-		
+	*/
 		free(token);
 		free(line);
 	}

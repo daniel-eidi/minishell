@@ -12,73 +12,6 @@
 
 #	include<minishell.h>
 
-static char	*space_arg(char **s, char *cmd, char *c, int *i)
-{
-	char	*arg;
-
-	arg = *s;
-	if (!ft_strncmp(&cmd[*i], c, 1) && !ft_strncmp(&cmd[*i + 1], c, 1))
-	{
-		arg = ft_strnjoin(arg, " ", 1);
-		arg = ft_strnjoin(arg, &cmd[*i], 1);
-		arg = ft_strnjoin(arg, &cmd[*i], 1);
-		arg = ft_strnjoin(arg, " ", 1);
-		*i = *i + 2;
-	}
-	else if (!ft_strncmp(&cmd[*i], c, 1) && ft_strncmp(&cmd[*i +1], c, 1))
-	{
-		arg = ft_strnjoin(arg, " ", 1);
-		arg = ft_strnjoin(arg, &cmd[*i], 1);
-		arg = ft_strnjoin(arg, " ", 1);
-		*i = *i + 1;
-	}
-	return (arg);
-}
-
-static char	*check_spaces(char **s, char *line, int *i, char inside)
-{
-	char	*arg;
-
-	arg = *s;
-	if (inside == 0)
-	{
-		arg = space_arg(&arg, line, ">", i);
-		arg = space_arg(&arg, line, "<", i);
-		arg = space_arg(&arg, line, "|", i);
-		arg = space_arg(&arg, line, "&", i);
-	}
-	return (arg);
-}
-
-char	*treat_line(char *line)
-{
-	char	*arg;
-	char	inside;
-	int		i;
-	char	change;
-
-	arg = ft_strdup("");
-	inside = 0;
-	change = -1;
-	i = 0;
-	while (line[i] != '\0')
-	{
-		if ((line[i] == '\'' || line[i] == '\"') && inside == 0)
-			inside = line[i];
-		else if (inside != 0 && line[i] == inside)
-			inside = 0;
-		else if (inside != 0 && line[i] == ' ')
-		{
-			arg = ft_strnjoin(arg, &change, 1);
-			i++;
-		}
-		else
-			arg = check_spaces(&arg, line, &i, inside);
-		arg = ft_strnjoin(arg, &line[i++], 1);
-	}
-	return (arg);
-}
-
 static void	restore_spaces(char **exec_args)
 {
 	char	*str;
@@ -97,15 +30,45 @@ static void	restore_spaces(char **exec_args)
 	return ;
 }
 
+void	process_quotes2(char *line)
+{
+	int	i;
+	int	p;
+	int	s;
+	int	d;
+
+	d = 0;
+	s = 0;
+	p = 0;
+	i = -1;
+	while (line[++i])
+	{
+		line[i - p] = line[i];
+		p += (!s && (line[i] == 34)) || (!d && (line[i] == 39));
+		if ((line[i] == 39) && !d)
+			s = !s;
+		if ((line[i] == 34) && !s)
+			d = !d;
+	}
+	line[i - p] = line[i];
+}
+
 char	**token_line(char *line)
 {
-	char	*token;
 	char	**split;
+	int	i;
 
-	token = treat_line(line);
-	split = ft_split(token, ' ');
+	process_quotes(line);
+	split = ft_split(line, ' ');
+	printf("saída da split:\n");
+	i = -1;
+	while(split[++i])
+	{
+	process_quotes2(split[i]);
+		ft_printf("%s\n", split[i]);
+	}
+	
 	restore_spaces(split);
-	free_ptr((void *)&token);
 	free_ptr((void *)&line);
 	return (split);
 }

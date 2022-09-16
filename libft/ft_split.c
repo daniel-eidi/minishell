@@ -3,62 +3,89 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/29 15:20:50 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/03 03:43:08 by daeidi-h         ###   ########.fr       */
+/*   Created: 2022/04/21 16:30:00 by mgaldino          #+#    #+#             */
+/*   Updated: 2022/04/26 00:23:57 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-/**
- * @brief Allocates (with malloc(3)) and returns an array
- * of strings obtained by splitting ’s’ using the
- * character ’c’ as a delimiter. The array must be
- * ended by a NULL pointer.
- * 
- * @param s 
- * @param c 
- * @return char** 
- */
+#include <stdlib.h>
 
-static void	ft_insertword(char const *s, char c, char **str)
-{
-	int			i;
-	int			nstr;
-	int			ini;
-
-	i = 0;
-	ini = -1;
-	nstr = 0;
-	while (s[i] != '\0')
-	{
-		if (s[i] != c && ini == -1)
-		{
-			ini = i;
-		}
-		if ((s[i + 1] == c && ini != -1) || (s[i + 1] == '\0' && ini != -1))
-		{
-			str[nstr] = ft_substr(s, ini, i - ini + 1);
-			ini = -1;
-			nstr++;
-		}
-		i++;
-	}
-	str[nstr] = NULL;
-}
+static char	*ft_word(int pos, int *word_l, char *s);
+static	int	ft_word_num(char *s, char c);
+static void	ft_set(int *i, int *j, int *word_l);
 
 char	**ft_split(char const *s, char c)
 {
-	char		**str;
-	int			words;
+	int		i;
+	int		word_l;
+	int		j;
+	char	**p_return;
 
-	if (!s)
+	p_return = (char **) malloc(ft_word_num((char *)s, c) * sizeof(char *));
+	if (!p_return)
 		return (NULL);
-	words = ft_countword(s, c);
-	str = (char **) malloc(sizeof(char *) * (words + 1));
-	if (!str)
-		return (NULL);
-	ft_insertword(s, c, str);
-	return (str);
+	ft_set(&i, &j, &word_l);
+	while (s[++i])
+	{
+		if (s[i] != c)
+		{
+			word_l++;
+			if ((s[i + 1] == c) || (s[i + 1] == '\0'))
+			{
+				p_return[++j] = ft_word(i, &word_l, (char *)s);
+				if (p_return[j] == NULL)
+					return (NULL);
+			}
+		}
+	}
+	p_return[j + 1] = NULL;
+	return (p_return);
+}
+
+static void	ft_set(int *i, int *j, int *word_l)
+{
+	*i = -1;
+	*j = -1;
+	*word_l = 0;
+}
+
+static char	*ft_word(int pos, int *word_l, char *s)
+{
+	int		k;
+	char	*aux;
+
+	aux = (char *) malloc((*word_l + 1) * sizeof(char));
+	if (aux != NULL)
+	{
+		k = 0;
+		while (k < *word_l)
+		{
+			aux[k] = s[pos - *word_l + 1 + k];
+			k++;
+		}
+		aux[k] = '\0';
+	}
+	*word_l = 0;
+	return (aux);
+}
+
+static	int	ft_word_num(char *s, char c)
+{
+	int	wc;
+	int	i;
+
+	if (s == NULL)
+		return (-1);
+	wc = 0;
+	i = 0;
+	while (s[i])
+	{
+		if (((s[i + 1] == c) || (s[i + 1] == '\0')) && (s[i] != c))
+			wc++;
+		i++;
+	}
+	wc++;
+	return (wc);
 }

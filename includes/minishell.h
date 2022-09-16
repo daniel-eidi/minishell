@@ -28,7 +28,7 @@
 # include <sys/wait.h>			// wait()
 # include <signal.h>			// sigaction()
 # include <hash_table.h>
-
+# include <var_expand.h>
 //----------------- command table (moacir) -----------------
 
 
@@ -40,6 +40,12 @@ void	ft_lstclear(t_list **lst, void (*del)(void *));
 int	ft_strcmp(char *s1, char *s2);
 void	clear_cmd(t_cmd *cmd_deleted);
 void	clear_cmd_table(t_list **cmd_table);
+
+
+void	process_quotes(char *line);
+
+t_aux_expand	*init_aux_expand(void);
+char	*mult_var_expand(char *arg, t_list **hash_table);
 
 /*
 ** My own libft library, completed with previously implemented functions such as
@@ -57,7 +63,6 @@ typedef struct s_data
 
 extern t_data	*data;
 
-void	var_expand(t_list *list, t_data *data);
 void	cmd_env	(t_data *data);
 void	hash_envp(t_data *data, char **envp);
 t_data	*init_data(void);
