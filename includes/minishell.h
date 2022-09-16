@@ -31,6 +31,9 @@
 
 # include <hash_table.h>
 
+
+void	process_quotes(char *line);
+
 /*
 ** My own libft library, completed with previously implemented functions such as
 ** get_next_line

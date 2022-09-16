@@ -18,6 +18,7 @@ SRC 		= 	main.c \
 				ft_lstclear.c\
 				ft_lstlast.c\
 				ft_strcmp.c\
+				process_quotes.c\
 			
 
 
