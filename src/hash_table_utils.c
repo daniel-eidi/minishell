@@ -46,7 +46,10 @@ t_list	**hash_table_init(int size)
 t_list	*find_entry(char *searched_key, t_list **table)
 {
 	t_list	*aux;
+
 	aux = table[get_ind(searched_key, table)];
+	if (((t_item *)aux->content)->key == NULL)
+		return (NULL);
 	while (aux)
 	{
 		if (!ft_strcmp(((t_item *)aux->content)->key, searched_key))
