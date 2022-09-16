@@ -33,6 +33,7 @@
 
 
 void	process_quotes(char *line);
+char	*exp_var(char *s, t_list **table);
 
 /*
 ** My own libft library, completed with previously implemented functions such as

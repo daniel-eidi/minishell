@@ -5,7 +5,7 @@
 
 int main(int argc, char **argv, char **envp)
 {
-//	static char	*line;
+	static char	*line;
 //	char		*cmd;
 //	char		*temp;
 //	char		**split;
@@ -42,24 +42,11 @@ int main(int argc, char **argv, char **envp)
 		printf("i = %d, key = %s, value = %s\n", i, ((t_item *)aux->content)->key, ((t_item *)aux->content)->value);
 		}
 	}
-	aux = find_entry("ARG", hash_table);
-	printf("value of entry found = %s\n", ((t_item *)aux->content)->value);
-	delete_entry("VAR", hash_table);	
-	i = -1;
-	while (hash_table[++i])
-	{
-		aux = hash_table[i];
-		printf("i = %d, key = %s, value = %s\n", i, ((t_item *)aux->content)->key, ((t_item *)aux->content)->value);
-		while (aux->next)
-		{
-		aux = aux->next;
-		printf("i = %d, key = %s, value = %s\n", i, ((t_item *)aux->content)->key, ((t_item *)aux->content)->value);
-		}
-	}
-	clear_table(hash_table);
+	//aux = find_entry("ARG", hash_table);
+	//printf("value of entry found = %s\n", ((t_item *)aux->content)->value);
 	//	if (((t_item *)hash_table[i]->content)->key)
 	//		printf("%s\n", ((t_item *)hash_table[i]->content)->key);
-	/*
+	
 	i=0;
 	line = "";
 	while(ft_strncmp(line = readline("> "), "exit", 5))
@@ -67,15 +54,20 @@ int main(int argc, char **argv, char **envp)
 		i=0;
 		if(ft_strlen(line) > 0)
 			add_history(line);
-		temp = treat_line(line);
-		cmd = space_arg(temp, "<");
-		ft_printf("comando com spaços - %s\n", cmd);
-		split = ft_split(cmd, ' ');
+		process_quotes(line);
+		printf("line depois do process_quotes = %s\n", line);
+		line = exp_var(line, hash_table);
+		printf("line expandida = %s\n", line);
+//		temp = treat_line(line);
+//		cmd = space_arg(temp, "<");
+//		ft_printf("comando com spaços - %s\n", cmd);
+//		split = ft_split(cmd, ' ');
 		ft_printf("--	tentativa de tokens  --- \n");
-		while(split[i])
-			ft_printf("%s\n", split[i++]);
+		//while(line[i])
+		//	ft_printf("%s\n", line[i++]);
 		free(line);
 	}
-	*/
+	clear_table(hash_table);
+	
 	return(0);
 }
