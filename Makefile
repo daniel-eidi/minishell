@@ -23,6 +23,7 @@ SRC 		= 	main.c \
 				make_cmd_table.c\
 				init_data.c\
 				hash_envp.c\
+				free.c\
 			
 
 

@@ -64,14 +64,11 @@ int main(int argc, char **argv, char **envp)
 		i=0;
 		if(ft_strlen(line) > 0)
 			add_history(line);
-		process_quotes(line);
-		printf("line depois do process_quotes = %s\n", line);
 		//line = exp_var(line, hash_table);
-		printf("line expandida = %s\n", line);
 //		temp = treat_line(line);
 //		cmd = space_arg(temp, "<");
 //		ft_printf("comando com spaços - %s\n", cmd);
-		split = ft_split(line, ' ');
+		split = token_line(line);
 		ft_printf("--	tentativa de tokens  --- \n");
 		aux_cmd = make_cmd_table(split);
 		i = 1;

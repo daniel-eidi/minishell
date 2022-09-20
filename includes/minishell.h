@@ -33,6 +33,8 @@
 
 
 void	process_quotes(char *line);
+void	process_quotes2(char *line);
+char	**token_line(char *line);
 char	*exp_var(char *s, t_list **table);
 
 
@@ -64,7 +66,7 @@ void	hash_envp(t_data *data, char **envp);
 # include "../libft/libft.h"
 void	error(void);
 char	*ft_get_next_line_lim(int fd, char *limiter);
-void	free_ptr(char **str);
+void	free_ptr(void **ptr);
 char	*treat_line(char *cmd);
 char	*space_arg(char *cmd, char *c);
 

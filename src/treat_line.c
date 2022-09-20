@@ -6,73 +6,46 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 23:24:49 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/01 13:20:34 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/09/20 16:04:30 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <minishell.h>
+#	include<minishell.h>
 
-
-char	*treat_line(char *cmd)
+static void	restore_spaces(char **exec_args)
 {
-	char	*arg;
-	//char	**split;
-	char	inside;
-	int		i;
+	char	*str;
 
-	arg = ft_calloc(ft_strlen(cmd) + 1, 1);
-	inside = 0;
-	i = 0;
-	while (*cmd)
+	while (*exec_args)
 	{
-		if ((*cmd == '\'' || *cmd == '\"') && inside == 0)
-			inside = *cmd ;
-		else if (inside != 0 && *cmd == inside)
-			inside = 0;
-		else if (inside != 0 && *cmd == ' ')
-			arg[i++] = -1;
-		else
-			arg[i++] = *cmd;
-		cmd++;
+		str = *exec_args;
+		while (*str)
+		{
+			if (*str == -1)
+				*str = ' ';
+			str++;
+		}
+		exec_args++;
 	}
-	//split = ft_split(arg, ' ');
-	//free(arg);
-	//restore_spaces(split);
-	return (arg);
+	return ;
 }
 
-char	*space_arg(char *cmd, char *c)
+char	**token_line(char *line)
 {
-	char	*arg;
-	//char	**split;
-//	char	inside;
-	int		i;
+	char	**split;
+	int	i;
 
-	arg = ft_calloc(ft_strlen(cmd) + 1, 1);
-//	inside = 0;
-	i = 0;
-	while (*cmd)
+	process_quotes(line);
+	split = ft_split(line, ' ');
+	printf("saída da split:\n");
+	i = -1;
+	while(split[++i])
 	{
-		if (!ft_strncmp(cmd, c, 1) && !ft_strncmp(cmd + 1, c, 1))
-		{
-			arg[i++] = ' ';
-			arg[i++] = *cmd;
-			arg[i++] = *cmd;
-			arg[i++] = ' ';
-			cmd = cmd + 2;
-		}
-		else if (!ft_strncmp(cmd, c, 1) && ft_strncmp(cmd + 1, c, 1))
-		{
-			arg[i++] = ' ';
-			arg[i++] = *cmd;
-			arg[i++] = ' ';
-			cmd++;
-		}
-		arg[i++] = *cmd;	
-		cmd++;
+	process_quotes2(split[i]);
+		ft_printf("%s\n", split[i]);
 	}
-	//split = ft_split(arg, ' ');
-	//free(arg);
-	//restore_spaces(split);
-	return (arg);
+	
+	restore_spaces(split);
+	free_ptr((void *)&line);
+	return (split);
 }
