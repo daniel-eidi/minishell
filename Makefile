@@ -10,6 +10,7 @@ OBJ_PATH	= ./obj/
 
 SRC 		= 	main.c \
 				treat_line.c\
+				utils_treat_line.c\
 				get_ind.c\
 				ft_pow.c\
 				hash_table_utils.c\
