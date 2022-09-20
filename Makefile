@@ -20,6 +20,7 @@ SRC 		= 	main.c \
 				ft_strcmp.c\
 				process_quotes.c\
 				exp_var.c\
+				make_cmd_table.c\
 			
 
 

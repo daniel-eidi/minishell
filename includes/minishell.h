@@ -35,6 +35,8 @@
 void	process_quotes(char *line);
 char	*exp_var(char *s, t_list **table);
 
+t_list	**make_cmd_table(char **words);
+
 /*
 ** My own libft library, completed with previously implemented functions such as
 ** get_next_line
