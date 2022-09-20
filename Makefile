@@ -21,6 +21,8 @@ SRC 		= 	main.c \
 				process_quotes.c\
 				exp_var.c\
 				make_cmd_table.c\
+				init_data.c\
+				hash_envp.c\
 			
 
 

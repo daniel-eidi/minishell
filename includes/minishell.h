@@ -35,7 +35,27 @@
 void	process_quotes(char *line);
 char	*exp_var(char *s, t_list **table);
 
+
+typedef struct s_data
+{
+    struct s_list    **hash_table;
+    char            **token;
+}    t_data;
+extern t_data	*g_data;
+t_data *init_data(void);
+
+typedef struct s_cmd
+{
+	t_list	*cmd;
+	t_list	*infiles;
+	t_list	*outfiles;
+	char	*errfile;
+}	t_cmd;
 t_list	**make_cmd_table(char **words);
+void	clear_cmd_table(t_list **cmd_table);
+
+void	hash_envp(t_data *data, char **envp);
+
 
 /*
 ** My own libft library, completed with previously implemented functions such as

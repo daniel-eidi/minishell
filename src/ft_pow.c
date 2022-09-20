@@ -1,8 +1,8 @@
 #include <minishell.h>
 
-int	ft_pow(int base, int exp)
+unsigned long	ft_pow(int base, int exp)
 {
-	int	result;
+	unsigned long	result;
 
 	result = 1;
 	while (--exp >= 0)

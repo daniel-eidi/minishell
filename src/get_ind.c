@@ -1,8 +1,8 @@
 #include <hash_table.h>
 
-int	get_hash(char *s)
+unsigned long	get_hash(char *s)
 {
-	long	hash;
+	unsigned long	hash;
 	int	i;
 	int	len;
 

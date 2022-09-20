@@ -1,5 +1,16 @@
 #include <minishell.h>
 
+static char *ft_strdup_var_expand(char *str)
+{
+    char *temp;
+    char *str_return;
+
+    temp = exp_var(str, g_data->hash_table);
+    str_return = ft_strdup(temp);
+    free(temp);
+    return (str_return);
+}
+
 t_cmd	*get_cmd(int first, int last, char **words)
 {
 	t_cmd	*new;
@@ -15,14 +26,14 @@ t_cmd	*get_cmd(int first, int last, char **words)
 	{
 		if (!ft_strcmp(words[i], ">") || !ft_strcmp(words[i], ">>"))
 			ft_lstadd_back(&new->outfiles, \
-				ft_lstnew(ft_strdup(words[++i])));
+				ft_lstnew(ft_strdup_var_expand(words[++i])));
 		else if (!ft_strcmp(words[i], "<") || \
 			!ft_strcmp(words[i], "<<"))
 			ft_lstadd_back(&new->infiles, \
-				ft_lstnew(ft_strdup(words[++i])));
+				ft_lstnew(ft_strdup_var_expand(words[++i])));
 		else
 			ft_lstadd_back(&new->cmd, \
-				ft_lstnew(ft_strdup(words[i])));
+				ft_lstnew(ft_strdup_var_expand(words[i])));
 		i++;
 	}
 	return (new);

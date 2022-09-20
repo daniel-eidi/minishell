@@ -3,6 +3,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+t_data	*g_data;
 int main(int argc, char **argv, char **envp)
 {
 	static char	*line;
@@ -12,16 +13,20 @@ int main(int argc, char **argv, char **envp)
 	int			i;
 	(void)	argv;
 	(void)	argc;
-	(void)	envp;
-	t_list **hash_table;
-	t_item	*item;
-	t_list	*aux;
+//	(void)	envp;
+//	t_list **hash_table;
+//	t_item	*item;
+//	t_list	*aux;
 	t_list	**aux_cmd;
 	t_list	*aux2;
 	t_list	*aux3;
 	t_list	*aux4;
 
+	g_data = init_data();
+	hash_envp(g_data, envp);
+
 //	ft_printf("get hash moacir = %d\n", get_ind("moacir"));
+	/*
 	hash_table = hash_table_init(10);
 	item = new_item("XAR", "moacir");
 	insert_item(item, hash_table);
@@ -46,6 +51,7 @@ int main(int argc, char **argv, char **envp)
 		printf("i = %d, key = %s, value = %s\n", i, ((t_item *)aux->content)->key, ((t_item *)aux->content)->value);
 		}
 	}
+	*/
 	//aux = find_entry("ARG", hash_table);
 	//printf("value of entry found = %s\n", ((t_item *)aux->content)->value);
 	//	if (((t_item *)hash_table[i]->content)->key)
@@ -104,7 +110,7 @@ int main(int argc, char **argv, char **envp)
 		free(split);
 		free(line);
 	}
-	clear_table(hash_table);
+	clear_table(g_data->hash_table);
 	
 	return(0);
 }
