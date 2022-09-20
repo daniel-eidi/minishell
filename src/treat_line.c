@@ -74,11 +74,9 @@ char	*treat_line(char *line)
 	char	*arg;
 	char	inside;
 	int		i;
-	char	change;
 
 	arg = ft_strdup("");
 	inside = 0;
-	change = -1;
 	i = 0;
 	while (line[i] != '\0')
 	{
@@ -101,15 +99,19 @@ char	**token_line(char *line)
 
 	str = treat_line(line);
 	process_quotes(str);
+	//printf("str = %s\n", str);
 	split = ft_split(str, ' ');
-	printf("saída da split:\n");
+	//	i = -1;
+	//	while (split[++i])
+	//	printf("split[%d] = %s\n", i, split[i]);
+	//printf("saída da split:\n");
 	i = -1;
 	while(split[++i])
 	{
 		process_quotes2(split[i]);
-		ft_printf("%s\n", split[i]);
+		//ft_printf("%s\n", split[i]);
 	}
-	
+	//printf("endereço = %p\n", &restore_spaces);
 	restore_spaces(split);
 	free_ptr((void *)&line);
 	free_ptr((void *)&str);

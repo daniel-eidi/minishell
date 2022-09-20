@@ -10,7 +10,7 @@ int main(int argc, char **argv, char **envp)
 //	char		*cmd;
 //	char		*temp;
 	char		**split;
-	int			i;
+//	int			i;
 	(void)	argv;
 	(void)	argc;
 //	(void)	envp;
@@ -18,9 +18,9 @@ int main(int argc, char **argv, char **envp)
 //	t_item	*item;
 //	t_list	*aux;
 	t_list	**aux_cmd;
-	t_list	*aux2;
-	t_list	*aux3;
-	t_list	*aux4;
+//	t_list	*aux2;
+//	t_list	*aux3;
+//	t_list	*aux4;
 
 	g_data = init_data();
 	hash_envp(g_data, envp);
@@ -57,11 +57,10 @@ int main(int argc, char **argv, char **envp)
 	//	if (((t_item *)hash_table[i]->content)->key)
 	//		printf("%s\n", ((t_item *)hash_table[i]->content)->key);
 	
-	i=0;
 	line = "";
 	while(ft_strncmp(line = readline("> "), "exit", 5))
 	{
-		i=0;
+//		i=0;
 		if(ft_strlen(line) > 0)
 			add_history(line);
 		//line = exp_var(line, hash_table);
@@ -71,7 +70,8 @@ int main(int argc, char **argv, char **envp)
 		split = token_line(line);
 		ft_printf("--	tentativa de tokens  --- \n");
 		aux_cmd = make_cmd_table(split);
-		i = 1;
+//		i = 1;
+		/*
 		while ((*aux_cmd))
 		{
 			printf("command #%d\n", i);
@@ -96,16 +96,18 @@ int main(int argc, char **argv, char **envp)
 			*aux_cmd = (*aux_cmd)->next;
 			++i;
 		}
-		
+		*/
 		clear_cmd_table(aux_cmd);
-		i = -1;
-		while (split[++i])
-			free(split[i]);
+		//i = -1;
+		//while (split[++i])
+		//printf("split[%d] = %s\n", i, split[i]);
+		//	free(split[i]);
 		
+		free_split((void **) split);
 		//while(line[i])
 		//	ft_printf("%s\n", line[i++]);
-		free(split);
-		free(line);
+		//free(split);
+		//free(line);
 	}
 	clear_table(g_data->hash_table);
 	

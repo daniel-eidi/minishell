@@ -3,12 +3,14 @@
 static char *ft_strdup_var_expand(char *str)
 {
     char *temp;
-    char *str_return;
+ //   char *str_return;
 
     temp = exp_var(str, g_data->hash_table);
-    str_return = ft_strdup(temp);
-    free(temp);
-    return (str_return);
+  //str_return = ft_strdup(temp);
+    //free(temp);
+//	free_ptr((void *) &temp);
+  //  return (str_return);
+    return (temp);
 }
 
 t_cmd	*get_cmd(int first, int last, char **words)

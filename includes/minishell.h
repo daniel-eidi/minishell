@@ -67,6 +67,7 @@ void	hash_envp(t_data *data, char **envp);
 void	error(void);
 char	*ft_get_next_line_lim(int fd, char *limiter);
 void	free_ptr(void **ptr);
+void	free_split(void **ptr);
 char	*treat_line(char *cmd);
 char	*ft_strnjoin(char *s1, char *s2, int x);
 

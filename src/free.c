@@ -16,8 +16,8 @@ void	free_ptr(void **ptr)
 {
 	if (*ptr)
 	{
-		*ptr = NULL;
 		free(*ptr);
+		*ptr = NULL;
 	}
 }
 

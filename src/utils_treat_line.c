@@ -33,6 +33,6 @@ char	*ft_strnjoin(char *s1, char *s2, int x)
 	}
 	new[i + j] = '\0';
 	free_ptr((void *)&s1);
-	free(s1);
+	//free(s1);
 	return (new);
 }
