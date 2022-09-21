@@ -41,7 +41,7 @@ char	*exp_var(char *s, t_list **table);
 typedef struct s_data
 {
     struct s_list    **hash_table;
-    char            **token;
+    //char            **token;
 }    t_data;
 extern t_data	*g_data;
 t_data *init_data(void);

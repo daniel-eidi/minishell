@@ -98,6 +98,7 @@ int main(int argc, char **argv, char **envp)
 		}
 		*/
 		clear_cmd_table(aux_cmd);
+		//printf("aux_cmd = %p\n", aux_cmd);
 		//i = -1;
 		//while (split[++i])
 		//printf("split[%d] = %s\n", i, split[i]);
@@ -106,10 +107,12 @@ int main(int argc, char **argv, char **envp)
 		free_split((void **) split);
 		//while(line[i])
 		//	ft_printf("%s\n", line[i++]);
-		//free(split);
+		free(split);
 		//free(line);
 	}
 	clear_table(g_data->hash_table);
+	free(g_data);
+	rl_clear_history();
 	
 	return(0);
 }

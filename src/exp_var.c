@@ -43,6 +43,8 @@ char	*exp_var(char *line, t_list **table)
 	int	end;
 
 	ind = get_var_ind(line);
+	if (ind == -1)
+		return (ft_strdup(line));
 	while(ind > -1)
 	{
 		end = ind + 1;
@@ -50,6 +52,6 @@ char	*exp_var(char *line, t_list **table)
 			end++;
 		line = get_line_with_var_expanded(line, ind, end, table);
 		ind = get_var_ind(line);
-	}
+	}		
 	return (line);
 }
