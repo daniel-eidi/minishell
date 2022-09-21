@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/06 12:13:29 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/08 23:25:02 by daeidi-h         ###   ########.fr       */
+/*   Created: 2022/09/08 14:22:39 by daeidi-h          #+#    #+#             */
+/*   Updated: 2022/09/08 23:59:58 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#	include<minishell.h>
+# include <minishell.h>
 
-void	free_ptr(void **ptr)
+t_data *init_data(void)
 {
-	if (*ptr)
-	{
-		free(*ptr);
-		*ptr = NULL;
-	}
-}
+	t_data	*g_data;
 
-void free_split(void **ptr)
-{
-	int i;
-
-	i = 0;
-	while(ptr[i])
-		free_ptr((void *) &ptr[i++]);
+	g_data = (t_data *)ft_calloc(sizeof(t_data), 1);
+	g_data->hash_table = hash_table_init(20);
+	return (g_data);
 }

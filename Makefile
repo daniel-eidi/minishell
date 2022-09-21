@@ -11,7 +11,6 @@ OBJ_PATH	= ./obj/
 SRC 		= 	main.c \
 				treat_line.c\
 				utils_treat_line.c\
-				free.c\
 				get_ind.c\
 				ft_pow.c\
 				hash_table_utils.c\
@@ -20,6 +19,12 @@ SRC 		= 	main.c \
 				ft_lstclear.c\
 				ft_lstlast.c\
 				ft_strcmp.c\
+				process_quotes.c\
+				exp_var.c\
+				make_cmd_table.c\
+				init_data.c\
+				hash_envp.c\
+				free.c\
 			
 
 
@@ -31,17 +36,7 @@ OBJ= $(addprefix $(OBJ_PATH), $(notdir $(SRC:.c=.o)))
 CF 			= -Wall -Wextra -Werror -g
 CC 			= cc
 CFI 		= -I$(INCLUDES)
-LEAKS 		=	valgrind \
-				--leak-check=full \
-				--show-leak-kinds=all \
-				--quiet \
-				--suppressions=readline.supp \
-				--keep-debuginfo=yes \
-				--trace-children=yes
-# --track-origins=yes
-# --track-fds=yes
-#--log-file=$(LEAKS_FILE)
-
+LEAKS 		= valgrind
 LEAKS_FILE	= valgrind-out.txt
 
 
@@ -75,7 +70,7 @@ re: fclean all
 rebonus: fclean bonus
 
 leaks: 
-	@$(LEAKS) 	 --suppressions=readline.supp ./$(NAME)
+	@$(LEAKS) ./$(NAME) 4 5 1 2 0 3
 	@printf "$(GR)Leaks log ready! Check valgrind-out.txt $(RC)\n\n"
 
 cleanleaks: 

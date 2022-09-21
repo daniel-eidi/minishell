@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 22:32:00 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/06 12:47:21 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/09/20 18:56:16 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,34 @@
 
 # include <hash_table.h>
 
+
+void	process_quotes(char *line);
+void	process_quotes2(char *line);
+char	**token_line(char *line);
+char	*exp_var(char *s, t_list **table);
+
+
+typedef struct s_data
+{
+    struct s_list    **hash_table;
+    //char            **token;
+}    t_data;
+extern t_data	*g_data;
+t_data *init_data(void);
+
+typedef struct s_cmd
+{
+	t_list	*cmd;
+	t_list	*infiles;
+	t_list	*outfiles;
+	char	*errfile;
+}	t_cmd;
+t_list	**make_cmd_table(char **words);
+void	clear_cmd_table(t_list **cmd_table);
+
+void	hash_envp(t_data *data, char **envp);
+
+
 /*
 ** My own libft library, completed with previously implemented functions such as
 ** get_next_line
@@ -38,10 +66,9 @@
 # include "../libft/libft.h"
 void	error(void);
 char	*ft_get_next_line_lim(int fd, char *limiter);
-void	free_ptr(void **str);
+void	free_ptr(void **ptr);
+void	free_split(void **ptr);
 char	*treat_line(char *cmd);
-void 	free_split(void **ptr);
-char	**token_line(char *line);
 char	*ft_strnjoin(char *s1, char *s2, int x);
 
 

@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/20 10:17:53 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/02 21:30:40 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/08/12 20:24:46 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define LIBFT_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
+#  define BUFFER_SIZE 1000
 # endif
 
 # include <string.h>

@@ -47,6 +47,8 @@ t_list	*find_entry(char *searched_key, t_list **table)
 	t_list	*aux;
 
 	aux = table[get_ind(searched_key, table)];
+	if (((t_item *)aux->content)->key == NULL)
+		return (NULL);
 	while (aux)
 	{
 		if (!ft_strcmp(((t_item *)aux->content)->key, searched_key))
@@ -83,12 +85,22 @@ void	delete_entry(char *searched_key, t_list **table)
 	}
 }
 
+void	clear_item(void *item)
+{
+	t_item	*del_item;
+
+	del_item = (t_item *) item;
+	free(del_item->key);
+	free(del_item->value);
+	free(del_item);
+}
+
 void	clear_table(t_list **table)
 {
 	int	i;
 
 	i = -1;
 	while (table[++i])
-		ft_lstclear(&table[i], free);
+		ft_lstclear(&table[i], clear_item);
 	free(table);
 }

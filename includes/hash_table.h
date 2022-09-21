@@ -32,7 +32,7 @@ t_list	*ft_lstlast(t_list *lst);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 //----------hashtable functions----------
-int	ft_pow(int base, int exp);
+unsigned long	ft_pow(int base, int exp);
 size_t	ft_strlen(const char *s);
 int	get_ind(char *key, t_list **table);
 t_list	**hash_table_init(int size);
