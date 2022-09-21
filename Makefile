@@ -36,7 +36,8 @@ OBJ= $(addprefix $(OBJ_PATH), $(notdir $(SRC:.c=.o)))
 CF 			= -Wall -Wextra -Werror -g
 CC 			= cc
 CFI 		= -I$(INCLUDES)
-LEAKS 		= valgrind
+LEAKS 		= valgrind --leak-check=full --show-leak-kinds=all \
+			   --suppressions=readline.supp
 LEAKS_FILE	= valgrind-out.txt
 
 
@@ -48,7 +49,7 @@ RM =rm -f
 all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT)
-	@printf "\n$(CY)Generating Push_swap executable...$(RC)\n"
+	@printf "\n$(CY)Generating $(NAME) executable...$(RC)\n"
 	@$(CC) $(CF) -o $(NAME) $(OBJ) -L $(LFT_PATH) -lft -lreadline
 	@printf "$(GR)Done!$(RC)\n\n"
 
@@ -70,7 +71,7 @@ re: fclean all
 rebonus: fclean bonus
 
 leaks: 
-	@$(LEAKS) ./$(NAME) 4 5 1 2 0 3
+	@$(LEAKS) ./$(NAME)
 	@printf "$(GR)Leaks log ready! Check valgrind-out.txt $(RC)\n\n"
 
 cleanleaks: 
