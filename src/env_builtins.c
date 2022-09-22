@@ -42,9 +42,12 @@ void	set_var(char *new_key, char *new_value)
 	{
 		free(((t_item *) aux->content)->value);
 		((t_item *) aux->content)->value = new_value;
+		free(new_key);
 	}
 	else
 		insert_item(new_item(new_key, new_value), g_data->hash_table);
+	//free(new_key);
+	//free(new_value);
 }
 
 void	export_cmd(char	*s)
