@@ -112,8 +112,10 @@ int main(int argc, char **argv, char **envp)
 	}
 	export_cmd("NEW_VAR=teste");
 	env_cmd();
+	export_cmd("NEW_VAR=segundo teste");
+	env_cmd();
 	printf("\n--------------\n");
-	unset_cmd("NEW_VA");
+	unset_cmd("NEW_VAR");
 	env_cmd();
 	clear_table(g_data->hash_table);
 	free(g_data);
