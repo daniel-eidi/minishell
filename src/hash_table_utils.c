@@ -1,4 +1,4 @@
-#include <hash_table.h>
+#include <minishell.h>
 
 t_item	*new_item(char *new_key, char *new_value)
 {
@@ -56,6 +56,18 @@ t_list	*find_entry(char *searched_key, t_list **table)
 		aux = aux->next;
 	}
 	return (aux);
+}
+
+void	update_hashtable(char *key, void *new_value, t_list	**hash_table)
+{
+	t_list *temp;
+	t_item *item;
+
+	temp = find_entry(key, hash_table);
+	if (temp == NULL)
+		return;
+	item = temp->content;
+	item->value = ft_strdup(new_value);
 }
 
 void	delete_entry(char *searched_key, t_list **table)

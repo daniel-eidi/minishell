@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:32:57 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/22 00:29:33 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/09/22 14:13:34 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,24 +23,6 @@ static char	*get_var_value(char *key)
 		return("");
 	str_temp = ft_strdup(((t_item *)temp->content)->value);
 	return (str_temp);
-}
-
-void	update_hashtable(char *key, void *new_value, t_list	**hash_table)
-{
-	t_list *temp;
-	t_item *item;
-	//char *str_temp;
-	
-	//str_temp = NULL;
-	//printf("update key %s to value %s\n", key, (char *)new_value);
-	temp = find_entry(key, hash_table);
-	if (temp == NULL)
-		return;
-	item = temp->content;
-	printf("old value of key %s was %s\n", key, item->value);
-	item->value = ft_strdup(new_value);
-	//str_temp = ft_strdup(new_value);
-	printf("new value of key %s is %s\n", key, item->value);
 }
 
 void	builtin_cd(t_list *cmd)
