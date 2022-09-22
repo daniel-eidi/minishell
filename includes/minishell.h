@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 22:32:00 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/20 18:56:16 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/09/21 22:30:57 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*exp_var(char *s, t_list **table);
 typedef struct s_data
 {
     struct s_list    **hash_table;
-    //char            **token;
+	int				exit_code;
 }    t_data;
 extern t_data	*g_data;
 t_data *init_data(void);
@@ -70,6 +70,14 @@ void	free_ptr(void **ptr);
 void	free_split(void **ptr);
 char	*treat_line(char *cmd);
 char	*ft_strnjoin(char *s1, char *s2, int x);
+
+/// ----------------builtins-----
+
+void	builtin_echo(t_list *cmd);
+void	builtin_pwd(void);
+void	update_hashtable(char *key, void *new_value, t_list	**hash_table);
+void	builtin_cd(t_list *cmd);
+void	builtin_env(t_data *data);
 
 
 #endif

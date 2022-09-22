@@ -25,6 +25,9 @@ SRC 		= 	main.c \
 				init_data.c\
 				hash_envp.c\
 				free.c\
+				builtin_echo.c\
+				builtin_pwd.c\
+				builtin_cd.c\
 			
 
 

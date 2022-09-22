@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 23:13:53 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/13 13:53:52 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/09/21 21:54:08 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void	hash_envp(t_data *g_data, char **envp)
 		i++;
 	}
 }
-/*
-void	cmd_env(t_data *data)
+
+void	builtin_env(t_data *data)
 {
 	int	j;
 	t_list	*aux;
@@ -59,4 +59,3 @@ void	cmd_env(t_data *data)
 		}		
 	}
 }
-*/

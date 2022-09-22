@@ -68,7 +68,7 @@ int main(int argc, char **argv, char **envp)
 //		cmd = space_arg(temp, "<");
 //		ft_printf("comando com spaços - %s\n", cmd);
 		split = token_line(line);
-		ft_printf("--	tentativa de tokens  --- \n");
+		///ft_printf("--	tentativa de tokens  --- \n");
 		aux_cmd = make_cmd_table(split);
 //		i = 1;
 		/*
@@ -97,13 +97,19 @@ int main(int argc, char **argv, char **envp)
 			++i;
 		}
 		*/
+		//builtin_echo((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd);
+		if (!ft_strcmp(((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd)->content, "cd" ))
+			builtin_cd((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd);
+		if (!ft_strcmp(((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd)->content, "env" ))
+			builtin_env(g_data);
+		if (!ft_strcmp(((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd)->content, "pwd" ))
+			builtin_pwd();
 		clear_cmd_table(aux_cmd);
 		//printf("aux_cmd = %p\n", aux_cmd);
 		//i = -1;
 		//while (split[++i])
 		//printf("split[%d] = %s\n", i, split[i]);
 		//	free(split[i]);
-		
 		free_split((void **) split);
 		//while(line[i])
 		//	ft_printf("%s\n", line[i++]);
