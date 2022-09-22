@@ -9,6 +9,7 @@ int main(int argc, char **argv, char **envp)
 	static char	*line;
 //	char		*cmd;
 //	char		*temp;
+	char		*cwd;
 	char		**split;
 //	int			i;
 	(void)	argv;
@@ -18,9 +19,10 @@ int main(int argc, char **argv, char **envp)
 //	t_item	*item;
 //	t_list	*aux;
 	t_list	**aux_cmd;
-//	t_list	*aux2;
-//	t_list	*aux3;
-//	t_list	*aux4;
+//	t_list	**aux_cmd1;
+	// t_list	*aux2;
+	// t_list	*aux3;
+	// t_list	*aux4;
 
 	g_data = init_data();
 	hash_envp(g_data, envp);
@@ -58,7 +60,8 @@ int main(int argc, char **argv, char **envp)
 	//		printf("%s\n", ((t_item *)hash_table[i]->content)->key);
 	
 	line = "";
-	while(ft_strncmp(line = readline("> "), "exit", 5))
+	cwd = ft_strjoin(get_var_value("PWD"), "> ");
+	while(ft_strncmp(line = readline(cwd), "exit", 5))
 	{
 //		i=0;
 		if(ft_strlen(line) > 0)
@@ -70,41 +73,45 @@ int main(int argc, char **argv, char **envp)
 		split = token_line(line);
 		///ft_printf("--	tentativa de tokens  --- \n");
 		aux_cmd = make_cmd_table(split);
-//		i = 1;
-		/*
-		while ((*aux_cmd))
-		{
-			printf("command #%d\n", i);
-			aux2 = (t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd;
-			while (aux2)
-			{
-			printf("command = %s\n", (char *)aux2->content);
-			aux2 = aux2->next;
-			}
-			aux3 = (t_list *) ((t_cmd *)(*aux_cmd)->content)->outfiles;
-			while (aux3)
-			{
-			printf("outfile = %s\n", (char *)aux3->content);
-			aux3 = aux3->next;
-			}
-			aux4 = (t_list *) ((t_cmd *)(*aux_cmd)->content)->infiles;
-			while (aux4)
-			{
-			printf("infile = %s\n", (char *)aux4->content);
-			aux4 = aux4->next;
-			}
-			*aux_cmd = (*aux_cmd)->next;
-			++i;
-		}
-		*/
+		//aux_cmd1 = make_cmd_table(split);
+		// i = 1;
+		
+		// while ((*aux_cmd))
+		// {
+		// 	printf("command #%d\n", i);
+		// 	aux2 = (t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd;
+		// 	while (aux2)
+		// 	{
+		// 	printf("command = %s\n", (char *)aux2->content);
+		// 	aux2 = aux2->next;
+		// 	}
+		// 	aux3 = (t_list *) ((t_cmd *)(*aux_cmd)->content)->outfiles;
+		// 	while (aux3)
+		// 	{
+		// 	printf("outfile = %s\n", (char *)aux3->content);
+		// 	aux3 = aux3->next;
+		// 	}
+		// 	aux4 = (t_list *) ((t_cmd *)(*aux_cmd)->content)->infiles;
+		// 	while (aux4)
+		// 	{
+		// 	printf("infile = %s\n", (char *)aux4->content);
+		// 	aux4 = aux4->next;
+		// 	}
+		// 	*aux_cmd = (*aux_cmd)->next;
+		// 	++i;
+		// }
+		
 		//builtin_echo((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd);
 		if (!ft_strcmp(((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd)->content, "cd" ))
 			builtin_cd((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd);
-		if (!ft_strcmp(((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd)->content, "env" ))
-			builtin_env(g_data);
+		// if (!ft_strcmp(((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd)->content, "env" ))
+		// 	builtin_env(g_data);
+		if (!ft_strcmp(((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd)->content, "echo" ))
+			builtin_echo((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd);
 		if (!ft_strcmp(((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd)->content, "pwd" ))
 			builtin_pwd();
 		clear_cmd_table(aux_cmd);
+		//clear_cmd_table(aux_cmd1);
 		//printf("aux_cmd = %p\n", aux_cmd);
 		//i = -1;
 		//while (split[++i])
@@ -114,9 +121,12 @@ int main(int argc, char **argv, char **envp)
 		//while(line[i])
 		//	ft_printf("%s\n", line[i++]);
 		free(split);
+		free_ptr((void *)&cwd);
+		cwd = ft_strjoin(get_var_value("PWD"), "> ");
 		//free(line);
 	}
 	clear_table(g_data->hash_table);
+	free_ptr((void *)&cwd);
 	free(g_data);
 	rl_clear_history();
 	
