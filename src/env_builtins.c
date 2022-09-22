@@ -53,8 +53,8 @@ void	export_cmd(char	*s)
 	if (arg[i] == '\0')
 		return ;
 	arg[i] = 0;
-	new_key = ft_strdup(arg);
 	new_value = ft_strdup(arg + i + 1);
+	new_key = ft_strdup(arg);
 	item = new_item(new_key, new_value);
 	insert_item(item, g_data->hash_table);
 	free(arg);
