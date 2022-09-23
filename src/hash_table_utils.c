@@ -70,6 +70,16 @@ void	update_hashtable(char *key, void *new_value, t_list	**hash_table)
 	item->value = ft_strdup(new_value);
 }
 
+void	clear_item(void *item)
+{
+	t_item	*del_item;
+
+	del_item = (t_item *) item;
+	free(del_item->key);
+	free(del_item->value);
+	free(del_item);
+}
+
 void	delete_entry(char *searched_key, t_list **table)
 {
 	t_list	*aux;
@@ -87,7 +97,7 @@ void	delete_entry(char *searched_key, t_list **table)
 	if (aux_prev)
 	{
 		aux_prev->next = aux->next;
-		free(aux->content);
+		clear_item(aux->content);
 		free(aux);
 	}
 	else
@@ -95,16 +105,6 @@ void	delete_entry(char *searched_key, t_list **table)
 		((t_item *)(aux->content))->key = NULL;
 		((t_item *)(aux->content))->value = NULL;
 	}
-}
-
-void	clear_item(void *item)
-{
-	t_item	*del_item;
-
-	del_item = (t_item *) item;
-	free(del_item->key);
-	free(del_item->value);
-	free(del_item);
 }
 
 void	clear_table(t_list **table)

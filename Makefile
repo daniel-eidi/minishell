@@ -28,6 +28,7 @@ SRC 		= 	main.c \
 				builtin_echo.c\
 				builtin_pwd.c\
 				builtin_cd.c\
+				env_builtins.c\
 			
 
 
