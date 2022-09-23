@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:32:57 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/22 23:38:35 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/09/23 16:37:01 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,21 @@ char	*find_absolute_path(char *path)
 	return (absolute_path);
 }
 
+static bool is_dir(char *absolute_path)
+{
+	struct stat	status_buffer;
+	
+	if (chdir(absolute_path) < 0)
+	{
+		if (stat(absolute_path, &status_buffer) == 0)
+			printf("cd: %s: Not a directory\n", absolute_path);
+		else
+			printf("cd: %s: No such file or directory\n", absolute_path);
+		return (false);
+	}
+	return (true);
+}
+
 void	builtin_cd(t_list *cmd)
 {
 	t_list	*aux;
@@ -108,9 +123,7 @@ void	builtin_cd(t_list *cmd)
 	}
 	else
 		absolute_path = find_absolute_path(aux->content);
-	if (chdir(absolute_path) < 0)
-		printf("cd: %s: No such file or directory\n", absolute_path);
-	else
+	if (is_dir(absolute_path))
 	{
 		update_hashtable("OLDPWD", get_var_value("PWD"), g_data->hash_table);
 		update_hashtable("PWD", absolute_path, g_data->hash_table);
