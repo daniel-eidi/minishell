@@ -29,7 +29,7 @@ SRC 		= 	main.c \
 				builtin_pwd.c\
 				builtin_cd.c\
 				env_builtins.c\
-			
+				builtin_export.c\
 
 
 

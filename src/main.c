@@ -109,7 +109,13 @@ int main(int argc, char **argv, char **envp)
 		if (!ft_strcmp(((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd)->content, "echo" ))
 			builtin_echo((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd);
 		if (!ft_strcmp(((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd)->content, "pwd" ))
-			builtin_pwd();
+		builtin_pwd();
+		if (!ft_strcmp(((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd)->content, "export" ))
+			builtin_export(((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd));
+		if (!ft_strcmp(((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd)->content, "env" ))		
+			builtin_env();
+		if (!ft_strcmp(((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd)->content, "unset" ))		
+			builtin_unset(((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd));
 		clear_cmd_table(aux_cmd);
 		//clear_cmd_table(aux_cmd1);
 		//printf("aux_cmd = %p\n", aux_cmd);
@@ -125,13 +131,7 @@ int main(int argc, char **argv, char **envp)
 		cwd = ft_strjoin(get_var_value("PWD"), "> ");
 		//free(line);
 	}
-	export_cmd("NEW_VAR=teste");
-	env_cmd();
-	export_cmd("NEW_VAR=segundo teste");
-	env_cmd();
 	printf("\n--------------\n");
-	unset_cmd("NEW_VAR");
-	env_cmd();
 	clear_table(g_data->hash_table);
 	free_ptr((void *)&cwd);
 	free(g_data);

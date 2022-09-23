@@ -58,12 +58,6 @@ void	clear_cmd_table(t_list **cmd_table);
 
 void	hash_envp(t_data *data, char **envp);
 
-
-
-void	env_cmd();
-void	export_cmd(char	*arg);
-void	unset_cmd(char *var_name);
-
 /*
 ** My own libft library, completed with previously implemented functions such as
 ** get_next_line
@@ -83,6 +77,9 @@ void	update_hashtable(char *key, void *new_value, t_list	**hash_table);
 void	builtin_echo(t_list *cmd);
 void	builtin_pwd(void);
 void	builtin_cd(t_list *cmd);
+void	builtin_env();
+void	builtin_export(t_list *cmd);
+void	builtin_unset(t_list *cmd);
 
 
 #endif
