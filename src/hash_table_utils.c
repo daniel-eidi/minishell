@@ -67,6 +67,7 @@ void	update_hashtable(char *key, void *new_value, t_list	**hash_table)
 	if (temp == NULL)
 		return;
 	item = temp->content;
+	free_ptr((void *)&item->value);
 	item->value = ft_strdup(new_value);
 }
 

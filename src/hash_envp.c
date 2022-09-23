@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 23:13:53 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/21 21:54:08 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/09/22 23:35:58 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,5 @@ void	hash_envp(t_data *g_data, char **envp)
 		item = new_item(key, value);
 		insert_item(item, g_data->hash_table);
 		i++;
-	}
-}
-
-void	builtin_env(t_data *data)
-{
-	int	j;
-	t_list	*aux;
-	
-	j = -1;
-	while (data->hash_table[++j])
-	{
-		aux = data->hash_table[j];
-		printf("%s=%s\n", ((t_item *)aux->content)->key, ((t_item *)aux->content)->value);
-		while (aux->next)
-		{
-		aux = aux->next;
-		printf("%s=%s\n", ((t_item *)aux->content)->key, ((t_item *)aux->content)->value);
-		}		
 	}
 }

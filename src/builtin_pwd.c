@@ -6,11 +6,11 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 19:52:02 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/21 20:25:22 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/09/22 23:41:23 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include<minishell.h>
+#include <minishell.h>
 
 void	builtin_pwd(void)
 {
