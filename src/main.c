@@ -10,15 +10,15 @@ int main(int argc, char **argv, char **envp)
 //	char		*cmd;
 //	char		*temp;
 	char		*cwd;
-	char		**split;
-//	int			i;
+	char		**cmd;
+	int			i;
 	(void)	argv;
 	(void)	argc;
 //	(void)	envp;
 //	t_list **hash_table;
 //	t_item	*item;
 //	t_list	*aux;
-	t_list	**aux_cmd;
+//	t_list	**aux_cmd;
 //	t_list	**aux_cmd1;
 	// t_list	*aux2;
 	// t_list	*aux3;
@@ -70,9 +70,12 @@ int main(int argc, char **argv, char **envp)
 //		temp = treat_line(line);
 //		cmd = space_arg(temp, "<");
 //		ft_printf("comando com spaços - %s\n", cmd);
-		split = token_line(line);
-		///ft_printf("--	tentativa de tokens  --- \n");
-		aux_cmd = make_cmd_table(split);
+		cmd = token_line(line);
+		ft_printf("--	tentativa de tokens and cmds  --- \n");
+		i = -1;
+		while(cmd[++i])
+			printf("cmd %d = %s\n", i, cmd[i]);
+		//aux_cmd = make_cmd_table(split);
 		//aux_cmd1 = make_cmd_table(split);
 		// i = 1;
 		
@@ -102,31 +105,31 @@ int main(int argc, char **argv, char **envp)
 		// }
 		
 		//builtin_echo((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd);
-		if (!ft_strcmp(((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd)->content, "cd" ))
-			builtin_cd((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd);
-		// if (!ft_strcmp(((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd)->content, "env" ))
-		// 	builtin_env(g_data);
-		if (!ft_strcmp(((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd)->content, "echo" ))
-			builtin_echo((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd);
-		if (!ft_strcmp(((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd)->content, "pwd" ))
-		builtin_pwd();
-		if (!ft_strcmp(((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd)->content, "export" ))
-			builtin_export(((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd));
-		if (!ft_strcmp(((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd)->content, "env" ))		
-			builtin_env();
-		if (!ft_strcmp(((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd)->content, "unset" ))		
-			builtin_unset(((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd));
-		clear_cmd_table(aux_cmd);
+		// if (!ft_strcmp(cmd[0], "cd" ))
+		// 	builtin_cd((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd);
+		// // if (!ft_strcmp(((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd)->content, "env" ))
+		// // 	builtin_env(g_data);
+		// if (!ft_strcmp(cmd[0], "echo" ))
+		// 	builtin_echo((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd);
+		// if (!ft_strcmp(cmd[0], "pwd" ))
+		// builtin_pwd();
+		// if (!ft_strcmp(cmd[0], "export" ))
+		// 	builtin_export(((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd));
+		// if (!ft_strcmp(cmd[0], "env" ))		
+		// 	builtin_env();
+		// if (!ft_strcmp(cmd[0], "unset" ))		
+		// 	builtin_unset(((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd));
+		// clear_cmd_table(aux_cmd);
 		//clear_cmd_table(aux_cmd1);
 		//printf("aux_cmd = %p\n", aux_cmd);
 		//i = -1;
 		//while (split[++i])
 		//printf("split[%d] = %s\n", i, split[i]);
 		//	free(split[i]);
-		free_split((void **) split);
+		free_split((void **) cmd);
 		//while(line[i])
 		//	ft_printf("%s\n", line[i++]);
-		free(split);
+		free_ptr((void *)&cmd);
 		free_ptr((void *)&cwd);
 		cwd = ft_strjoin(get_var_value("PWD"), "> ");
 		//free(line);
