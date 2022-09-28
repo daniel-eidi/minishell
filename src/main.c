@@ -23,121 +23,29 @@ int main(int argc, char **argv, char **envp)
 	// t_list	*aux2;
 	// t_list	*aux3;
 	// t_list	*aux4;
-	t_cmd  *table_cmd;
+	//t_cmd  *table_cmd;
+	int total_cmd;
+	int **pipes;
+	pid_t *pid;
 
+	//table_cmd = NULL;
 	g_data = init_data();
 	hash_envp(g_data, envp);
-
-//	ft_printf("get hash moacir = %d\n", get_ind("moacir"));
-	/*
-	hash_table = hash_table_init(10);
-	item = new_item("XAR", "moacir");
-	insert_item(item, hash_table);
-	item = new_item("CAR", "golf");
-	insert_item(item, hash_table);
-	item = new_item("term", "linux");
-	insert_item(item, hash_table);
-	item = new_item("derm", "linx");
-	insert_item(item, hash_table);
-	item = new_item("VAR", "lol");
-	insert_item(item, hash_table);
-	item = new_item("ARG", "cat");
-	insert_item(item, hash_table);
-	i = -1;
-	while (hash_table[++i])
-	{
-		aux = hash_table[i];
-		printf("i = %d, key = %s, value = %s\n", i, ((t_item *)aux->content)->key, ((t_item *)aux->content)->value);
-		while (aux->next)
-		{
-		aux = aux->next;
-		printf("i = %d, key = %s, value = %s\n", i, ((t_item *)aux->content)->key, ((t_item *)aux->content)->value);
-		}
-	}
-	*/
-	//aux = find_entry("ARG", hash_table);
-	//printf("value of entry found = %s\n", ((t_item *)aux->content)->value);
-	//	if (((t_item *)hash_table[i]->content)->key)
-	//		printf("%s\n", ((t_item *)hash_table[i]->content)->key);
-	
 	line = "";
 	cwd = ft_strjoin(get_var_value("PWD"), "> ");
 	while(ft_strncmp(line = readline(cwd), "exit", 5))
 	{
-//		i=0;
 		if(ft_strlen(line) > 0)
 			add_history(line);
-		//line = exp_var(line, hash_table);
-//		temp = treat_line(line);
-//		cmd = space_arg(temp, "<");
-//		ft_printf("comando com spaços - %s\n", cmd);
 		cmd = token_line(line);
-		ft_printf("--	tentativa de tokens and cmds  --- \n");
-		// i = -1;
-		// while(cmd[++i])
-			printf("cmd %d = %s\n", 0, cmd[0]);
-			table_cmd = make_cmd_table(cmd[0]);
+		before_fork(cmd, &total_cmd, &pipes, &pid);
+		//printf("total cmd = %d\n", total_cmd );
 		i = -1;
-        while (table_cmd->cmd_and_args[++i])
-            printf("cmd_table->cmd_and_args[%d] = %s\n", i, table_cmd->cmd_and_args[i]);
-        i = -1;
-        while (table_cmd->redirections[++i])
-            printf("cmd_table->redirections[%d] = %s\n", i, table_cmd->redirections[i]);
-		//aux_cmd = make_cmd_table(split);
-		//aux_cmd1 = make_cmd_table(split);
-		// i = 1;
-		
-		// while ((*aux_cmd))
-		// {
-		// 	printf("command #%d\n", i);
-		// 	aux2 = (t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd;
-		// 	while (aux2)
-		// 	{
-		// 	printf("command = %s\n", (char *)aux2->content);
-		// 	aux2 = aux2->next;
-		// 	}
-		// 	aux3 = (t_list *) ((t_cmd *)(*aux_cmd)->content)->outfiles;
-		// 	while (aux3)
-		// 	{
-		// 	printf("outfile = %s\n", (char *)aux3->content);
-		// 	aux3 = aux3->next;
-		// 	}
-		// 	aux4 = (t_list *) ((t_cmd *)(*aux_cmd)->content)->infiles;
-		// 	while (aux4)
-		// 	{
-		// 	printf("infile = %s\n", (char *)aux4->content);
-		// 	aux4 = aux4->next;
-		// 	}
-		// 	*aux_cmd = (*aux_cmd)->next;
-		// 	++i;
-		// }
-		
-		//builtin_echo((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd);
-		// if (!ft_strcmp(cmd[0], "cd" ))
-		// 	builtin_cd((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd);
-		// // if (!ft_strcmp(((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd)->content, "env" ))
-		// // 	builtin_env(g_data);
-		// if (!ft_strcmp(cmd[0], "echo" ))
-		// 	builtin_echo((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd);
-		// if (!ft_strcmp(cmd[0], "pwd" ))
-		// builtin_pwd();
-		// if (!ft_strcmp(cmd[0], "export" ))
-		// 	builtin_export(((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd));
-		// if (!ft_strcmp(cmd[0], "env" ))		
-		// 	builtin_env();
-		// if (!ft_strcmp(cmd[0], "unset" ))		
-		// 	builtin_unset(((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd));
-		// clear_cmd_table(aux_cmd);
-		//clear_cmd_table(aux_cmd1);
-		//printf("aux_cmd = %p\n", aux_cmd);
-		//i = -1;
-		//while (split[++i])
-		//printf("split[%d] = %s\n", i, split[i]);
-		//	free(split[i]);
-		//free_split((void **) cmd);
-		//while(line[i])
-		//	ft_printf("%s\n", line[i++]);
-		clear_cmd_table(table_cmd);
+		while(cmd[++i])
+			fork_open_exec(cmd[i], i, total_cmd, pipes, pid[i]);
+		after_fork(i, pipes);
+		//dprintf(2, "aqui \n");
+		//clear_cmd_table(table_cmd);
 		free_ptr((void *)&cmd);
 		free_ptr((void *)&cwd);
 		cwd = ft_strjoin(get_var_value("PWD"), "> ");

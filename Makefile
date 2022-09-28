@@ -30,6 +30,11 @@ SRC 		= 	main.c \
 				builtin_cd.c\
 				env_builtins.c\
 				builtin_export.c\
+				create_pids.c\
+				create_pipes.c\
+				fork_open_exec.c\
+				utils_fork_exec.c\
+#				ft_get_next_line.c\
 
 
 

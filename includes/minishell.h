@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 22:32:00 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/28 10:32:08 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/09/28 20:51:47 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	hash_envp(t_data *data, char **envp);
 ** get_next_line
 */
 # include "../libft/libft.h"
-void	error(void);
+//void	error(void);
 char	*ft_get_next_line_lim(int fd, char *limiter);
 void	free_ptr(void **ptr);
 void	free_split(void **ptr);
@@ -89,5 +89,21 @@ void	builtin_env();
 void	builtin_export(t_list *cmd);
 void	builtin_unset(t_list *cmd);
 
+// ------ fork
+
+void	before_fork(char **cmd, int *total_cmd, int	***pipes, pid_t	**pid);
+void	fork_open_exec( char *cmd, int n_cmd, int total_cmd, int **pipes, pid_t pid);
+void	after_fork(int n_cmd, int **pipes);
+void	exec_cmd(char **args);
+
+// ---utils fork_exec
+
+int		**create_pipes(int n_cmd);
+void	close_pipes(int n_cmd, int **pipes, int i);
+void	close_pipes_main(int n_cmd, int **pipes);
+pid_t	*create_pids(int n_cmd);
+char	*get_path(char **cmd, const char *path);
+int	open_ok(char *file, int flag, int inout);
+void	error(const char *s, int i);
 
 #endif

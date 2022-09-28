@@ -6,29 +6,11 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 23:24:49 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/27 16:59:17 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/09/29 00:05:30 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #	include<minishell.h>
-
-// static void	restore_spaces(char **exec_args)
-// {
-// 	char	*str;
-
-// 	while (*exec_args)
-// 	{
-// 		str = *exec_args;
-// 		while (*str)
-// 		{
-// 			if (*str == -1)
-// 				*str = ' ';
-// 			str++;
-// 		}
-// 		exec_args++;
-// 	}
-// 	return ;
-// }
 
 static void	restore_char(char **exec_args, char find, char change)
 {
@@ -71,12 +53,20 @@ static char	*space_arg(char **s, char *cmd, char *c, int *i)
 	return (arg);
 }
 
+bool is_special (char *line, int i)
+{
+	if (line[i] == '>' || line[i] == '<' \
+		|| line[i] == '|' || line[i] == '&')
+		return (true);
+	return (false);
+}
+
 static char	*check_spaces(char **s, char *line, int *i, char inside)
 {
 	char	*arg;
 
 	arg = *s;
-	if (inside == 0)
+	if (inside == 0  && is_special(line, *i))
 	{
 		arg = space_arg(&arg, line, ">", i);
 		arg = space_arg(&arg, line, "<", i);
