@@ -23,6 +23,7 @@ int main(int argc, char **argv, char **envp)
 	// t_list	*aux2;
 	// t_list	*aux3;
 	// t_list	*aux4;
+	t_cmd  *table_cmd;
 
 	g_data = init_data();
 	hash_envp(g_data, envp);
@@ -72,9 +73,16 @@ int main(int argc, char **argv, char **envp)
 //		ft_printf("comando com spaços - %s\n", cmd);
 		cmd = token_line(line);
 		ft_printf("--	tentativa de tokens and cmds  --- \n");
+		// i = -1;
+		// while(cmd[++i])
+			printf("cmd %d = %s\n", 0, cmd[0]);
+			table_cmd = make_cmd_table(cmd[0]);
 		i = -1;
-		while(cmd[++i])
-			printf("cmd %d = %s\n", i, cmd[i]);
+        while (table_cmd->cmd_and_args[++i])
+            printf("cmd_table->cmd_and_args[%d] = %s\n", i, table_cmd->cmd_and_args[i]);
+        i = -1;
+        while (table_cmd->redirections[++i])
+            printf("cmd_table->redirections[%d] = %s\n", i, table_cmd->redirections[i]);
 		//aux_cmd = make_cmd_table(split);
 		//aux_cmd1 = make_cmd_table(split);
 		// i = 1;
@@ -126,9 +134,10 @@ int main(int argc, char **argv, char **envp)
 		//while (split[++i])
 		//printf("split[%d] = %s\n", i, split[i]);
 		//	free(split[i]);
-		free_split((void **) cmd);
+		//free_split((void **) cmd);
 		//while(line[i])
 		//	ft_printf("%s\n", line[i++]);
+		clear_cmd_table(table_cmd);
 		free_ptr((void *)&cmd);
 		free_ptr((void *)&cwd);
 		cwd = ft_strjoin(get_var_value("PWD"), "> ");

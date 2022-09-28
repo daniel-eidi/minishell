@@ -1,95 +1,108 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   make_cmd_table.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/27 16:58:51 by mgaldino          #+#    #+#             */
+/*   Updated: 2022/09/28 10:59:22 by daeidi-h         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 
-static char *ft_strdup_var_expand(char *str)
+static void	restore_spaces(char **exec_args)
 {
-    char *temp;
- //   char *str_return;
+	char	*str;
 
-    temp = exp_var(str, g_data->hash_table);
-  //str_return = ft_strdup(temp);
-    //free(temp);
-//	free_ptr((void *) &temp);
-  //  return (str_return);
-    return (temp);
-}
-
-t_cmd	*get_cmd(int first, int last, char **words)
-{
-	t_cmd	*new;
-	int	i;
-
-	new = (t_cmd *) malloc(sizeof(t_cmd));
-	new->cmd = NULL;
-	new->infiles = NULL;
-	new->outfiles = NULL;
-	new->errfile = NULL;
-	i = first;
-	while (i < last)
+	while (*exec_args)
 	{
-		if (!ft_strcmp(words[i], ">") || !ft_strcmp(words[i], ">>"))
-			ft_lstadd_back(&new->outfiles, \
-				ft_lstnew(ft_strdup_var_expand(words[++i])));
-		else if (!ft_strcmp(words[i], "<") || \
-			!ft_strcmp(words[i], "<<"))
-			ft_lstadd_back(&new->infiles, \
-				ft_lstnew(ft_strdup_var_expand(words[++i])));
-		else
-			ft_lstadd_back(&new->cmd, \
-				ft_lstnew(ft_strdup_var_expand(words[i])));
-		i++;
-	}
-	return (new);
-}
-
-void	clear_cmd(t_cmd *cmd_deleted)
-{
-	ft_lstclear(&cmd_deleted->cmd, free);
-	ft_lstclear(&cmd_deleted->infiles, free);
-	ft_lstclear(&cmd_deleted->outfiles, free);
-	free(cmd_deleted->errfile);
-	free(cmd_deleted);
-}
-
-void	clear_cmd_table(t_list **cmd_table)
-{
-	t_list	*aux;
-	t_list	*tp;
-
-	aux = *cmd_table;
-	while (aux)
-	{
-		clear_cmd(aux->content);
-		tp = aux;
-		aux = aux->next;
-		free(tp);
-	}
-	free(cmd_table);
-}
-
-t_list	**make_cmd_table(char **words)
-{
-	t_list	**table;
-	int	i;
-	int	first;
-	int	last;
-	t_cmd	*new_cmd;
-
-	if (words == NULL)
-		return (NULL);
-	table = (t_list **) malloc(sizeof(t_list *));
-	*table = NULL;
-	first = 0;
-	i = -1;
-	while (words[++i])
-	{
-		if ((words[i + 1] == NULL) || !ft_strcmp(words[i + 1], "|"))
+		str = *exec_args;
+		while (*str)
 		{
-			last = i + 1;
-			new_cmd = get_cmd(first, last, words);
-			ft_lstadd_back(table, ft_lstnew(new_cmd));
-			if (words[i + 1] != NULL)
-				first = i + 2;
+			if (*str == -1)
+				*str = ' ';
+			str++;
 		}
+		exec_args++;
 	}
-	return (table);
+}
+
+void	clear_cmd_table(t_cmd *table)
+{
+	free_split((void **) table->cmd_and_args);
+	free(table->cmd_and_args);
+	free_split((void **) table->redirections);
+	free(table->redirections);
+	free(table);
+}
+
+t_cmd	*alloc_cmd(char **split)
+{
+	int		n_cmd;
+	int		n_redir;
+	int		i;
+	t_cmd	*aux;
+
+	n_cmd = 0;
+	n_redir = 0;
+	i = -1;
+	while (split[++i])
+	{
+		if ((split[i][0] == '>') || (split[i][0] == '<'))
+		{
+			n_redir += 2;
+			i++;
+		}
+		else
+			n_cmd++;
+	}
+	aux = (t_cmd *) malloc(sizeof(t_cmd));
+	aux->cmd_and_args = (char **) malloc((n_cmd + 1) * sizeof(char *));
+	aux->cmd_and_args[n_cmd] = NULL;
+	aux->redirections = (char **) malloc((n_redir + 1) * sizeof(char *));
+	aux->redirections[n_redir] = NULL;
+	return (aux);
+}
+
+void	fill_cmd_table(t_cmd *table, char **split)
+{
+	int	cmd_ind;
+	int	redir_ind;
+	int	i;
+
+	cmd_ind = -1;
+	redir_ind = -1;
+	i = -1;
+	while (split[++i])
+	{
+		if ((split[i][0] == '>') || (split[i][0] == '<'))
+		{
+			table->redirections[++redir_ind] = ft_strdup(split[i]);
+			table->redirections[++redir_ind] = ft_strdup(split[++i]);
+		}
+		else
+			table->cmd_and_args[++cmd_ind] = ft_strdup(split[i]);
+	}
+}
+
+t_cmd	*make_cmd_table(char *line)
+{
+	char	**split;
+	t_cmd	*cmd_table;
+	int i;
+
+	split = ft_split(line, ' ');
+	i=-1;
+	while(split[++i])
+		split[i] = exp_var(split[i], g_data->hash_table);
+	//split = ft_split(line, ' ');
+	free(line);
+	restore_spaces(split);
+	cmd_table = alloc_cmd(split);
+	fill_cmd_table(cmd_table, split);
+	free_split((void **) split);
+	free(split);
+	return (cmd_table);
 }

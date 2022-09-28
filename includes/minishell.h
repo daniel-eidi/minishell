@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 22:32:00 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/22 23:36:34 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/09/28 10:32:08 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,23 @@ typedef struct s_data
 extern t_data	*g_data;
 t_data *init_data(void);
 
+// typedef struct s_cmd
+// {
+// 	t_list	*cmd;
+// 	t_list	*infiles;
+// 	t_list	*outfiles;
+// 	char	*errfile;
+// }	t_cmd;
+//t_list	**make_cmd_table(char **words);
+//void	clear_cmd_table(t_list **cmd_table);
+
 typedef struct s_cmd
 {
-	t_list	*cmd;
-	t_list	*infiles;
-	t_list	*outfiles;
-	char	*errfile;
-}	t_cmd;
-t_list	**make_cmd_table(char **words);
-void	clear_cmd_table(t_list **cmd_table);
+    char **cmd_and_args;
+    char **redirections;
+}    t_cmd;
+t_cmd    *make_cmd_table(char *line);
+void    clear_cmd_table(t_cmd *table);
 
 void	hash_envp(t_data *data, char **envp);
 

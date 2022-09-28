@@ -31,7 +31,7 @@ char	*get_line_with_var_expanded(char *s, int ind, int end, t_list **table)
 	s[ind] = '\0';
 	p = ft_strjoin(s, s2);
 	//free(s);
-	//free_ptr((void *) &s);
+	free_ptr((void *) &s);
 	//free(s2);
 	free_ptr((void *) &s2);
 	return (p);
@@ -41,10 +41,15 @@ char	*exp_var(char *line, t_list **table)
 {
 	int	ind;
 	int	end;
+	char *new_line;
 
 	ind = get_var_ind(line);
 	if (ind == -1)
-		return (ft_strdup(line));
+	{
+		 new_line =ft_strdup(line);
+		 free_ptr((void *)&line);
+		return (new_line);
+	}
 	while(ind > -1)
 	{
 		end = ind + 1;
@@ -52,6 +57,6 @@ char	*exp_var(char *line, t_list **table)
 			end++;
 		line = get_line_with_var_expanded(line, ind, end, table);
 		ind = get_var_ind(line);
-	}		
+	}
 	return (line);
 }
