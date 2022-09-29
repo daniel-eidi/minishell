@@ -6,17 +6,11 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:41:18 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/28 23:20:32 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/09/29 16:22:57 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdio.h>
-# include <fcntl.h>
-# include <errno.h>
-# include <sys/types.h>
-# include <sys/wait.h>
+#include <minishell.h>
 
 int	**create_pipes(int n_cmd)
 {
@@ -24,15 +18,13 @@ int	**create_pipes(int n_cmd)
 	int	**my_pipes;
 
 	i = 0;
-	my_pipes = malloc((n_cmd + 1)* (sizeof (int*)));
+	my_pipes = malloc((n_cmd + 2) * (sizeof(int *)));
+	my_pipes[n_cmd + 1] = NULL;
 	while (n_cmd >= i)
 	{
-		//dprintf(2, "entrei\n");
-		my_pipes[i] = (int *)malloc((sizeof(int))*2);
+		my_pipes[i] = (int *)malloc((sizeof(int)) * 2);
 		if (pipe(my_pipes[i]) == -1)
 			printf("Error creating pipes\n");
-		//printf("pipes [%d][0] = %d\n", i, my_pipes[i][0]);
-		//printf("pipes [%d][1] = %d\n", i, my_pipes[i][1]);
 		i++;
 	}
 	return (my_pipes);
@@ -40,7 +32,7 @@ int	**create_pipes(int n_cmd)
 
 void	close_pipes(int n_cmd, int **pipes, int i)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	while (j <= n_cmd)
@@ -55,7 +47,7 @@ void	close_pipes(int n_cmd, int **pipes, int i)
 
 void	close_pipes_main(int n_cmd, int **pipes)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	while (j <= n_cmd)

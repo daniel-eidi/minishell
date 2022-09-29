@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 12:46:30 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/08 19:45:27 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/09/29 16:29:26 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,23 @@ char	*ft_strnjoin(char *s1, char *s2, int x)
 	}
 	new[i + j] = '\0';
 	free_ptr((void *)&s1);
-	//free(s1);
 	return (new);
+}
+
+void	restore_char(char **exec_args, char find, char change)
+{
+	char	*str;
+
+	while (*exec_args)
+	{
+		str = *exec_args;
+		while (*str)
+		{
+			if (*str == find)
+				*str = change;
+			str++;
+		}
+		exec_args++;
+	}
+	return ;
 }

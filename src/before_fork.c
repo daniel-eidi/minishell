@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_pids.c                                      :+:      :+:    :+:   */
+/*   before_fork.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/27 23:09:07 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/29 16:20:17 by daeidi-h         ###   ########.fr       */
+/*   Created: 2022/09/29 14:52:47 by daeidi-h          #+#    #+#             */
+/*   Updated: 2022/09/29 16:18:12 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-pid_t	*create_pids(int n_cmd)
+void	before_fork(char **cmd, t_pids_pipes **pid_pipe)
 {
-	pid_t	*pid;
+	int	total_cmd;
 
-	pid = malloc(sizeof(pid_t) * n_cmd);
-	return (pid);
+	total_cmd = 0;
+	while (cmd[total_cmd])
+		total_cmd = total_cmd + 1;
+	*pid_pipe = malloc(sizeof(t_pids_pipes));
+	(*pid_pipe)->pipes = create_pipes(total_cmd);
+	(*pid_pipe)->pids = create_pids(total_cmd);
+	(*pid_pipe)->total_cmd = total_cmd;
 }

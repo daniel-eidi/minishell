@@ -24,13 +24,15 @@ int main(int argc, char **argv, char **envp)
 	// t_list	*aux3;
 	// t_list	*aux4;
 	//t_cmd  *table_cmd;
-	int total_cmd;
-	int **pipes;
-	pid_t *pid;
-
+	t_pids_pipes *aux;
+	
+	aux = NULL;
 	//table_cmd = NULL;
 	g_data = init_data();
 	hash_envp(g_data, envp);
+	// i = -1;
+	// while (envp[++i])
+	// 	printf("%s\n", envp[i]);
 	line = "";
 	cwd = ft_strjoin(get_var_value("PWD"), "> ");
 	while(ft_strncmp(line = readline(cwd), "exit", 5))
@@ -38,12 +40,12 @@ int main(int argc, char **argv, char **envp)
 		if(ft_strlen(line) > 0)
 			add_history(line);
 		cmd = token_line(line);
-		before_fork(cmd, &total_cmd, &pipes, &pid);
+		before_fork(cmd, &aux);
 		//printf("total cmd = %d\n", total_cmd );
 		i = -1;
 		while(cmd[++i])
-			fork_open_exec(cmd[i], i, total_cmd, pipes, pid[i]);
-		after_fork(i, pipes);
+			fork_open_exec(cmd[i], i, aux);
+		after_fork(i, aux->pipes, aux->pids);
 		//dprintf(2, "aqui \n");
 		//clear_cmd_table(table_cmd);
 		free_ptr((void *)&cmd);
@@ -59,3 +61,18 @@ int main(int argc, char **argv, char **envp)
 	
 	return(0);
 }
+
+// if (!ft_strcmp(cmd[0], "cd" ))
+		// 	builtin_cd((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd);
+		// // if (!ft_strcmp(((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd)->content, "env" ))
+		// // 	builtin_env(g_data);
+		// if (!ft_strcmp(cmd[0], "echo" ))
+		// 	builtin_echo((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd);
+		// if (!ft_strcmp(cmd[0], "pwd" ))
+		// builtin_pwd();
+		// if (!ft_strcmp(cmd[0], "export" ))
+		// 	builtin_export(((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd));
+		// if (!ft_strcmp(cmd[0], "env" ))		
+		// 	builtin_env();
+		// if (!ft_strcmp(cmd[0], "unset" ))		
+		// 	builtin_unset(((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd));

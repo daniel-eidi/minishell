@@ -6,29 +6,11 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 23:24:49 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/29 00:05:30 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/09/29 16:28:55 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#	include<minishell.h>
-
-static void	restore_char(char **exec_args, char find, char change)
-{
-	char	*str;
-
-	while (*exec_args)
-	{
-		str = *exec_args;
-		while (*str)
-		{
-			if (*str == find)
-				*str = change;
-			str++;
-		}
-		exec_args++;
-	}
-	return ;
-}
+#include <minishell.h>
 
 static char	*space_arg(char **s, char *cmd, char *c, int *i)
 {
@@ -41,19 +23,19 @@ static char	*space_arg(char **s, char *cmd, char *c, int *i)
 		arg = ft_strnjoin(arg, &cmd[*i], 1);
 		arg = ft_strnjoin(arg, &cmd[*i], 1);
 		arg = ft_strnjoin(arg, " ", 1);
-		*i = *i + 2;
+		*i = *i + 1;
 	}
 	else if (!ft_strncmp(&cmd[*i], c, 1) && ft_strncmp(&cmd[*i +1], c, 1))
 	{
 		arg = ft_strnjoin(arg, " ", 1);
 		arg = ft_strnjoin(arg, &cmd[*i], 1);
 		arg = ft_strnjoin(arg, " ", 1);
-		*i = *i + 1;
+		*i = *i;
 	}
 	return (arg);
 }
 
-bool is_special (char *line, int i)
+static bool	is_special(char *line, int i)
 {
 	if (line[i] == '>' || line[i] == '<' \
 		|| line[i] == '|' || line[i] == '&')
@@ -66,17 +48,17 @@ static char	*check_spaces(char **s, char *line, int *i, char inside)
 	char	*arg;
 
 	arg = *s;
-	if (inside == 0  && is_special(line, *i))
+	if (inside == 0 && is_special(line, *i))
 	{
 		arg = space_arg(&arg, line, ">", i);
 		arg = space_arg(&arg, line, "<", i);
 		arg = space_arg(&arg, line, "|", i);
 		arg = space_arg(&arg, line, "&", i);
 	}
-	arg = ft_strnjoin(arg, &line[*i], 1);
+	else
+		arg = ft_strnjoin(arg, &line[*i], 1);
 	return (arg);
 }
-
 
 char	*treat_line(char *line)
 {
@@ -93,7 +75,7 @@ char	*treat_line(char *line)
 					inside = line[i];
 		else if (inside != 0 && line[i] == inside)
 					inside = 0;
-		arg = check_spaces(&arg, line, &i, inside); //insere espaços redirecionadores
+		arg = check_spaces(&arg, line, &i, inside);
 		i++;
 	}
 	return (arg);
@@ -103,25 +85,19 @@ char	**token_line(char *line)
 {
 	char	**split;
 	char	*str;
-	int	i;
+	int		i;
 
 	printf("before treat_li = %s\n", line);
 	str = treat_line(line);
 	printf("treat_line      = %s\n", str);
-	process_quotes(str);  //troca $, e espaços ou | dentro de aspas , -2 , -1 e -3 respectivamente.
+	process_quotes(str);
 	printf("processe quotes = %s\n", str);
 	split = ft_split(str, '|');
-	//	i = -1;
-	//	while (split[++i])
-	//	printf("split[%d] = %s\n", i, split[i]);
-	//printf("saída da split:\n");
 	i = -1;
-	while(split[++i])
+	while (split[++i])
 	{
-		process_quotes2(split[i]); //remove aspas duplas e simples
-		//ft_printf("%s\n", split[i]);
+		process_quotes2(split[i]);
 	}
-	//printf("endereço = %p\n", &restore_spaces);
 	restore_char(split, -3, '|');
 	free_ptr((void *)&line);
 	free_ptr((void *)&str);
