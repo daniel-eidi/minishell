@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 14:49:28 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/30 15:51:58 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/09/30 17:06:35 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	await_all_children(int children_count)
 	i = -1;
 	while (++i <= children_count)
 		waitpid(-1, &wstatus, 0);
+	g_data->exit_code = WEXITSTATUS(wstatus);
 	return ;
 }
 

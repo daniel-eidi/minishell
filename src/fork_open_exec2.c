@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork_open_exec2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
+/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 15:35:59 by mgaldino          #+#    #+#             */
-/*   Updated: 2022/09/30 16:47:33 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/09/30 17:39:04 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,13 @@ void	open_fds(char **redir, t_pids_pipes *aux, int n_cmd, bool *have_outfile)
 	int	fd[2];
 	int	i;
 	int	flags;
-
+	
 	fd[0] = 0;
 	fd[1] = 0;
 	i = -1;
 	while (redir[++i])
 	{
+		dprintf(2, "open_fds\n");
 		if (redir[i][0] == '>')
 		{
 			set_outfile_flags(fd, redir[i], &flags, have_outfile);

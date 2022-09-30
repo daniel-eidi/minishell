@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:32:57 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/30 19:31:15 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/09/30 17:32:58 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,8 @@ static bool is_dir(char *absolute_path)
 	{
 		if (stat(absolute_path, &status_buffer) == 0)
 			printf("cd: %s: Not a directory\n", absolute_path);
-		else
-			printf("cd: %s: No such file or directory\n", absolute_path);
+		// else
+		// 	printf("cd: %s: No such file or directory\n", absolute_path);
 		return (false);
 	}
 	return (true);

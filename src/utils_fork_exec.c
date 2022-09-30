@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:48:08 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/28 23:17:37 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/09/30 17:43:52 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	error(const char *s, int i)
 {
-	perror(s);
+	//perror(s);
+	write(2, s, ft_strlen(s));
 	if (i)
 		exit(i);
 	exit(EXIT_SUCCESS);
@@ -57,8 +58,11 @@ char	*get_path(char **cmd, const char *path)
 		if (*path)
 			path++;		
 	}
+	//error("command", 127);
+	//write(2, cmd[0], ft_strlen(cmd[0]));
+	write(2, cmd[0], ft_strlen(cmd[0]));
 	free(cmd);
 	//dprintf(2,"cmd 0 = %s\n", cmd[0]);
-	error("command not found\n", 127);
+	error(": command not found\n", 127);
 	return (NULL);
 }
