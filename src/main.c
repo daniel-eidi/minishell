@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:00:46 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/30 16:01:44 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/09/30 09:16:44 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ t_data	*g_data;
 // 	cmd_table = make_cmd_table(cmd);
 // 	if(is_builtin(cmd_table->cmd_and_args) == 2)
 // 	{
-// 		open_fds(cmd_table->redirections, &aux->pipes[0][0], \
-// 		&aux->pipes[1][1], &have_outfile);
+/* 		open_fds(cmd_table->redirections, &aux->pipes[0][0], \
+		&aux->pipes[1][1], &have_outfile);*/
 // 		if (have_outfile)
 // 			dup2(aux->pipes[1][1], STDOUT_FILENO);
 // 		run_builtin(cmd_table->cmd_and_args);
