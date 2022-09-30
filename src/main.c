@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:00:46 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/30 19:29:41 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/09/30 15:52:49 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ static void loop(char *line, char **cwd)
 		fork_open_exec(cmd[i], i, aux);
 	}
 	after_fork(i, aux->pipes, aux->pids);
-	free_split((void *)cmd);
+	free_ptr((void *)&aux);
+	free_split((void **)cmd);
 	free_ptr((void *)&cmd);
 	free_ptr((void *)cwd);
 	*cwd = ft_strjoin(get_var_value("PWD"), "> ");

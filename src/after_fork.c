@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 14:49:28 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/30 19:38:20 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/09/30 15:51:58 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ void	after_fork(int n_cmd, int **pipes, pid_t *pid)
 	close(pipes[0][1]);
 	close(pipes[n_cmd][0]);
 	free_ptr((void *) &pid);
-	free_ptr((void **) pipes);
+	free_split((void **)pipes);
+	free(pipes);
 }
