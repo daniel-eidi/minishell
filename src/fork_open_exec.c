@@ -6,13 +6,13 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:55:34 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/29 16:17:10 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/09/30 15:59:20 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static void	open_fds(char **redir, int *in, int *out, bool *have_outfile)
+void	open_fds(char **redir, t_pids_pipes *aux, int n_cmd, bool *have_outfile)
 {
 	int	fd[2];
 	int	i;
@@ -25,7 +25,8 @@ static void	open_fds(char **redir, int *in, int *out, bool *have_outfile)
 			if (fd[1])
 				close(fd[1]);
 			fd[1] = open_ok(redir[++i], O_WRONLY | O_CREAT | O_APPEND, 1);
-			*out = fd[1];
+			//*out = fd[1];
+			aux->pipes[n_cmd + 1][1] = fd[1];
 			*have_outfile = true;
 		}
 		if (ft_strcmp (redir[i], ">") == 0)
@@ -33,7 +34,8 @@ static void	open_fds(char **redir, int *in, int *out, bool *have_outfile)
 			if (fd[1])
 				close(fd[1]);
 			fd[1] = open_ok(redir[++i], O_WRONLY | O_CREAT | O_TRUNC, 1);
-			*out = fd[1];
+			//*out = fd[1];
+			aux->pipes[n_cmd + 1][1] = fd[1];
 			*have_outfile = true;
 		}
 		if (ft_strcmp (redir[i], "<") == 0)
@@ -41,7 +43,8 @@ static void	open_fds(char **redir, int *in, int *out, bool *have_outfile)
 			if (fd[0])
 				close(fd[0]);
 			fd[0] = open_ok(redir[++i], O_RDONLY, 0);
-			*in = fd[0];
+			//*in = fd[0];
+			aux->pipes[n_cmd][0] = fd[0];
 		}
 	}
 }
@@ -59,15 +62,16 @@ void	fork_open_exec( char *cmd, int n_cmd, t_pids_pipes *aux)
 	{
 		cmd_table = make_cmd_table(cmd);
 		close_pipes(aux->total_cmd, aux->pipes, n_cmd);
-		open_fds(cmd_table->redirections, &aux->pipes[n_cmd][0], \
-		&aux->pipes[n_cmd + 1][1], &have_outfile);
+		open_fds(cmd_table->redirections, aux, n_cmd, &have_outfile);
 		dup2(aux->pipes[n_cmd][0], STDIN_FILENO);
 		if (n_cmd != (aux->total_cmd - 1) || have_outfile)
 			dup2(aux->pipes[(n_cmd + 1)][1], STDOUT_FILENO);
 		close(aux->pipes[n_cmd][0]);
 		close(aux->pipes[(n_cmd + 1)][1]);
 		free_ptr((void **) aux->pipes);
-		exec_cmd(cmd_table->cmd_and_args);
+		if (!is_builtin(cmd_table->cmd_and_args))
+			exec_cmd(cmd_table->cmd_and_args);
+		return (run_builtin(cmd_table->cmd_and_args));
 	}
 }
 
@@ -137,7 +141,7 @@ void	exec_cmd(char **args)
 	environ = convert_hash_arr();
 	temp = find_entry("PATH", g_data->hash_table);
 	if (*args[0] == '/' || *args[0] == '.' || *args[0] == '~')
-		cmd_path = args[0];
+		cmd_path = find_absolute_path(args[0]);
 	else
 	{
 		if (temp == NULL)

@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 14:52:47 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/29 16:18:12 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/09/29 20:06:45 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	before_fork(char **cmd, t_pids_pipes **pid_pipe)
 {
-	int	total_cmd;
+	int total_cmd;
 
 	total_cmd = 0;
 	while (cmd[total_cmd])

@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:32:57 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/23 16:37:01 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/09/29 17:52:08 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,24 +105,24 @@ static bool is_dir(char *absolute_path)
 	return (true);
 }
 
-void	builtin_cd(t_list *cmd)
+void	builtin_cd(char **cmd)
 {
-	t_list	*aux;
 	char	*absolute_path;
+	int		i;
 
-	aux = cmd->next;
+	i = 1;
 	g_data->exit_code = 0;
 	absolute_path = NULL;
-	if (aux == NULL)
+	if (cmd[i] == NULL)
 		absolute_path = ft_strdup(get_var_value("HOME"));
-	else if (aux && aux->next)
+	else if (cmd[i] && cmd[i + 1])
 	{
 		printf("cd: too many arguments\n");
 		g_data->exit_code = 1;
 		return ;
 	}
 	else
-		absolute_path = find_absolute_path(aux->content);
+		absolute_path = find_absolute_path(cmd[i]);
 	if (is_dir(absolute_path))
 	{
 		update_hashtable("OLDPWD", get_var_value("PWD"), g_data->hash_table);

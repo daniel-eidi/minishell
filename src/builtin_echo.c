@@ -6,34 +6,28 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 17:49:23 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/22 23:40:56 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/09/29 17:42:29 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	builtin_echo(t_list *cmd)
+void	builtin_echo(char **cmd)
 {
-	t_list	*aux;
 	char	*end_line;
+	int		i;
 
-	aux = cmd->next;
+	i = 1;
 	end_line = "\n";
-	if (!aux)
+	if (!cmd[i])
 		return ;
-	if (!ft_strcmp(aux->content, "-n"))
+	if (!ft_strcmp(cmd[i], "-n"))
 	{
 		end_line = "";
-		aux = aux->next;
+		i++;
 	}
-	while (aux)
-	{
-		if (aux->next)
-			ft_printf("%s ", aux->content);
-		else
-			ft_printf("%s", aux->content);
-		aux = aux->next;
-	}
+	while (cmd[i])
+		ft_printf("%s", cmd[i++]);
 	ft_printf("%s", end_line);
 	g_data->exit_code = 0;
 }

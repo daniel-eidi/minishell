@@ -36,6 +36,7 @@ SRC 		= 	main.c \
 				before_fork.c\
 				after_fork.c\
 				utils_fork_exec.c\
+				if_builtin.c\
 #				ft_get_next_line.c\
 
 
