@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:41:18 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/29 16:22:57 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/09/30 19:30:08 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,9 @@ void	close_pipes_main(int n_cmd, int **pipes)
 	while (j <= n_cmd)
 	{
 		if (j != n_cmd)
-			close(pipes[j][0]);
+		{
+			close(pipes[j][0]);			
+		}
 		if (j != 0)
 			close(pipes[j][1]);
 		j++;

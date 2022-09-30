@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 23:24:49 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/29 16:28:55 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/09/30 19:30:23 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ char	**token_line(char *line)
 		process_quotes2(split[i]);
 	}
 	restore_char(split, -3, '|');
+	
 	free_ptr((void *)&line);
 	free_ptr((void *)&str);
 	return (split);

@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:32:57 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/29 17:52:08 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/09/30 19:31:15 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,4 +129,5 @@ void	builtin_cd(char **cmd)
 		update_hashtable("PWD", absolute_path, g_data->hash_table);
 	}
 	free_ptr((void *)&absolute_path);
+	dprintf(2, "path = %s\n", absolute_path);
 }

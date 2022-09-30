@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   after_fork.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
+/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 14:49:28 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/30 09:21:26 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/09/30 19:38:20 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,9 @@ static void	await_all_children(int children_count)
 {
 	int	i;
 	int	wstatus;
-//	int	waited_pid;
 
 	i = -1;
 	while (++i <= children_count)
-//		waited_pid = waitpid(-1, &wstatus, 0);
 		waitpid(-1, &wstatus, 0);
 	return ;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
+/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:00:46 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/30 09:16:44 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/09/30 19:29:41 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,24 @@
 
 t_data	*g_data;
 
-// static void	check_run_not_fork(char *cmd, int *i, t_pids_pipes *aux)
-// {
-// 	t_cmd	*cmd_table;
-// 	bool	have_outfile;
+static void	check_run_not_fork(char *cmd, int *i, t_pids_pipes *aux)
+{
+	t_cmd	*cmd_table;
+	bool	have_outfile;
 	
-// 	printf ("aqui\n");
-// 	have_outfile = false;
-// 	cmd_table = make_cmd_table(cmd);
-// 	if(is_builtin(cmd_table->cmd_and_args) == 2)
-// 	{
-/* 		open_fds(cmd_table->redirections, &aux->pipes[0][0], \
-		&aux->pipes[1][1], &have_outfile);*/
-// 		if (have_outfile)
-// 			dup2(aux->pipes[1][1], STDOUT_FILENO);
-// 		run_builtin(cmd_table->cmd_and_args);
-// 		*i = *i + 2;	
-// 	}
-// 	clear_cmd_table(cmd_table);	
-// }
+	have_outfile = false;
+	cmd_table = make_cmd_table(cmd);
+	if(is_builtin(cmd_table->cmd_and_args) == 2)
+	{
+ 		open_fds(cmd_table->redirections, aux, 0, &have_outfile);
+		if (have_outfile)
+			dup2(aux->pipes[1][1], STDOUT_FILENO);
+		run_builtin(cmd_table->cmd_and_args);
+		*i = *i + 1;
+	}
+	
+	clear_cmd_table(cmd_table);	
+}
 
 static void loop(char *line, char **cwd)
 {
@@ -45,13 +44,16 @@ static void loop(char *line, char **cwd)
 	if(ft_strlen(line) > 0)
 		add_history(line);
 	cmd = token_line(line);
+	
 	before_fork(cmd, &aux);
+
 	i = -1;
-	// if (!cmd[1])
-	// 	check_run_not_fork(cmd[0], &i, aux);
-	printf("valor de i = %d\n", i);
-	while(cmd[++i])
+	if (!cmd[1])
+		check_run_not_fork(cmd[0], &i, aux);
+	while(cmd[++i] != NULL)
+	{
 		fork_open_exec(cmd[i], i, aux);
+	}
 	after_fork(i, aux->pipes, aux->pids);
 	free_split((void *)cmd);
 	free_ptr((void *)&cmd);
