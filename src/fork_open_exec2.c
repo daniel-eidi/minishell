@@ -62,7 +62,6 @@ void	open_fds(char **redir, t_pids_pipes *aux, int n_cmd, bool *have_outfile)
 	i = -1;
 	while (redir[++i])
 	{
-		dprintf(2, "open_fds\n");
 		if (redir[i][0] == '>')
 		{
 			set_outfile_flags(fd, redir[i], &flags, have_outfile);
