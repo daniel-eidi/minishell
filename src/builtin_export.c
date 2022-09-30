@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_export.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/30 15:56:49 by mgaldino          #+#    #+#             */
+/*   Updated: 2022/09/30 16:20:02 by mgaldino         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 
 void	set_var(char *new_key, char *new_value)
@@ -13,8 +25,6 @@ void	set_var(char *new_key, char *new_value)
 	}
 	else
 		insert_item(new_item(new_key, new_value), g_data->hash_table);
-	//free(new_key);
-	//free(new_value);
 }
 
 int	indentifier_not_valid(char *arg)
@@ -34,7 +44,7 @@ int	indentifier_not_valid(char *arg)
 
 int	export_cmd(char	*s)
 {
-	int	i;
+	int		i;
 	char	*arg;
 	char	*new_key;
 	char	*new_value;
@@ -58,14 +68,11 @@ int	export_cmd(char	*s)
 	return (0);
 }
 
-void	builtin_export(t_list *cmd)
+void	builtin_export(char **cmd)
 {
-	t_list	*aux;
+	int	i;
 
-	aux = cmd->next;
-	while (aux)
-	{
-		export_cmd(aux->content);
-		aux = aux->next;
-	}
+	i = 0;
+	while (cmd[++i])
+		export_cmd(cmd[i]);
 }

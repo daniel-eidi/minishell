@@ -27,14 +27,11 @@ void	unset_cmd(char *var_name)
 		delete_entry(var_name, g_data->hash_table);
 }
 
-void	builtin_unset(t_list *cmd)
+void	builtin_unset(char **cmd)
 {
-	t_list	*aux;
+	int	i;
 
-	aux = cmd->next;
-	while (aux)
-	{
-		unset_cmd(aux->content);
-		aux = aux->next;
-	}
+	i = 0;
+	while (cmd[++i])
+		unset_cmd(cmd[i]);
 }

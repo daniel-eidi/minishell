@@ -3,77 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   fork_open_exec.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:55:34 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/30 19:34:29 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/09/30 16:23:17 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-void	open_fds(char **redir, t_pids_pipes *aux, int n_cmd, bool *have_outfile)
-{
-	int	fd[2];
-	int	i;
-	char	*s;
-	char	*n_cmd_str;
-	char	*limiter;
-	char	*name;
-
-	i = -1;
-	while (redir[++i])
-	{
-		if (ft_strcmp (redir[i], ">>") == 0)
-		{
-			if (fd[1])
-				close(fd[1]);
-			fd[1] = open_ok(redir[++i], O_WRONLY | O_CREAT | O_APPEND, 1);
-			//*out = fd[1];
-			aux->pipes[n_cmd + 1][1] = fd[1];
-			*have_outfile = true;
-		}
-		if (ft_strcmp (redir[i], ">") == 0)
-		{
-			if (fd[1])
-				close(fd[1]);
-			fd[1] = open_ok(redir[++i], O_WRONLY | O_CREAT | O_TRUNC, 1);
-			//*out = fd[1];
-			aux->pipes[n_cmd + 1][1] = fd[1];
-			*have_outfile = true;
-		}
-		if (ft_strcmp (redir[i], "<") == 0)
-		{
-			if (fd[0])
-				close(fd[0]);
-			fd[0] = open_ok(redir[++i], O_RDONLY, 0);
-			//*in = fd[0];
-			aux->pipes[n_cmd][0] = fd[0];
-		}
-		if(ft_strcmp (redir[i], "<<") == 0)
-		{
-			if (fd[0])
-				close(fd[0]);
-			n_cmd_str = ft_itoa(n_cmd);
-			name = ft_strjoin("/tmp/inputfile", n_cmd_str);
-			free(n_cmd_str);
-			fd[0] = open_ok(name, O_WRONLY | O_CREAT | O_TRUNC, 0);
-			limiter = ft_strjoin(redir[++i], "\n");
-            write(1, "> ", 2);
-			s = get_next_line(STDIN_FILENO);
-			while (ft_strcmp(s, limiter))
-			{
-				write(fd[0], s, ft_strlen(s));
-				free(s);
-                write(1, "> ", 2);
-				s = get_next_line(STDIN_FILENO);
-			}
-			close(fd[0]);
-			fd[0] = open_ok(name, O_RDONLY, 0);
-			aux->pipes[n_cmd][0] = fd[0];
-		}
-	}
-}
 
 void	fork_open_exec( char *cmd, int n_cmd, t_pids_pipes *aux)
 {

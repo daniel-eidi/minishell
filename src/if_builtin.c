@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   if_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 16:39:10 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/30 19:33:35 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/09/30 16:17:09 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ void run_builtin(char **cmd)
 		builtin_echo(cmd);
 	if (!ft_strcmp(cmd[0], "pwd" ))
 		builtin_pwd();
-	// if (!ft_strcmp(cmd[0], "export" ))
-	// 	builtin_export(((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd));
+	if (!ft_strcmp(cmd[0], "export" ))
+	builtin_export(cmd);
 	if (!ft_strcmp(cmd[0], "env" ))		
 		builtin_env();
-	// if (!ft_strcmp(cmd[0], "unset" ))		
-	// 	builtin_unset(((t_list *) ((t_cmd *)(*aux_cmd)->content)->cmd));
+	if (!ft_strcmp(cmd[0], "unset" ))		
+		builtin_unset(cmd);
 }

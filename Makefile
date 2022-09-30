@@ -33,6 +33,7 @@ SRC 		= 	main.c \
 				create_pids.c\
 				create_pipes.c\
 				fork_open_exec.c\
+				fork_open_exec2.c\
 				before_fork.c\
 				after_fork.c\
 				utils_fork_exec.c\
