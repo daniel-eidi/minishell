@@ -6,11 +6,64 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 15:35:59 by mgaldino          #+#    #+#             */
-/*   Updated: 2022/09/30 17:39:04 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/01 18:06:20 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+static void	reading_stdin(int fd, char *limiter)
+{
+	char	*line;
+
+	//limiter = ft_strjoin(argv_limiter, "\n");
+	line = readline("> ");
+	//dprintf(2, "limiter = %s", limiter);
+	while (1)
+	{
+		if (ft_strcmp(line, limiter) == 0)
+		{
+			free_ptr((void *)&limiter);
+			free_ptr((void *)&line);
+			close(fd);
+			exit(0);
+		}
+		//dprintf(2, "line = %s", line);
+		write(fd, line, ft_strlen(line));
+		write(fd, "\n", 1);
+		line = readline("> ");
+	}
+	close(fd);
+	free_ptr((void *)&line);
+	free_ptr((void *)&limiter);
+	free(limiter);
+}
+
+void	create_heredoc(char *argv_limiter, int pipe_ori)
+{
+	int		fd_2[2];
+	pid_t	pid;
+	int		status;
+
+	if (pipe(fd_2) < 0)
+		error("pipe", 0);
+	pid = fork();
+	if (pid < 0)
+		error("fork", 0);
+	if (pid > 0)
+	{
+		close(fd_2[1]);
+		//waitpid(pid, &status, 0);
+		dup2(fd_2[0], pipe_ori);
+		close(fd_2[0]);
+	}
+	else
+	{
+		close(fd_2[0]);
+		reading_stdin(fd_2[1], argv_limiter);
+	}
+	waitpid(pid, &status, 0);
+}
 
 void	process_heredoc(char *redir, t_pids_pipes *aux, int n_cmd, int *fd)
 {
@@ -76,6 +129,7 @@ void	open_fds(char **redir, t_pids_pipes *aux, int n_cmd, bool *have_outfile)
 			aux->pipes[n_cmd][0] = fd[0];
 		}
 		if (ft_strcmp (redir[i], "<<") == 0)
+			//create_heredoc(redir[++i], aux->pipes[n_cmd][0]);
 			process_heredoc(redir[++i], aux, n_cmd, fd);
 	}
 }

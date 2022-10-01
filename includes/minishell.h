@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
+/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 22:32:00 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/30 16:21:28 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/01 19:45:22 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,8 @@ void	hash_envp(t_data *data, char **envp);
 ** get_next_line
 */
 # include "../libft/libft.h"
-
+void	exit_minishell(void);
+char	*ft_get_next_line_lim(int fd, char *limiter);
 char	*find_absolute_path(char *path);
 void	restore_char(char **exec_args, char find, char change);
 char	*ft_get_next_line_lim(int fd, char *limiter);
@@ -119,5 +120,10 @@ pid_t	*create_pids(int n_cmd);
 char	*get_path(char **cmd, const char *path);
 int	open_ok(char *file, int flag, int inout);
 void	error(const char *s, int i);
+
+// --- signals
+
+void	signal_for_child(void);
+void	signal_for_main(void);
 
 #endif

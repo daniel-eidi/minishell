@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:48:08 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/30 17:43:52 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/01 18:53:15 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	error(const char *s, int i)
 {
-	//perror(s);
 	write(2, s, ft_strlen(s));
+	g_data->exit_code = i;
 	if (i)
 		exit(i);
 	exit(EXIT_SUCCESS);
