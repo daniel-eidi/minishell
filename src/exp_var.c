@@ -7,6 +7,8 @@ int	get_var_ind(char *s)
 	i = -1;
 	while (s[++i])
 	{
+		if ((s[i] == -2) && !ft_strcmp((s + i + 1),"?"))
+			return (-2);
 		if ((s[i] == -2) && \
 			(ft_isalpha(s[i + 1]) || (s[i + 1] == '_')))
 			return (i);
@@ -44,6 +46,8 @@ char	*exp_var(char *line, t_list **table)
 	char *new_line;
 
 	ind = get_var_ind(line);
+	if (ind == -2)
+		return (ft_itoa(g_data->exit_code));
 	if (ind == -1)
 	{
 		 new_line =ft_strdup(line);
