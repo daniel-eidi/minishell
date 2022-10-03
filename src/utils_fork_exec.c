@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:48:08 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/01 18:53:15 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/03 17:25:25 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,13 @@ int	open_ok(char *file, int flag, int inout)
 {
 	int	fd;
 
+	(void)inout;
 	fd = open(file, flag, 0644);
-	if (fd == -1 && inout == 0)
-		error("infile", 1);
-	if (fd == -1 && inout == 1)
-		error("outfile", 1);
+	if (fd == -1)
+	{
+		write(2, file, ft_strlen(file));
+		error(": No such file or directory\n", 1);
+	}
 	return (fd);
 }
 
@@ -41,7 +43,6 @@ char	*get_path(char **cmd, const char *path)
 
 	while (*path)
 	{
-		//dprintf(2,"path em getpath = %s\n", path);
 		diff = ft_strchr(path, ':') - path;
 		if (diff < 0)
 			diff = ft_strlen(path);
@@ -56,13 +57,10 @@ char	*get_path(char **cmd, const char *path)
 			break ;
 		path += diff;
 		if (*path)
-			path++;		
+			path++;
 	}
-	//error("command", 127);
-	//write(2, cmd[0], ft_strlen(cmd[0]));
 	write(2, cmd[0], ft_strlen(cmd[0]));
 	free(cmd);
-	//dprintf(2,"cmd 0 = %s\n", cmd[0]);
 	error(": command not found\n", 127);
 	return (NULL);
 }

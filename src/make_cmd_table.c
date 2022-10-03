@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 16:58:51 by mgaldino          #+#    #+#             */
-/*   Updated: 2022/09/30 18:00:12 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/03 17:31:28 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,14 +91,12 @@ t_cmd	*make_cmd_table(char *line)
 {
 	char	**split;
 	t_cmd	*cmd_table;
-	int i;
+	int		i;
 
 	split = ft_split(line, ' ');
-	i=-1;
-	while(split[++i])
+	i = -1;
+	while (split[++i])
 		split[i] = exp_var(split[i], g_data->hash_table);
-	//split = ft_split(line, ' ');
-	//free(line);
 	restore_spaces(split);
 	cmd_table = alloc_cmd(split);
 	fill_cmd_table(cmd_table, split);

@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:00:46 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/01 20:21:55 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/03 16:31:38 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,19 @@ static void	check_run_not_fork(char *cmd, int *i, t_pids_pipes *aux)
 	
 	have_outfile = false;
 	cmd_table = make_cmd_table(cmd);
-	if(is_builtin(cmd_table->cmd_and_args) == 2)
+	if (cmd_table->cmd_and_args)
 	{
- 		open_fds(cmd_table->redirections, aux, 0, &have_outfile);
-		if (have_outfile)
-			dup2(aux->pipes[1][1], STDOUT_FILENO);
-		run_builtin(cmd_table->cmd_and_args);
-		*i = *i + 1;
+		if(is_builtin(cmd_table->cmd_and_args) == 2)
+		{
+			dprintf(2, "aqui \n");
+			open_fds(cmd_table->redirections, aux, 0, &have_outfile);
+			if (have_outfile)
+				dup2(aux->pipes[1][1], STDOUT_FILENO);
+			run_builtin(cmd_table->cmd_and_args);
+			*i = *i + 1;
+		}
+	clear_cmd_table(cmd_table);
 	}
-	
-	clear_cmd_table(cmd_table);	
 }
 
 int looping(char *line, char **cwd)
@@ -45,14 +48,14 @@ int looping(char *line, char **cwd)
 	*cwd = ft_strjoin(get_var_value("PWD"), "> ");
 	line = readline(*cwd);
 	free_ptr((void *)cwd);
-	if (!line || ft_strcmp(line, "exit") == 0)
+	if ( !line || ft_strcmp(line, "exit") == 0)
 		return (0);
 	if(ft_strlen(line) > 0)
 		add_history(line);
-	cmd = token_line(line);	
+	cmd = token_line(line);
 	before_fork(cmd, &aux);
 	i = -1;
-	if (!cmd[1])
+	if (cmd[0] && !cmd[1])
 		check_run_not_fork(cmd[0], &i, aux);
 	while(cmd[++i] != NULL)	{
 		fork_open_exec(cmd[i], i, aux);	}
