@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:55:34 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/03 17:33:35 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/03 20:02:54 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	fork_open_exec( char *cmd, int n_cmd, t_pids_pipes *aux)
 		cmd_table = make_cmd_table(cmd);
 		close_pipes(aux->total_cmd, aux->pipes, n_cmd);
 		open_fds(cmd_table->redirections, aux, n_cmd, &have_outfile);
-		dup2(aux->pipes[n_cmd][0], STDIN_FILENO);
+		if(n_cmd != 0)
+			dup2(aux->pipes[n_cmd][0], STDIN_FILENO);
 		if (n_cmd != (aux->total_cmd - 1) || have_outfile)
 			dup2(aux->pipes[(n_cmd + 1)][1], STDOUT_FILENO);
 		close(aux->pipes[n_cmd][0]);
