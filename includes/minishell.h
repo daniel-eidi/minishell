@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 22:32:00 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/04 11:31:29 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/04 14:01:22 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	hash_envp(t_data *data, char **envp);
 ** get_next_line
 */
 # include "../libft/libft.h"
-void	exit_minishell(void);
+void	exit_minishell(char **cmd);
 char	*ft_get_next_line_lim(int fd, char *limiter);
 char	*find_absolute_path(char *path);
 void	restore_char(char **exec_args, char find, char change);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   if_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 16:39:10 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/03 17:33:15 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/04 14:08:31 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	is_builtin(char **cmd)
 	|| !ft_strcmp(cmd[0], "env"))
 		return (1);
 	if (!ft_strcmp(cmd[0], "cd") || !ft_strcmp(cmd[0], "export") \
-	|| !ft_strcmp(cmd[0], "unset"))
+	|| !ft_strcmp(cmd[0], "unset") || !ft_strcmp(cmd[0], "exit"))
 		return (2);
 	return (0);
 }
@@ -39,4 +39,6 @@ void	run_builtin(char **cmd)
 		builtin_env();
 	if (!ft_strcmp(cmd[0], "unset" ))
 		builtin_unset(cmd);
+	if (!ft_strcmp(cmd[0], "exit" ))
+		exit_minishell(cmd);
 }

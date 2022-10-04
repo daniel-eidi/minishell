@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:00:46 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/04 11:36:28 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/04 14:02:59 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,15 +80,6 @@ int main(int argc, char **argv, char **envp)
 	line = "";
 	while(loop)
 		loop = looping(line, &cwd);
-	exit_minishell();
+	exit_minishell(NULL);
 	return(0);
-}
-
-void exit_minishell(void)
-{
-	printf("exit\n");
-	clear_table(g_data->hash_table);
-	free(g_data);
-	rl_clear_history();
-	exit (0);
 }

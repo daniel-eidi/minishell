@@ -30,6 +30,7 @@ SRC 		= 	main.c \
 				builtin_cd.c\
 				env_builtins.c\
 				builtin_export.c\
+				builtin_exit.c\
 				create_pids.c\
 				create_pipes.c\
 				fork_open_exec.c\

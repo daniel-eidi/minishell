@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   treat_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 23:24:49 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/03 17:22:38 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/04 12:09:23 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,11 @@ char	**token_line(char *line)
 	char	*str;
 	int		i;
 
-	printf("before treat_li = %s\n", line);
+	//printf("before treat_li = %s\n", line);
 	str = treat_line(line);
-	printf("treat_line      = %s\n", str);
+	//printf("treat_line      = %s\n", str);
 	process_quotes(str);
-	printf("processe quotes = %s\n", str);
+	//printf("processe quotes = %s\n", str);
 	split = ft_split(str, '|');
 	i = -1;
 	while (split[++i])

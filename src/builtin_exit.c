@@ -1,37 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_echo.c                                     :+:      :+:    :+:   */
+/*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 17:49:23 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/04 12:11:58 by mgaldino         ###   ########.fr       */
+/*   Created: 2022/10/04 13:45:16 by mgaldino          #+#    #+#             */
+/*   Updated: 2022/10/04 14:06:49 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	builtin_echo(char **cmd)
+void exit_minishell(char **cmd)
 {
-	char	*end_line;
-	int		i;
-
-	i = 1;
-	end_line = "\n";
-	if (!cmd[i])
+	printf("exit\n");
+	if (cmd && (cmd[2]))
 	{
-		ft_printf("%s", end_line);
-		g_data->exit_code = 0;
+		write(2, "exit : too many arguments\n", 26);
+		g_data->exit_code = 1;
 		return ;
 	}
-	if (!ft_strcmp(cmd[i], "-n"))
-	{
-		end_line = "";
-		i++;
-	}
-	while (cmd[i])
-		ft_printf("%s", cmd[i++]);
-	ft_printf("%s", end_line);
-	g_data->exit_code = 0;
+	if (!cmd)
+		exit(0);
+	clear_table(g_data->hash_table);
+	free(g_data);
+	rl_clear_history();
+	if (!cmd[1])
+		exit (0);
+	else
+		exit(ft_atoi(cmd[1]));
 }
