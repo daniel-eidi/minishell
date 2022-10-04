@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:48:08 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/04 10:39:04 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/04 11:35:58 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int	open_ok(char *file_str, int flag, int inout)
 	char	*file;
 
 	file = find_absolute_path(file_str);
-	dprintf(2, "file = %s\n", file);
 	(void)inout;
 	if ((inout == 0) && (access(file, F_OK) == -1))
 	{

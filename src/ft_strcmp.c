@@ -6,9 +6,11 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 16:32:01 by mgaldino          #+#    #+#             */
-/*   Updated: 2022/04/25 17:11:49 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/04 11:23:11 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <minishell.h>
 
 int	ft_strcmp(char *s1, char *s2)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 22:32:00 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/04 08:47:58 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/04 11:31:29 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,6 @@ void	signal_for_child(void);
 void	signal_for_main(void);
 
 //--- teste heredoc
-void prepare_heredoc(char **cmds, t_pids_pipes *aux);
+void prepare_heredoc(char **cmds);
 
 #endif

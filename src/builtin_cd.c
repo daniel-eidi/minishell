@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:32:57 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/30 17:32:58 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/04 11:35:41 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,5 +129,4 @@ void	builtin_cd(char **cmd)
 		update_hashtable("PWD", absolute_path, g_data->hash_table);
 	}
 	free_ptr((void *)&absolute_path);
-	dprintf(2, "path = %s\n", absolute_path);
 }

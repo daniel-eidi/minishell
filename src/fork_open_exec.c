@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:55:34 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/04 10:53:00 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/04 11:32:40 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,5 @@ void	exec_cmd(char **args)
 		}
 		cmd_path = get_path(&args[0], ((t_item *)temp->content)->value);
 	}
-	dprintf(2,"cmd 0 = %s in pid %d\n", cmd_path, getpid());
 	execve(cmd_path, args, environ);
 }
