@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_fork_exec.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:48:08 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/03 17:25:25 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/04 10:20:25 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,19 @@ int	open_ok(char *file, int flag, int inout)
 	int	fd;
 
 	(void)inout;
-	fd = open(file, flag, 0644);
-	if (fd == -1)
+	if ((inout == 0) && (access(file, F_OK) == -1))
 	{
 		write(2, file, ft_strlen(file));
 		error(": No such file or directory\n", 1);
+	}
+	else
+	{
+		fd = open(file, flag, 0644);
+		if (fd == -1)
+		{
+			write(2, file, ft_strlen(file));
+			error(": Permission denied\n", 1);
+		}
 	}
 	return (fd);
 }

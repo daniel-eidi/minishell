@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:00:46 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/04 08:19:25 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/04 10:15:21 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,17 @@ t_data	*g_data;
 static void	check_run_not_fork(char *cmd, int *i, t_pids_pipes *aux)
 {
 	t_cmd	*cmd_table;
-	bool	have_outfile;
+	int		have_file;
 	
-	have_outfile = false;
+	have_file = 0;
 	cmd_table = make_cmd_table(cmd);
 	if (cmd_table->cmd_and_args)
 	{
 		if(is_builtin(cmd_table->cmd_and_args) == 2)
 		{
 			dprintf(2, "aqui \n");
-			open_fds(cmd_table->redirections, aux, 0, &have_outfile);
-			if (have_outfile)
+			open_fds(cmd_table->redirections, aux, 0, &have_file);
+			if (have_file)
 				dup2(aux->pipes[1][1], STDOUT_FILENO);
 			run_builtin(cmd_table->cmd_and_args);
 			*i = *i + 1;
