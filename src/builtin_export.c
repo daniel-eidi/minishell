@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 15:56:49 by mgaldino          #+#    #+#             */
-/*   Updated: 2022/09/30 16:20:02 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/04 14:47:34 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	export_cmd(char	*s)
 	if (indentifier_not_valid(arg))
 	{
 		ft_printf("export: `%s': not a valid indentifier\n", arg);
+		g_data->exit_code = 1;
 		return (1);
 	}
 	i = 0;

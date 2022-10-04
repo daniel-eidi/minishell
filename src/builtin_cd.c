@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:32:57 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/04 11:35:41 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/04 15:01:46 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,13 @@ static bool is_dir(char *absolute_path)
 	return (true);
 }
 
+static void	back_old_pwd(char *absolute_path)
+{
+		absolute_path = ft_strdup(get_var_value("OLDPWD"));
+		write(1, absolute_path, ft_strlen(absolute_path));
+		write(1, "\n", 1);
+}
+
 void	builtin_cd(char **cmd)
 {
 	char	*absolute_path;
@@ -115,6 +122,8 @@ void	builtin_cd(char **cmd)
 	absolute_path = NULL;
 	if (cmd[i] == NULL)
 		absolute_path = ft_strdup(get_var_value("HOME"));
+	else if (!ft_strcmp(cmd[i], "-"))
+		back_old_pwd(absolute_path);
 	else if (cmd[i] && cmd[i + 1])
 	{
 		printf("cd: too many arguments\n");

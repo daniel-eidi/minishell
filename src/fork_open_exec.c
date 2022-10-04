@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:55:34 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/04 11:32:40 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/04 15:31:01 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,12 @@ void	exec_cmd(char **args)
 		}
 		cmd_path = get_path(&args[0], ((t_item *)temp->content)->value);
 	}
-	execve(cmd_path, args, environ);
+	if (execve(cmd_path, args, environ) == -1)
+	{
+		write(1, cmd_path, ft_strlen(cmd_path));
+		write(1, ": no such file or directory\n", 28);
+		free(cmd_path);
+		free_split((void **) environ);
+		free(environ);
+	}
 }
