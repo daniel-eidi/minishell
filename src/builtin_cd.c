@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:32:57 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/04 15:01:46 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/04 18:13:16 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,11 @@ char	*find_absolute_path(char *path)
 		absolute_path = ft_strjoin(get_var_value("HOME"), path + 1);
 	else if (path[0] == '/')
 		absolute_path = ft_strdup(path);
+	else if (ft_strncmp(path, ".\0", 2) == 0)
+		absolute_path = ft_strjoin(get_var_value("PWD"), path + 1);
 	else if (ft_strncmp(path, "./", 2) == 0)
 		absolute_path = ft_strjoin(get_var_value("PWD"), path + 1);
-	else if (ft_strcmp(path, "..") == 0)
+	else if (ft_strncmp(path, "..\0", 3) == 0)
 		absolute_path = get_init_dir_path(1);
 	else if (ft_strncmp(path, "../", 3) == 0)
 		absolute_path = get_under_dir_path(path);
@@ -90,26 +92,30 @@ char	*find_absolute_path(char *path)
 	return (absolute_path);
 }
 
-static bool is_dir(char *absolute_path)
+static bool is_dir(char *absolute_path, char *cmd)
 {
-	struct stat	status_buffer;
-	
 	if (chdir(absolute_path) < 0)
 	{
-		if (stat(absolute_path, &status_buffer) == 0)
-			printf("cd: %s: Not a directory\n", absolute_path);
-		// else
-		// 	printf("cd: %s: No such file or directory\n", absolute_path);
+		write(2, "cd: ", 4);
+		write(2, cmd, ft_strlen(cmd));
+		if (!access(absolute_path, F_OK))
+			write(2, ": Not a directory\n", 18);
+		else
+			write(2, ": No such file or directory\n", 28);
 		return (false);
 	}
 	return (true);
 }
 
-static void	back_old_pwd(char *absolute_path)
+static void	back_old_pwd(char **absolute_path)
 {
-		absolute_path = ft_strdup(get_var_value("OLDPWD"));
-		write(1, absolute_path, ft_strlen(absolute_path));
-		write(1, "\n", 1);
+	char	*s;
+
+	s = *absolute_path;
+	*absolute_path = ft_strdup(get_var_value("OLDPWD"));
+	free(s);
+	write(1, *absolute_path, ft_strlen(*absolute_path));
+	write(1, "\n", 1);
 }
 
 void	builtin_cd(char **cmd)
@@ -123,7 +129,7 @@ void	builtin_cd(char **cmd)
 	if (cmd[i] == NULL)
 		absolute_path = ft_strdup(get_var_value("HOME"));
 	else if (!ft_strcmp(cmd[i], "-"))
-		back_old_pwd(absolute_path);
+		back_old_pwd(&absolute_path);
 	else if (cmd[i] && cmd[i + 1])
 	{
 		printf("cd: too many arguments\n");
@@ -132,7 +138,7 @@ void	builtin_cd(char **cmd)
 	}
 	else
 		absolute_path = find_absolute_path(cmd[i]);
-	if (is_dir(absolute_path))
+	if (is_dir(absolute_path, cmd[i]))
 	{
 		update_hashtable("OLDPWD", get_var_value("PWD"), g_data->hash_table);
 		update_hashtable("PWD", absolute_path, g_data->hash_table);

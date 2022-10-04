@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:55:34 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/04 15:31:01 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/04 16:45:31 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	fork_open_exec( char *cmd, int n_cmd, t_pids_pipes *aux)
 	int	have_file;
 
 	have_file = 0;
+//	signal(SIGINT, SIG_IGN);
 	aux->pids[n_cmd] = fork();
 	if (aux->pids[n_cmd] < 0)
 		error("fork", 0);
