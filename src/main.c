@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:00:46 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/04 10:15:21 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/04 10:42:18 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	check_run_not_fork(char *cmd, int *i, t_pids_pipes *aux)
 		{
 			dprintf(2, "aqui \n");
 			open_fds(cmd_table->redirections, aux, 0, &have_file);
-			if (have_file)
+			if (have_file > 1)
 				dup2(aux->pipes[1][1], STDOUT_FILENO);
 			run_builtin(cmd_table->cmd_and_args);
 			*i = *i + 1;

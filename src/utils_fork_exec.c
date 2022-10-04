@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:48:08 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/04 10:20:25 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/04 10:39:04 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,13 @@ void	error(const char *s, int i)
 	exit(EXIT_SUCCESS);
 }
 
-int	open_ok(char *file, int flag, int inout)
+int	open_ok(char *file_str, int flag, int inout)
 {
-	int	fd;
+	int		fd;
+	char	*file;
 
+	file = find_absolute_path(file_str);
+	dprintf(2, "file = %s\n", file);
 	(void)inout;
 	if ((inout == 0) && (access(file, F_OK) == -1))
 	{
@@ -40,6 +43,7 @@ int	open_ok(char *file, int flag, int inout)
 			error(": Permission denied\n", 1);
 		}
 	}
+	free(file);
 	return (fd);
 }
 

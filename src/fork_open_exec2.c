@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork_open_exec2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 15:35:59 by mgaldino          #+#    #+#             */
-/*   Updated: 2022/10/04 09:52:15 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/04 10:52:24 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	set_infile_flags(int *fd, char *redir, int *flags, int *have_file)
 		close(fd[0]);
 	if (ft_strcmp (redir, "<") == 0)
 		*flags = O_RDONLY;
-	if (*have_file == 2 || 3)
+	if (*have_file == 2 || *have_file == 3)
 		*have_file = 3;
 	else
 		*have_file = 1;
