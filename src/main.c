@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:00:46 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/03 16:31:38 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/04 08:19:25 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int looping(char *line, char **cwd)
 		add_history(line);
 	cmd = token_line(line);
 	before_fork(cmd, &aux);
+	prepare_heredoc(cmd, aux);
 	i = -1;
 	if (cmd[0] && !cmd[1])
 		check_run_not_fork(cmd[0], &i, aux);

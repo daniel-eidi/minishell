@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:55:34 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/03 20:02:54 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/04 09:37:15 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	fork_open_exec( char *cmd, int n_cmd, t_pids_pipes *aux)
 {
 	t_cmd	*cmd_table;
-	bool	have_outfile;
+	int	have_file;
 
-	have_outfile = false;
+	have_file = 0;
 	aux->pids[n_cmd] = fork();
 	if (aux->pids[n_cmd] < 0)
 		error("fork", 0);
@@ -26,10 +26,10 @@ void	fork_open_exec( char *cmd, int n_cmd, t_pids_pipes *aux)
 		signal_for_child();
 		cmd_table = make_cmd_table(cmd);
 		close_pipes(aux->total_cmd, aux->pipes, n_cmd);
-		open_fds(cmd_table->redirections, aux, n_cmd, &have_outfile);
-		if(n_cmd != 0)
+		open_fds(cmd_table->redirections, aux, n_cmd, &have_file);
+		if(n_cmd != 0 || have_file == 1 || have_file == 3)
 			dup2(aux->pipes[n_cmd][0], STDIN_FILENO);
-		if (n_cmd != (aux->total_cmd - 1) || have_outfile)
+		if (n_cmd != (aux->total_cmd - 1) || have_file > 1)
 			dup2(aux->pipes[(n_cmd + 1)][1], STDOUT_FILENO);
 		close(aux->pipes[n_cmd][0]);
 		close(aux->pipes[(n_cmd + 1)][1]);

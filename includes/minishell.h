@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 22:32:00 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/01 19:45:22 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/04 08:47:58 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	before_fork(char **cmd, t_pids_pipes **pid_pipe);
 void	fork_open_exec( char *cmd, int n_cmd, t_pids_pipes *pid_pipe);
 void	after_fork(int n_cmd, int **pipes, pid_t *pid);
 void	exec_cmd(char **args);
-void	open_fds(char **redir, t_pids_pipes *aux, int n_cmd, bool *have_outfile);
+void	open_fds(char **redir, t_pids_pipes *aux, int n_cmd, int *have_file);
 
 // ---utils fork_exec
 
@@ -125,5 +125,8 @@ void	error(const char *s, int i);
 
 void	signal_for_child(void);
 void	signal_for_main(void);
+
+//--- teste heredoc
+void prepare_heredoc(char **cmds, t_pids_pipes *aux);
 
 #endif
