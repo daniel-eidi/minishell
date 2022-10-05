@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:32:57 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/04 18:13:16 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/05 12:28:00 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*get_var_value(char *key)
 	temp = find_entry(key, g_data->hash_table);
 	if (temp == NULL)
 		return ("");
-	return (((t_item *)temp->content)->value);
+	return (ft_strdup(((t_item *)temp->content)->value));
 }
 
 static char	*get_init_dir_path(int count_under)
@@ -56,14 +56,16 @@ char	*get_under_dir_path(char *path)
 	while (ft_strncmp(path + (count_under * 3), "../", 3) == 0)
 		count_under++;
 	dir = get_init_dir_path(count_under);
+	//dprintf(2, "dir = %s\n", dir);
 	if (ft_strlen(path + (count_under * 3)))
 		absolute_path = ft_strjoin(dir, path + (count_under * 3) - 1);
 	else
 		absolute_path = ft_strdup(dir);
 	free_ptr((void *)&dir);
+	//dprintf(2, "absolute_path = %s\n", absolute_path);
 	return (absolute_path);
 }
-
+/*
 char	*find_absolute_path(char *path)
 {
 	char	*absolute_path;
@@ -89,6 +91,69 @@ char	*find_absolute_path(char *path)
 	if (absolute_path[ft_strlen(absolute_path) - 1] == '/' \
 	&& ft_strcmp(absolute_path, "/") != 0)
 		absolute_path[ft_strlen(absolute_path) - 1] = '\0';
+	return (absolute_path);
+}
+*/
+
+void	go_up_one_dir(char *path)
+{
+	int	i;
+
+	i = ft_strlen(path);
+	while (path[i] != '/')
+		i--;
+	if (i != 0)
+		path[i] = '\0';
+	else
+		path[i + 1] = '\0';
+}
+
+void	go_down_to_dir(char **path, char *dir)
+{
+	char	*s;
+
+	//dprintf(2, "path = %s\n", path);
+	if (*path[ft_strlen(*path) - 1] != '/')
+	{
+		s = *path;
+		*path = ft_strjoin(*path, "/");
+		free(s);
+	}
+	//dprintf(2, "path = %s\n", path);
+	s = *path;
+	*path = ft_strjoin(*path, dir);
+	//dprintf(2, "path = %s\n", path);
+	free(s);	
+}
+char	*find_absolute_path(char *path)
+{
+	char	*absolute_path;
+	char	**args;
+	int		i;
+
+	if (path[0] == '/')
+		return (ft_strdup(path));
+	args = ft_split(path, '/');
+	i = -1;
+	if (!ft_strcmp(args[0], "~"))
+	{
+		absolute_path = get_var_value("HOME");
+		i++;
+	}
+	else
+		absolute_path = get_var_value("PWD");
+	//dprintf(2, "absolute_path = %s\n", absolute_path);
+	while (args[++i])
+	{
+	//	dprintf(2, "args[%d] = %s\n", i, args[i]);
+		if (!ft_strcmp(args[i], ".."))
+			go_up_one_dir(absolute_path);
+		else if (!ft_strcmp(args[i], "."))
+			continue ;
+		else
+			go_down_to_dir(&absolute_path, args[i]);
+	//	dprintf(2, "absolute_path = %s\n", absolute_path);
+	}
 	return (absolute_path);
 }
 
