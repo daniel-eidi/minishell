@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork_open_exec.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
+/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:55:34 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/04 16:45:31 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/06 13:39:35 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	fork_open_exec( char *cmd, int n_cmd, t_pids_pipes *aux)
 
 	have_file = 0;
 	signal(SIGINT, ctrlc_fork);
+	signal(SIGQUIT, ctrlc_fork);
 	aux->pids[n_cmd] = fork();
 	if (aux->pids[n_cmd] < 0)
 		error("fork", 0);
