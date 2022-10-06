@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:00:46 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/04 14:02:59 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/06 12:15:03 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,19 @@ int looping(char *line, char **cwd)
 	char		**cmd;
 	int			i;
 	t_pids_pipes *aux;
+	char		*s;
 
 	signal_for_main();
-	*cwd = ft_strjoin(get_var_value("PWD"), "> ");
+	s = get_var_value("PWD");
+	*cwd = ft_strjoin(s, "> ");
 	line = readline(*cwd);
 	free_ptr((void *)cwd);
+	free_ptr((void *)&s);
 	if ( !line || ft_strcmp(line, "exit") == 0)
+	{
+		free(line);
 		return (0);
+	}
 	if(ft_strlen(line) > 0)
 		add_history(line);
 	cmd = token_line(line);
@@ -66,6 +72,13 @@ int looping(char *line, char **cwd)
 	return(1);
 }
 
+void	clear_data()
+{
+	clear_table(g_data->hash_table);
+	free(g_data);
+	clear_history();
+}
+
 int main(int argc, char **argv, char **envp)
 {
 	static char	*line;
@@ -80,6 +93,7 @@ int main(int argc, char **argv, char **envp)
 	line = "";
 	while(loop)
 		loop = looping(line, &cwd);
+	clear_data();
 	exit_minishell(NULL);
 	return(0);
 }

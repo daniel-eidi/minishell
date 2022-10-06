@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_pipes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:41:18 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/30 19:30:08 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/06 12:43:18 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,8 @@ void	close_pipes_main(int n_cmd, int **pipes)
 	j = 0;
 	while (j <= n_cmd)
 	{
-		if (j != n_cmd)
-		{
-			close(pipes[j][0]);			
-		}
+		if ((j != n_cmd) && (pipes[j]))
+			close(pipes[j][0]);
 		if (j != 0)
 			close(pipes[j][1]);
 		j++;

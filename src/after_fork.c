@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   after_fork.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 14:49:28 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/06 12:40:40 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/06 12:42:41 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	await_all_children(int children_count, pid_t *pid)
 
 	i = -1;
 	lst_cmd_status = -1;
-	while (++i <= children_count)
+	while (children_count && ++i <= children_count)
 	{
 		pid_returned = waitpid(-1, &wstatus, 0);
 		if (pid_returned == pid[children_count - 1] && WIFEXITED(wstatus))
@@ -36,7 +36,8 @@ void	after_fork(int n_cmd, int **pipes, pid_t *pid)
 {
 	close_pipes_main(n_cmd, pipes);
 	await_all_children(n_cmd, pid);
-	close(pipes[0][1]);
+	if (pipes[0])
+		close(pipes[0][1]);
 	close(pipes[n_cmd][0]);
 	free_ptr((void *) &pid);
 	free_split((void **)pipes);
