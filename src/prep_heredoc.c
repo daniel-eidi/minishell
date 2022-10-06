@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prep_heredoc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
+/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 08:09:33 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/04 11:30:55 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/06 12:27:54 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static void	process_heredoc(char *redir, int n_cmd, int *fd)
 	n_cmd_str = ft_itoa(n_cmd);
 	name = ft_strjoin("/tmp/inputfile", n_cmd_str);
 	free(n_cmd_str);
-	fd[0] = open_ok(name, O_WRONLY | O_CREAT | O_TRUNC, 0);
+	fd[0] = open_ok(name, O_WRONLY | O_CREAT | O_TRUNC, 1);
+	printf("criou heredoc %s\n", name);
 	s = readline("> ");
 	while (s != NULL && ft_strcmp(s, redir))
 	{

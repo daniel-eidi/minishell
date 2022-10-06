@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_fork_exec.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
+/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:48:08 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/04 11:35:58 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/06 12:28:38 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	open_ok(char *file_str, int flag, int inout)
 	int		fd;
 	char	*file;
 
+	fd = 0;
 	file = find_absolute_path(file_str);
 	(void)inout;
 	if ((inout == 0) && (access(file, F_OK) == -1))

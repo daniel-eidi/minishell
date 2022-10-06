@@ -38,7 +38,7 @@ static void	set_outfile_flags(int *fd, char *redir, int *flags, int *have_file)
 		*flags = O_WRONLY | O_CREAT | O_APPEND;
 	if (ft_strcmp (redir, ">") == 0)
 		*flags = O_WRONLY | O_CREAT | O_TRUNC;
-	if (*have_file == 1 || 3)
+	if (*have_file == 1 || *have_file ==3)
 		*have_file = 3;
 	else
 		*have_file = 2;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   after_fork.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
+/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 14:49:28 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/04 14:32:17 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/06 12:40:40 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,18 @@ static void	await_all_children(int children_count, pid_t *pid)
 	int	i;
 	int	wstatus;
 	int	pid_returned;
+	int lst_cmd_status;
 
 	i = -1;
+	lst_cmd_status = -1;
 	while (++i <= children_count)
 	{
 		pid_returned = waitpid(-1, &wstatus, 0);
-		if (pid_returned == pid[children_count - 1])
-			g_data->exit_code = WEXITSTATUS(wstatus);
+		if (pid_returned == pid[children_count - 1] && WIFEXITED(wstatus))
+			lst_cmd_status = WEXITSTATUS(wstatus);
 	}
-	//g_data->exit_code = WEXITSTATUS(wstatus);
+	if (lst_cmd_status >= 0)
+		g_data->exit_code = lst_cmd_status;
 	return ;
 }
 

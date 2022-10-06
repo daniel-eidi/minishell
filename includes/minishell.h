@@ -125,6 +125,7 @@ void	error(const char *s, int i);
 
 void	signal_for_child(void);
 void	signal_for_main(void);
+void	ctrlc_fork(int signal);
 
 //--- teste heredoc
 void prepare_heredoc(char **cmds);

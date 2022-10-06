@@ -18,7 +18,7 @@ void	fork_open_exec( char *cmd, int n_cmd, t_pids_pipes *aux)
 	int	have_file;
 
 	have_file = 0;
-//	signal(SIGINT, SIG_IGN);
+	signal(SIGINT, ctrlc_fork);
 	aux->pids[n_cmd] = fork();
 	if (aux->pids[n_cmd] < 0)
 		error("fork", 0);
