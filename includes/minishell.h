@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
+/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 22:32:00 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/04 14:01:22 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/07 15:04:48 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void	builtin_export(char **cmd);
 void	builtin_unset(char **cmd);
 int 	is_builtin(char	**cmd);
 void	run_builtin(char **cmd);
+void	run_builtin_fork(char **cmd);
 
 
 // ------ fork

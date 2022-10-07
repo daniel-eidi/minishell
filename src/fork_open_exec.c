@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:55:34 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/06 13:39:35 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/07 15:05:28 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	fork_open_exec( char *cmd, int n_cmd, t_pids_pipes *aux)
 		free_ptr((void **) aux->pipes);
 		if (!is_builtin(cmd_table->cmd_and_args))
 			exec_cmd(cmd_table->cmd_and_args);
-		return (run_builtin(cmd_table->cmd_and_args));
+		return (run_builtin_fork(cmd_table->cmd_and_args));
 	}
 }
 
