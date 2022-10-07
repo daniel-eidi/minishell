@@ -17,7 +17,6 @@ void	builtin_env()
 		}
 	}
 	g_data->exit_code = 0;
-	exit(0);
 }
 
 void	unset_cmd(char *var_name)

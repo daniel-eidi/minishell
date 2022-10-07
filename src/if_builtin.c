@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   if_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
+/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 16:39:10 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/04 14:08:31 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/07 05:59:37 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,5 @@ void	run_builtin(char **cmd)
 		builtin_unset(cmd);
 	if (!ft_strcmp(cmd[0], "exit" ))
 		exit_minishell(cmd);
+	exit (0);
 }
