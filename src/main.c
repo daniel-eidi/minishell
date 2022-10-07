@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:00:46 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/06 12:15:03 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/07 11:52:27 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,17 @@ int looping(char *line, char **cwd)
 	line = readline(*cwd);
 	free_ptr((void *)cwd);
 	free_ptr((void *)&s);
+
+
+	i = 0;
+	while ((line[i] == ' ') || (line[i] == '\t'))
+		i++;
+	if (!line[i])
+	{
+		free(line);
+		return (2);
+	}
+
 	if ( !line || ft_strcmp(line, "exit") == 0)
 	{
 		free(line);
@@ -64,19 +75,12 @@ int looping(char *line, char **cwd)
 	if (cmd[0] && !cmd[1])
 		check_run_not_fork(cmd[0], &i, aux);
 	while(cmd[++i] != NULL)	{
-		fork_open_exec(cmd[i], i, aux);	}
+		fork_open_exec(cmd, i, aux);	}
+	free_split((void **)cmd);
 	after_fork(i, aux->pipes, aux->pids);
 	free_ptr((void *)&aux);
-	free_split((void **)cmd);
 	free_ptr((void *)&cmd);
 	return(1);
-}
-
-void	clear_data()
-{
-	clear_table(g_data->hash_table);
-	free(g_data);
-	clear_history();
 }
 
 int main(int argc, char **argv, char **envp)

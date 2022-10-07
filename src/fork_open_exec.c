@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   fork_open_exec.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:55:34 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/07 15:05:28 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/07 11:53:49 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	fork_open_exec( char *cmd, int n_cmd, t_pids_pipes *aux)
+void	fork_open_exec(char **cmd, int n_cmd, t_pids_pipes *aux)
 {
 	t_cmd	*cmd_table;
-	int	have_file;
+	int		have_file;
 
 	have_file = 0;
 	signal(SIGINT, ctrlc_fork);
@@ -26,7 +26,9 @@ void	fork_open_exec( char *cmd, int n_cmd, t_pids_pipes *aux)
 	if (aux->pids[n_cmd] == 0)
 	{
 		signal_for_child();
-		cmd_table = make_cmd_table(cmd);
+		cmd_table = make_cmd_table(cmd[n_cmd]);
+		free_split((void **)cmd);
+		free(cmd);
 		close_pipes(aux->total_cmd, aux->pipes, n_cmd);
 		open_fds(cmd_table->redirections, aux, n_cmd, &have_file);
 		if(n_cmd != 0 || have_file == 1 || have_file == 3)
@@ -35,10 +37,13 @@ void	fork_open_exec( char *cmd, int n_cmd, t_pids_pipes *aux)
 			dup2(aux->pipes[(n_cmd + 1)][1], STDOUT_FILENO);
 		close(aux->pipes[n_cmd][0]);
 		close(aux->pipes[(n_cmd + 1)][1]);
-		free_ptr((void **) aux->pipes);
+		//free_ptr((void **) aux->pipes);
+	//dprintf(2, "aux->pipes[0] = %p\n", aux->pipes[0]);
 		if (!is_builtin(cmd_table->cmd_and_args))
 			exec_cmd(cmd_table->cmd_and_args);
-		return (run_builtin_fork(cmd_table->cmd_and_args));
+		run_builtin_fork(cmd_table->cmd_and_args, aux);
+		clear_cmd_table(cmd_table);
+		exit (0);
 	}
 }
 

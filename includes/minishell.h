@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 22:32:00 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/07 15:04:48 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/07 11:54:12 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void	hash_envp(t_data *data, char **envp);
 ** get_next_line
 */
 # include "../libft/libft.h"
+void	clear_data();
 void	exit_minishell(char **cmd);
 char	*ft_get_next_line_lim(int fd, char *limiter);
 char	*find_absolute_path(char *path);
@@ -101,13 +102,13 @@ void	builtin_export(char **cmd);
 void	builtin_unset(char **cmd);
 int 	is_builtin(char	**cmd);
 void	run_builtin(char **cmd);
-void	run_builtin_fork(char **cmd);
+void	run_builtin_fork(char **cmd, t_pids_pipes *aux);
 
 
 // ------ fork
 
 void	before_fork(char **cmd, t_pids_pipes **pid_pipe);
-void	fork_open_exec( char *cmd, int n_cmd, t_pids_pipes *pid_pipe);
+void	fork_open_exec(char **cmd, int n_cmd, t_pids_pipes *pid_pipe);
 void	after_fork(int n_cmd, int **pipes, pid_t *pid);
 void	exec_cmd(char **args);
 void	open_fds(char **redir, t_pids_pipes *aux, int n_cmd, int *have_file);

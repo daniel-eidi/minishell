@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   if_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 16:39:10 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/07 15:04:25 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/07 11:55:12 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+void	free_and_exit(t_pids_pipes *aux)
+{
+	free_ptr((void *) &aux->pids);
+	free_split((void **)aux->pipes);
+	free(aux->pipes);
+	free(aux);
+	clear_data();
+}
 
 int	is_builtin(char **cmd)
 {
@@ -25,7 +34,7 @@ int	is_builtin(char **cmd)
 	return (0);
 }
 
-void	run_builtin_fork(char **cmd)
+void	run_builtin_fork(char **cmd, t_pids_pipes *aux)
 {
 	if (!ft_strcmp(cmd[0], "cd" ))
 		builtin_cd(cmd);
@@ -41,7 +50,7 @@ void	run_builtin_fork(char **cmd)
 		builtin_unset(cmd);
 	if (!ft_strcmp(cmd[0], "exit" ))
 		exit_minishell(cmd);
-	exit (0);
+	free_and_exit(aux);
 }
 
 void	run_builtin(char **cmd)
