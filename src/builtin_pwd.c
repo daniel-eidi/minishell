@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 19:52:02 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/09/22 23:41:23 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/07 04:30:50 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,5 @@ void	builtin_pwd(void)
 		printf("%s\n", ((t_item *)temp->content)->value);
 		g_data->exit_code = 0;
 	}
+	exit (0);
 }
