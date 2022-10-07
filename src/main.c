@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:00:46 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/07 11:52:27 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/07 12:45:27 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,15 @@
 
 t_data	*g_data;
 
-static void	check_run_not_fork(char *cmd, int *i, t_pids_pipes *aux)
+static void	check_run_not_fork(char **cmd, int *i, t_pids_pipes *aux)
 {
 	t_cmd	*cmd_table;
 	int		have_file;
 	
 	have_file = 0;
-	cmd_table = make_cmd_table(cmd);
+	cmd_table = make_cmd_table(*cmd);
+	free_split((void **)cmd);
+	free(cmd);
 	if (cmd_table->cmd_and_args)
 	{
 		if(is_builtin(cmd_table->cmd_and_args) == 2)
@@ -30,10 +32,9 @@ static void	check_run_not_fork(char *cmd, int *i, t_pids_pipes *aux)
 			open_fds(cmd_table->redirections, aux, 0, &have_file);
 			if (have_file > 1)
 				dup2(aux->pipes[1][1], STDOUT_FILENO);
-			run_builtin(cmd_table->cmd_and_args);
+			run_builtin(cmd_table, aux);
 			*i = *i + 1;
 		}
-	clear_cmd_table(cmd_table);
 	}
 }
 
@@ -73,7 +74,7 @@ int looping(char *line, char **cwd)
 	prepare_heredoc(cmd);
 	i = -1;
 	if (cmd[0] && !cmd[1])
-		check_run_not_fork(cmd[0], &i, aux);
+		check_run_not_fork(cmd, &i, aux);
 	while(cmd[++i] != NULL)	{
 		fork_open_exec(cmd, i, aux);	}
 	free_split((void **)cmd);
@@ -98,6 +99,6 @@ int main(int argc, char **argv, char **envp)
 	while(loop)
 		loop = looping(line, &cwd);
 	clear_data();
-	exit_minishell(NULL);
+	exit_minishell(NULL, NULL);
 	return(0);
 }

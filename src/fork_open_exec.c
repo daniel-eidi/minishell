@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:55:34 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/07 11:53:49 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/07 13:01:44 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,9 @@ void	fork_open_exec(char **cmd, int n_cmd, t_pids_pipes *aux)
 			dup2(aux->pipes[(n_cmd + 1)][1], STDOUT_FILENO);
 		close(aux->pipes[n_cmd][0]);
 		close(aux->pipes[(n_cmd + 1)][1]);
-		//free_ptr((void **) aux->pipes);
-	//dprintf(2, "aux->pipes[0] = %p\n", aux->pipes[0]);
 		if (!is_builtin(cmd_table->cmd_and_args))
 			exec_cmd(cmd_table->cmd_and_args);
-		run_builtin_fork(cmd_table->cmd_and_args, aux);
+		run_builtin_fork(cmd_table, aux);
 		clear_cmd_table(cmd_table);
 		exit (0);
 	}

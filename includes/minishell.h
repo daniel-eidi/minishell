@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 22:32:00 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/07 11:54:12 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/07 13:02:33 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ void	hash_envp(t_data *data, char **envp);
 */
 # include "../libft/libft.h"
 void	clear_data();
-void	exit_minishell(char **cmd);
+void	exit_minishell(t_cmd *cmd_table, t_pids_pipes *aux);
+void	free_and_exit(t_pids_pipes *aux);
 char	*ft_get_next_line_lim(int fd, char *limiter);
 char	*find_absolute_path(char *path);
 void	restore_char(char **exec_args, char find, char change);
@@ -101,8 +102,8 @@ void	builtin_env();
 void	builtin_export(char **cmd);
 void	builtin_unset(char **cmd);
 int 	is_builtin(char	**cmd);
-void	run_builtin(char **cmd);
-void	run_builtin_fork(char **cmd, t_pids_pipes *aux);
+void	run_builtin(t_cmd *cmd_table, t_pids_pipes *aux);
+void	run_builtin_fork(t_cmd *cmd_table, t_pids_pipes *aux);
 
 
 // ------ fork

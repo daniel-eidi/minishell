@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 16:39:10 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/07 11:55:12 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/07 13:15:15 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 
 void	free_and_exit(t_pids_pipes *aux)
 {
-	free_ptr((void *) &aux->pids);
-	free_split((void **)aux->pipes);
-	free(aux->pipes);
-	free(aux);
+	if (aux)
+	{
+		free_ptr((void *) &aux->pids);
+		free_split((void **)aux->pipes);
+		free(aux->pipes);
+		free(aux);
+	}
 	clear_data();
 }
 
@@ -34,8 +37,11 @@ int	is_builtin(char **cmd)
 	return (0);
 }
 
-void	run_builtin_fork(char **cmd, t_pids_pipes *aux)
+void	run_builtin_fork(t_cmd *cmd_table, t_pids_pipes *aux)
 {
+	char **cmd;
+
+	cmd = cmd_table->cmd_and_args;
 	if (!ft_strcmp(cmd[0], "cd" ))
 		builtin_cd(cmd);
 	if (!ft_strcmp(cmd[0], "echo" ))
@@ -49,12 +55,15 @@ void	run_builtin_fork(char **cmd, t_pids_pipes *aux)
 	if (!ft_strcmp(cmd[0], "unset" ))
 		builtin_unset(cmd);
 	if (!ft_strcmp(cmd[0], "exit" ))
-		exit_minishell(cmd);
+		exit_minishell(cmd_table, aux);
 	free_and_exit(aux);
 }
 
-void	run_builtin(char **cmd)
+void	run_builtin(t_cmd *cmd_table, t_pids_pipes *aux)
 {
+	char	**cmd;
+
+	cmd = cmd_table->cmd_and_args;
 	if (!ft_strcmp(cmd[0], "cd" ))
 		builtin_cd(cmd);
 	if (!ft_strcmp(cmd[0], "echo" ))
@@ -68,5 +77,5 @@ void	run_builtin(char **cmd)
 	if (!ft_strcmp(cmd[0], "unset" ))
 		builtin_unset(cmd);
 	if (!ft_strcmp(cmd[0], "exit" ))
-		exit_minishell(cmd);
+		exit_minishell(cmd_table, aux);
 }
