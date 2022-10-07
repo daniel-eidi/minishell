@@ -6,23 +6,11 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 16:39:10 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/07 13:15:15 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/07 16:15:38 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-void	free_and_exit(t_pids_pipes *aux)
-{
-	if (aux)
-	{
-		free_ptr((void *) &aux->pids);
-		free_split((void **)aux->pipes);
-		free(aux->pipes);
-		free(aux);
-	}
-	clear_data();
-}
 
 int	is_builtin(char **cmd)
 {

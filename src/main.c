@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:00:46 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/07 12:45:27 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/07 15:58:08 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ static void	check_run_not_fork(char **cmd, int *i, t_pids_pipes *aux)
 	
 	have_file = 0;
 	cmd_table = make_cmd_table(*cmd);
-	free_split((void **)cmd);
-	free(cmd);
 	if (cmd_table->cmd_and_args)
 	{
 		if(is_builtin(cmd_table->cmd_and_args) == 2)
@@ -32,17 +30,20 @@ static void	check_run_not_fork(char **cmd, int *i, t_pids_pipes *aux)
 			open_fds(cmd_table->redirections, aux, 0, &have_file);
 			if (have_file > 1)
 				dup2(aux->pipes[1][1], STDOUT_FILENO);
+			free_split((void **)cmd);
+			free(cmd);
 			run_builtin(cmd_table, aux);
 			*i = *i + 1;
 		}
 	}
+	clear_cmd_table(cmd_table);
 }
 
 int looping(char *line, char **cwd)
 {
 	char		**cmd;
 	int			i;
-	t_pids_pipes *aux;
+//	t_pids_pipes *aux;
 	char		*s;
 
 	signal_for_main();
@@ -70,16 +71,16 @@ int looping(char *line, char **cwd)
 	if(ft_strlen(line) > 0)
 		add_history(line);
 	cmd = token_line(line);
-	before_fork(cmd, &aux);
+	before_fork(cmd, &g_data->aux);
 	prepare_heredoc(cmd);
 	i = -1;
 	if (cmd[0] && !cmd[1])
-		check_run_not_fork(cmd, &i, aux);
+		check_run_not_fork(cmd, &i, g_data->aux);
 	while(cmd[++i] != NULL)	{
-		fork_open_exec(cmd, i, aux);	}
+		fork_open_exec(cmd, i, g_data->aux);	}
 	free_split((void **)cmd);
-	after_fork(i, aux->pipes, aux->pids);
-	free_ptr((void *)&aux);
+	after_fork(i, g_data->aux->pipes, g_data->aux->pids);
+	free_ptr((void *)&g_data->aux);
 	free_ptr((void *)&cmd);
 	return(1);
 }

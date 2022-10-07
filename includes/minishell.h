@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 22:32:00 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/07 13:02:33 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/07 16:43:28 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,26 @@ char	**token_line(char *line);
 char	*exp_var(char *s, t_list **table);
 
 
+
+typedef struct s_pids_pipes
+{
+    int		**pipes;
+    pid_t	*pids;
+	int		total_cmd;
+}    t_pids_pipes;
+
+typedef struct s_cmd
+{
+    char **cmd_and_args;
+    char **redirections;
+}    t_cmd;
+
 typedef struct s_data
 {
     struct s_list    **hash_table;
 	int				exit_code;
+	t_pids_pipes	*aux;
+	t_cmd			*global_table;
 }    t_data;
 extern t_data	*g_data;
 t_data *init_data(void);
@@ -56,19 +72,6 @@ t_data *init_data(void);
 //t_list	**make_cmd_table(char **words);
 //void	clear_cmd_table(t_list **cmd_table);
 
-typedef struct s_cmd
-{
-    char **cmd_and_args;
-    char **redirections;
-}    t_cmd;
-
-typedef struct s_pids_pipes
-{
-    int		**pipes;
-    pid_t	*pids;
-	int		total_cmd;
-}    t_pids_pipes;
-
 t_cmd    *make_cmd_table(char *line);
 void    clear_cmd_table(t_cmd *table);
 
@@ -81,6 +84,7 @@ void	hash_envp(t_data *data, char **envp);
 # include "../libft/libft.h"
 void	clear_data();
 void	exit_minishell(t_cmd *cmd_table, t_pids_pipes *aux);
+void	free_pids_and_pipes(t_pids_pipes *aux);
 void	free_and_exit(t_pids_pipes *aux);
 char	*ft_get_next_line_lim(int fd, char *limiter);
 char	*find_absolute_path(char *path);
@@ -111,7 +115,6 @@ void	run_builtin_fork(t_cmd *cmd_table, t_pids_pipes *aux);
 void	before_fork(char **cmd, t_pids_pipes **pid_pipe);
 void	fork_open_exec(char **cmd, int n_cmd, t_pids_pipes *pid_pipe);
 void	after_fork(int n_cmd, int **pipes, pid_t *pid);
-void	exec_cmd(char **args);
 void	open_fds(char **redir, t_pids_pipes *aux, int n_cmd, int *have_file);
 
 // ---utils fork_exec

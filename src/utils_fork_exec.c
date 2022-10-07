@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_fork_exec.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:48:08 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/07 04:20:27 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/07 16:15:59 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ char	*get_path(char **cmd, const char *path)
 	}
 	write(2, cmd[0], ft_strlen(cmd[0]));
 	free(cmd);
+	free_pids_and_pipes(g_data->aux);
 	error(": command not found\n", 127);
 	return (NULL);
 }
