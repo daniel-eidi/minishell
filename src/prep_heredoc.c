@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 08:09:33 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/06 12:27:54 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/07 04:19:42 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static void	process_heredoc(char *redir, int n_cmd, int *fd)
 	name = ft_strjoin("/tmp/inputfile", n_cmd_str);
 	free(n_cmd_str);
 	fd[0] = open_ok(name, O_WRONLY | O_CREAT | O_TRUNC, 1);
-	printf("criou heredoc %s\n", name);
 	s = readline("> ");
 	while (s != NULL && ft_strcmp(s, redir))
 	{

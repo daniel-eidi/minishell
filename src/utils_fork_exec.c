@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:48:08 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/06 12:28:38 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/07 04:20:27 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	open_ok(char *file_str, int flag, int inout)
 	(void)inout;
 	if ((inout == 0) && (access(file, F_OK) == -1))
 	{
-		write(2, file, ft_strlen(file));
+		write(2, file_str, ft_strlen(file_str));
 		error(": No such file or directory\n", 1);
 	}
 	else
@@ -39,7 +39,7 @@ int	open_ok(char *file_str, int flag, int inout)
 		fd = open(file, flag, 0644);
 		if (fd == -1)
 		{
-			write(2, file, ft_strlen(file));
+			write(2, file_str, ft_strlen(file_str));
 			error(": Permission denied\n", 1);
 		}
 	}
