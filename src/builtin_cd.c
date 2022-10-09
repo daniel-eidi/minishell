@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:32:57 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/08 21:18:58 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/09 10:00:17 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,23 +108,22 @@ void	go_up_one_dir(char *path)
 		path[i + 1] = '\0';
 }
 
-void	go_down_to_dir(char **path, char *dir)
+char	*go_down_to_dir(char *path, char *dir)
 {
 	char	*s;
 
-	//dprintf(2, "path = %s\n", path);
-	if (*path[ft_strlen(*path) - 1] != '/')
+	if (path[ft_strlen(path) - 1] != '/')
 	{
-		s = *path;
-		*path = ft_strjoin(*path, "/");
-		free(s);
+		s = ft_strjoin(path, "/");
+		free(path);
 	}
 	//dprintf(2, "path = %s\n", path);
-	s = *path;
-	*path = ft_strjoin(*path, dir);
+	path = ft_strjoin(s, dir);
 	//dprintf(2, "path = %s\n", path);
-	free(s);	
+	free(s);
+	return (path);
 }
+
 char	*find_absolute_path(char *path)
 {
 	char	*absolute_path;
@@ -151,7 +150,7 @@ char	*find_absolute_path(char *path)
 		else if (!ft_strcmp(args[i], "."))
 			continue ;
 		else
-			go_down_to_dir(&absolute_path, args[i]);
+			absolute_path = go_down_to_dir(absolute_path, args[i]);
 	//	dprintf(2, "absolute_path = %s\n", absolute_path);
 	}
 	free_split((void **)args);
