@@ -2,8 +2,8 @@
 
 void	clear_data()
 {
-	clear_table(g_data->hash_table);
-	free(g_data);
+	clear_table(g_data->hash_table);	
+	free_ptr((void *) &g_data);
 	rl_clear_history();
 }
 
@@ -17,6 +17,9 @@ void	free_pids_and_pipes(t_pids_pipes *aux)
 		free(aux);
 	}
 	clear_cmd_table(g_data->global_table);
+	//free_split((void **)g_data->main_cmd);
+	//free_ptr((void *) &g_data->main_cmd);
+	//clear_data();
 }
 
 void	free_and_exit(t_pids_pipes *aux)
@@ -26,7 +29,7 @@ void	free_and_exit(t_pids_pipes *aux)
 		free_ptr((void *) &aux->pids);
 		free_split((void **)aux->pipes);
 		free(aux->pipes);
-		free(aux);
 	}
+	free_ptr((void *)&g_data->aux);
 	clear_data();
 }

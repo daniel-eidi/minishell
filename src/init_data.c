@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
+/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 14:22:39 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/07 15:35:02 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/07 20:28:36 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ t_data *init_data(void)
 
 	g_data = (t_data *)ft_calloc(sizeof(t_data), 1);
 	g_data->hash_table = hash_table_init(20);
-	g_data->aux = malloc(sizeof(t_pids_pipes));
+//	g_data->aux = malloc(sizeof(t_pids_pipes));
+	g_data->aux = NULL;
 	return (g_data);
 }

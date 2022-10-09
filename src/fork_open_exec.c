@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork_open_exec.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
+/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:55:34 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/07 16:42:51 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/08 20:59:13 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	fork_open_exec(char **cmd, int n_cmd, t_pids_pipes *aux)
 		if (!is_builtin(g_data->global_table->cmd_and_args))
 			exec_cmd(g_data->global_table);
 		run_builtin_fork(g_data->global_table, aux);
-		clear_cmd_table(g_data->global_table);
+		//clear_cmd_table(g_data->global_table);
 		exit (0);
 	}
 }
@@ -123,7 +123,16 @@ void	exec_cmd(t_cmd *cmd_table)
 			ft_putstr_fd("Error: path not found\n", STDERR_FILENO);
 			exit(EXIT_FAILURE);
 		}
-		cmd_path = get_path(&args[0], ((t_item *)temp->content)->value);
+		if(!(cmd_path = get_path(&args[0], ((t_item *)temp->content)->value)))
+		{
+			//free(cmd);
+			write(2, args[0], ft_strlen(args[0]));
+			free_pids_and_pipes(g_data->aux);
+			free_split((void **) environ);
+			free(environ);
+			clear_data();
+			error_fork(": command not found\n", 127);
+		}
 	}
 	if (execve(cmd_path, args, environ) == -1)
 	{

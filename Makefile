@@ -54,7 +54,9 @@ OBJ= $(addprefix $(OBJ_PATH), $(notdir $(SRC:.c=.o)))
 CF 			= -Wall -Wextra -Werror -g
 CC 			= cc
 CFI 		= -I$(INCLUDES)
-LEAKS 		= valgrind --leak-check=full --show-leak-kinds=all \
+LEAKS 		= valgrind \
+				--leak-check=full \
+				--show-leak-kinds=all 
 			   --suppressions=readline.supp
 LEAKS_FILE	= valgrind-out.txt
 

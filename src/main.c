@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
+/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:00:46 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/07 15:58:08 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/08 16:36:15 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ static void	check_run_not_fork(char **cmd, int *i, t_pids_pipes *aux)
 			open_fds(cmd_table->redirections, aux, 0, &have_file);
 			if (have_file > 1)
 				dup2(aux->pipes[1][1], STDOUT_FILENO);
-			free_split((void **)cmd);
-			free(cmd);
 			run_builtin(cmd_table, aux);
 			*i = *i + 1;
 		}
@@ -41,7 +39,7 @@ static void	check_run_not_fork(char **cmd, int *i, t_pids_pipes *aux)
 
 int looping(char *line, char **cwd)
 {
-	char		**cmd;
+//	char		**cmd;
 	int			i;
 //	t_pids_pipes *aux;
 	char		*s;
@@ -70,18 +68,19 @@ int looping(char *line, char **cwd)
 	}
 	if(ft_strlen(line) > 0)
 		add_history(line);
-	cmd = token_line(line);
-	before_fork(cmd, &g_data->aux);
-	prepare_heredoc(cmd);
+	g_data->main_cmd = token_line(line);
+	before_fork(g_data->main_cmd, &g_data->aux);
+	prepare_heredoc(g_data->main_cmd);
 	i = -1;
-	if (cmd[0] && !cmd[1])
-		check_run_not_fork(cmd, &i, g_data->aux);
-	while(cmd[++i] != NULL)	{
-		fork_open_exec(cmd, i, g_data->aux);	}
-	free_split((void **)cmd);
+	if (g_data->main_cmd[0] && !g_data->main_cmd[1])
+		check_run_not_fork(g_data->main_cmd, &i, g_data->aux);
+	while(g_data->main_cmd[++i] != NULL)	{
+		fork_open_exec(g_data->main_cmd, i, g_data->aux);	}
 	after_fork(i, g_data->aux->pipes, g_data->aux->pids);
+	
+	free_split((void **)g_data->main_cmd);
 	free_ptr((void *)&g_data->aux);
-	free_ptr((void *)&cmd);
+	free_ptr((void *)&g_data->main_cmd);
 	return(1);
 }
 

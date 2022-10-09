@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
+/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 22:32:00 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/07 16:43:28 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/08 20:59:55 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_data
 	int				exit_code;
 	t_pids_pipes	*aux;
 	t_cmd			*global_table;
+    char            **main_cmd;
 }    t_data;
 extern t_data	*g_data;
 t_data *init_data(void);
@@ -82,6 +83,8 @@ void	hash_envp(t_data *data, char **envp);
 ** get_next_line
 */
 # include "../libft/libft.h"
+
+void print_array(char **array);
 void	clear_data();
 void	exit_minishell(t_cmd *cmd_table, t_pids_pipes *aux);
 void	free_pids_and_pipes(t_pids_pipes *aux);
@@ -126,6 +129,7 @@ pid_t	*create_pids(int n_cmd);
 char	*get_path(char **cmd, const char *path);
 int	open_ok(char *file, int flag, int inout);
 void	error(const char *s, int i);
+void	error_fork(const char *s, int i);
 
 // --- signals
 

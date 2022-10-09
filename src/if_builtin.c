@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   if_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
+/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 16:39:10 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/07 16:15:38 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/07 20:36:53 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ void	run_builtin_fork(t_cmd *cmd_table, t_pids_pipes *aux)
 		builtin_unset(cmd);
 	if (!ft_strcmp(cmd[0], "exit" ))
 		exit_minishell(cmd_table, aux);
-	free_and_exit(aux);
+	free_pids_and_pipes(aux);
+	clear_data();
 }
 
 void	run_builtin(t_cmd *cmd_table, t_pids_pipes *aux)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_fork_exec.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
+/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:48:08 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/07 16:15:59 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/08 21:04:52 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,15 @@ void	error(const char *s, int i)
 {
 	write(2, s, ft_strlen(s));
 	g_data->exit_code = i;
+	if (i)
+		exit(i);
+	exit(EXIT_SUCCESS);
+}
+
+void	error_fork(const char *s, int i)
+{
+	write(2, s, ft_strlen(s));
+	//g_data->exit_code = i;
 	if (i)
 		exit(i);
 	exit(EXIT_SUCCESS);
@@ -60,7 +69,7 @@ char	*get_path(char **cmd, const char *path)
 			diff = ft_strlen(path);
 		dir = ft_substr(path, 0, diff);
 		file = ft_strjoin(dir, "/");
-		file = ft_strjoin(file, cmd[0]);
+		file = ft_strnjoin(file, cmd[0], ft_strlen(cmd[0]));
 		free(dir);
 		if (access(file, X_OK) == 0)
 			return (file);
@@ -71,9 +80,11 @@ char	*get_path(char **cmd, const char *path)
 		if (*path)
 			path++;
 	}
-	write(2, cmd[0], ft_strlen(cmd[0]));
-	free(cmd);
-	free_pids_and_pipes(g_data->aux);
-	error(": command not found\n", 127);
+	// write(2, cmd[0], ft_strlen(cmd[0]));
+	// //free(cmd);
+	// free_pids_and_pipes(g_data->aux);
+	
+	// clear_data();
+	// error_fork(": command not found\n", 127);
 	return (NULL);
 }

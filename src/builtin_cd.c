@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
+/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:32:57 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/06 12:00:54 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/08 21:18:58 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,8 @@ char	*find_absolute_path(char *path)
 			go_down_to_dir(&absolute_path, args[i]);
 	//	dprintf(2, "absolute_path = %s\n", absolute_path);
 	}
+	free_split((void **)args);
+	free_ptr((void *) &args);
 	return (absolute_path);
 }
 
@@ -186,6 +188,7 @@ static void	back_old_pwd(char **absolute_path)
 void	builtin_cd(char **cmd)
 {
 	char	*absolute_path;
+	char	*actual_pwd;
 	int		i;
 
 	i = 1;
@@ -205,8 +208,10 @@ void	builtin_cd(char **cmd)
 		absolute_path = find_absolute_path(cmd[i]);
 	if (is_dir(absolute_path, cmd[i]))
 	{
-		update_hashtable("OLDPWD", get_var_value("PWD"), g_data->hash_table);
+		actual_pwd = get_var_value("PWD");
+		update_hashtable("OLDPWD", actual_pwd, g_data->hash_table);
 		update_hashtable("PWD", absolute_path, g_data->hash_table);
+		free_ptr((void *) &actual_pwd);
 	}
 	free_ptr((void *)&absolute_path);
 }
