@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hash_table_utils.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/10 14:49:48 by mgaldino          #+#    #+#             */
+/*   Updated: 2022/10/10 14:55:22 by mgaldino         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 
 t_item	*new_item(char *new_key, char *new_value)
@@ -12,7 +24,7 @@ t_item	*new_item(char *new_key, char *new_value)
 
 void	insert_item(t_item *item, t_list **table)
 {
-	int	ind;
+	int		ind;
 	t_item	*aux;
 
 	ind = get_ind(item->key, table);
@@ -29,7 +41,7 @@ void	insert_item(t_item *item, t_list **table)
 t_list	**hash_table_init(int size)
 {
 	t_list	**table;
-	int 	i;
+	int		i;
 
 	table = (t_list **) malloc((size + 1) * (sizeof(t_list *)));
 	if (table)
@@ -52,7 +64,7 @@ t_list	*find_entry(char *searched_key, t_list **table)
 	while (aux)
 	{
 		if (!ft_strcmp(((t_item *)aux->content)->key, searched_key))
-			break;
+			break ;
 		aux = aux->next;
 	}
 	return (aux);
@@ -60,60 +72,13 @@ t_list	*find_entry(char *searched_key, t_list **table)
 
 void	update_hashtable(char *key, void *new_value, t_list	**hash_table)
 {
-	t_list *temp;
-	t_item *item;
+	t_list	*temp;
+	t_item	*item;
 
 	temp = find_entry(key, hash_table);
 	if (temp == NULL)
-		return;
+		return ;
 	item = temp->content;
 	free_ptr((void *)&item->value);
 	item->value = ft_strdup(new_value);
-}
-
-void	clear_item(void *item)
-{
-	t_item	*del_item;
-
-	del_item = (t_item *) item;
-	free(del_item->key);
-	free(del_item->value);
-	free(del_item);
-}
-
-void	delete_entry(char *searched_key, t_list **table)
-{
-	t_list	*aux;
-	t_list	*aux_prev;
-
-	aux = table[get_ind(searched_key, table)];
-	aux_prev = NULL;
-	while (aux)
-	{
-		if (!ft_strcmp(((t_item *)aux->content)->key, searched_key))
-			break;
-		aux_prev = aux;
-		aux = aux->next;
-	}
-	if (aux_prev)
-	{
-		aux_prev->next = aux->next;
-		clear_item(aux->content);
-		free(aux);
-	}
-	else
-	{
-		((t_item *)(aux->content))->key = NULL;
-		((t_item *)(aux->content))->value = NULL;
-	}
-}
-
-void	clear_table(t_list **table)
-{
-	int	i;
-
-	i = -1;
-	while (table[++i])
-		ft_lstclear(&table[i], clear_item);
-	free(table);
 }

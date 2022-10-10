@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_ind.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/10 15:10:04 by mgaldino          #+#    #+#             */
+/*   Updated: 2022/10/10 15:10:29 by mgaldino         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <hash_table.h>
 
 unsigned long	get_hash(char *s)
 {
 	unsigned long	hash;
-	int	i;
-	int	len;
+	int				i;
+	int				len;
 
 	len = ft_strlen(s);
 	hash = 0;

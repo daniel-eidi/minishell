@@ -14,6 +14,7 @@ SRC 		= 	main.c \
 				get_ind.c\
 				ft_pow.c\
 				hash_table_utils.c\
+				hash_table_utils2.c\
 				ft_lstnew.c\
 				ft_lstadd_back.c\
 				ft_lstclear.c\
@@ -28,6 +29,7 @@ SRC 		= 	main.c \
 				builtin_echo.c\
 				builtin_pwd.c\
 				builtin_cd.c\
+				builtin_cd2.c\
 				env_builtins.c\
 				builtin_export.c\
 				builtin_exit.c\
