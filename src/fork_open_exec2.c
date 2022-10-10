@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 15:35:59 by mgaldino          #+#    #+#             */
-/*   Updated: 2022/10/04 11:00:05 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/10 15:09:13 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	set_outfile_flags(int *fd, char *redir, int *flags, int *have_file)
 		*flags = O_WRONLY | O_CREAT | O_APPEND;
 	if (ft_strcmp (redir, ">") == 0)
 		*flags = O_WRONLY | O_CREAT | O_TRUNC;
-	if (*have_file == 1 || *have_file ==3)
+	if (*have_file == 1 || *have_file == 3)
 		*have_file = 3;
 	else
 		*have_file = 2;
@@ -61,7 +61,7 @@ void	open_fds(char **redir, t_pids_pipes *aux, int n_cmd, int *have_file)
 	int	fd[2];
 	int	i;
 	int	flags;
-	
+
 	fd[0] = 0;
 	fd[1] = 0;
 	i = -1;

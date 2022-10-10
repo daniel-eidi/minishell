@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   if_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 16:39:10 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/07 20:36:53 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/10 15:11:14 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	is_builtin(char **cmd)
 
 void	run_builtin_fork(t_cmd *cmd_table, t_pids_pipes *aux)
 {
-	char **cmd;
+	char	**cmd;
 
 	cmd = cmd_table->cmd_and_args;
 	if (!ft_strcmp(cmd[0], "cd" ))

@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 22:32:00 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/10 08:32:17 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/10 15:20:13 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ void	free_pids_and_pipes(t_pids_pipes *aux);
 void	free_and_exit(t_pids_pipes *aux);
 char	*ft_get_next_line_lim(int fd, char *limiter);
 char	*find_absolute_path(char *path);
+void	go_up_one_dir(char *path);
+char	*go_down_to_dir(char *path, char *dir);
 void	restore_char(char **exec_args, char find, char change);
 char	*ft_get_next_line_lim(int fd, char *limiter);
 void	free_ptr(void **ptr);
