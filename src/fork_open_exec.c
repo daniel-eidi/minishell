@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork_open_exec.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
+/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:55:34 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/10 12:08:45 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/10 15:07:42 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	exec_cmd(t_cmd *cmd_table);
 
 void	fork_open_exec(char **cmd, int n_cmd, t_pids_pipes *aux)
 {
-//	t_cmd	*cmd_table;
 	int		have_file;
 
 	have_file = 0;
@@ -33,7 +32,7 @@ void	fork_open_exec(char **cmd, int n_cmd, t_pids_pipes *aux)
 		free(cmd);
 		close_pipes(aux->total_cmd, aux->pipes, n_cmd);
 		open_fds(g_data->global_table->redirections, aux, n_cmd, &have_file);
-		if(n_cmd != 0 || have_file == 1 || have_file == 3)
+		if (n_cmd != 0 || have_file == 1 || have_file == 3)
 			dup2(aux->pipes[n_cmd][0], STDIN_FILENO);
 		if (n_cmd != (aux->total_cmd - 1) || have_file > 1)
 			dup2(aux->pipes[(n_cmd + 1)][1], STDOUT_FILENO);
@@ -42,7 +41,6 @@ void	fork_open_exec(char **cmd, int n_cmd, t_pids_pipes *aux)
 		if (!is_builtin(g_data->global_table->cmd_and_args))
 			exec_cmd(g_data->global_table);
 		run_builtin_fork(g_data->global_table, aux);
-		//clear_cmd_table(g_data->global_table);
 		exit (0);
 	}
 }
@@ -120,17 +118,14 @@ void	exec_cmd(t_cmd *cmd_table)
 	{
 		if (temp == NULL)
 		{
-			//ft_putstr_fd("Error: path not found\n", STDERR_FILENO);
-			//exit(EXIT_FAILURE);
 			free_pids_and_pipes(g_data->aux);
 			free_split((void **) environ);
 			free(environ);
 			clear_data();
 			error_fork("Error: path not found\n", 127);
 		}
-		if(!(cmd_path = get_path(&args[0], ((t_item *)temp->content)->value)))
+		if (!(cmd_path = get_path(&args[0], ((t_item *)temp->content)->value)))
 		{
-			//free(cmd);
 			write(2, args[0], ft_strlen(args[0]));
 			free_pids_and_pipes(g_data->aux);
 			free_split((void **) environ);

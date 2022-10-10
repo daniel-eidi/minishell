@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prep_heredoc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
+/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 08:09:33 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/10 14:24:53 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/10 14:55:43 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	ctrl_d_msg(char *redir)
 {
 	write(2, "warning: here-document delimited", 32);
-	write(2 ," by end-of-file (wanted `", 26);
+	write(2, " by end-of-file (wanted `", 26);
 	write(2, redir, ft_strlen(redir));
 	write(2, "')\n", 3);
 }
@@ -50,28 +50,27 @@ static void	open_heredoc(char **redir, int n_cmd)
 {
 	int	fd[2];
 	int	i;
-	
+
 	fd[0] = 0;
 	fd[1] = 0;
 	i = -1;
 	while (redir[++i])
 	{
 		if (ft_strcmp (redir[i], "<<") == 0)
-			//create_heredoc(redir[++i], aux->pipes[n_cmd][0]);
 			process_heredoc(redir[++i], n_cmd, fd);
 	}
 }
 
-void prepare_heredoc(char **cmds)
+void	prepare_heredoc(char **cmds)
 {
-		int	i;
-		t_cmd *cmd_table;
+	int		i;
+	t_cmd	*cmd_table;
 
-		i = -1;
-		while (cmds[++i])
-		{
-			cmd_table = make_cmd_table(cmds[i]);
-			open_heredoc(cmd_table->redirections, i);
-			clear_cmd_table (cmd_table);
-		}
+	i = -1;
+	while (cmds[++i])
+	{
+		cmd_table = make_cmd_table(cmds[i]);
+		open_heredoc(cmd_table->redirections, i);
+		clear_cmd_table (cmd_table);
+	}
 }

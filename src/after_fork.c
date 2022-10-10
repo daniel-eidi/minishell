@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/29 14:49:28 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/09 10:04:48 by daeidi-h         ###   ########.fr       */
+/*   Created: 2022/10/10 15:16:16 by daeidi-h          #+#    #+#             */
+/*   Updated: 2022/10/10 15:16:17 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	await_all_children(int children_count, pid_t *pid)
 	int	i;
 	int	wstatus;
 	int	pid_returned;
-	int lst_cmd_status;
+	int	lst_cmd_status;
 
 	i = -1;
 	lst_cmd_status = -1;

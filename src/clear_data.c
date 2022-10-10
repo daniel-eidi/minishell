@@ -1,8 +1,8 @@
 #include <minishell.h>
 
-void	clear_data()
+void	clear_data(void)
 {
-	clear_table(g_data->hash_table);	
+	clear_table(g_data->hash_table);
 	free_ptr((void *) &g_data);
 	rl_clear_history();
 }
@@ -17,9 +17,6 @@ void	free_pids_and_pipes(t_pids_pipes *aux)
 		free(aux);
 	}
 	clear_cmd_table(g_data->global_table);
-	//free_split((void **)g_data->main_cmd);
-	//free_ptr((void *) &g_data->main_cmd);
-	//clear_data();
 }
 
 void	free_and_exit(t_pids_pipes *aux)

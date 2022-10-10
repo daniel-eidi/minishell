@@ -1,9 +1,9 @@
 #include <minishell.h>
 
-void	builtin_env()
+void	builtin_env(void)
 {
 	t_list	*aux;
-	int	i;
+	int		i;
 
 	i = -1;
 	while (g_data->hash_table[++i])
@@ -11,7 +11,7 @@ void	builtin_env()
 		aux = (g_data->hash_table[i]);
 		while (aux)
 		{
-			ft_printf("%s=%s\n",((t_item *) aux->content)->key, \
+			ft_printf("%s=%s\n", ((t_item *) aux->content)->key, \
 					((t_item *) aux->content)->value);
 			aux = aux->next;
 		}

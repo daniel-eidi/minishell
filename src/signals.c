@@ -6,38 +6,38 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 19:41:44 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/06 13:37:47 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/10 15:13:05 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static void ctrlc_main(int signal)
+static void	ctrlc_main(int signal)
 {
 	(void)signal;
 	if (signal == SIGINT)
 	{
 		printf("\n");
-		rl_replace_line("",0);
+		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
 	}
 }
 
-void ctrlc_fork(int signal)
+void	ctrlc_fork(int signal)
 {
 	(void)signal;
 	if (signal == SIGINT)
 	{
 		printf("\n");
-		rl_replace_line("",0);
+		rl_replace_line("", 0);
 		rl_on_new_line();
 		g_data->exit_code = 130;
 	}
 	if (signal == SIGQUIT)
 	{
 		printf("Quit (core dumped)\n");
-		rl_replace_line("",0);
+		rl_replace_line("", 0);
 		rl_on_new_line();
 		g_data->exit_code = 131;
 	}
@@ -48,9 +48,9 @@ void	signal_for_main(void)
 	signal(SIGINT, ctrlc_main);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGTERM, ctrlc_main);
-} 
+}
 
-static void ctrlc_child(int signal)
+static void	ctrlc_child(int signal)
 {
 	(void)signal;
 	if (signal == SIGQUIT)

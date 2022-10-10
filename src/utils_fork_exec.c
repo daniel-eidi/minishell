@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_fork_exec.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
+/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:48:08 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/10 12:17:30 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/10 14:52:32 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	error(const char *s, int i)
 void	error_fork(const char *s, int i)
 {
 	write(2, s, ft_strlen(s));
-	//g_data->exit_code = i;
 	if (i)
 		exit(i);
 	exit(EXIT_SUCCESS);
@@ -74,17 +73,9 @@ char	*get_path(char **cmd, const char *path)
 		if (access(file, X_OK) == 0)
 			return (file);
 		free(file);
-		//if (ft_strlen(path) < (size_t)diff)
-		//	break ;
 		path += diff;
 		if (*path)
 			path++;
 	}
-	// write(2, cmd[0], ft_strlen(cmd[0]));
-	// //free(cmd);
-	// free_pids_and_pipes(g_data->aux);
-	
-	// clear_data();
-	// error_fork(": command not found\n", 127);
 	return (NULL);
 }
