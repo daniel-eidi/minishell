@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork_open_exec3.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
+/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 15:51:27 by mgaldino          #+#    #+#             */
-/*   Updated: 2022/10/10 17:53:09 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/10 18:45:01 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@ void	free_data_after_exec_cmd(char **environ)
 }
 
 void	if_absolute_path(t_list *temp, char **environ, \
-							char **args, char *cmd_path)
+							char **args, char **cmd_path)
 {
 	if (temp == NULL)
 	{
 		free_data_after_exec_cmd(environ);
 		error_fork("Error: path not found\n", 127);
 	}
-	cmd_path = get_path(&args[0], ((t_item *)temp->content)->value);
-	if (!(cmd_path))
+	*cmd_path = get_path(&args[0], ((t_item *)temp->content)->value);
+	if (!(*cmd_path))
 	{
 		write(2, args[0], ft_strlen(args[0]));
 		free_data_after_exec_cmd(environ);

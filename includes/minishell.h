@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
+/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 22:32:00 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/10 18:02:09 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/10 19:17:41 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,64 +28,43 @@
 # include <sys/wait.h>			// wait()
 # include <signal.h>			// sigaction()
 
-
+# include "../libft/libft.h"
 # include <hash_table.h>
-
 
 void	process_quotes(char *line);
 void	process_quotes2(char *line);
 char	**token_line(char *line);
 char	*exp_var(char *s, t_list **table);
 
-
-
 typedef struct s_pids_pipes
 {
-    int		**pipes;
-    pid_t	*pids;
+	int		**pipes;
+	pid_t	*pids;
 	int		total_cmd;
-}    t_pids_pipes;
+}	t_pids_pipes;
 
 typedef struct s_cmd
 {
-    char **cmd_and_args;
-    char **redirections;
-}    t_cmd;
+	char	**cmd_and_args;
+	char	**redirections;
+}	t_cmd;
 
 typedef struct s_data
 {
-    struct s_list    **hash_table;
+	struct s_list	**hash_table;
 	int				exit_code;
 	t_pids_pipes	*aux;
 	t_cmd			*global_table;
-    char            **main_cmd;
-}    t_data;
+	char			**main_cmd;
+}	t_data;
 extern t_data	*g_data;
-t_data *init_data(void);
+t_data	*init_data(void);
 
-// typedef struct s_cmd
-// {
-// 	t_list	*cmd;
-// 	t_list	*infiles;
-// 	t_list	*outfiles;
-// 	char	*errfile;
-// }	t_cmd;
-//t_list	**make_cmd_table(char **words);
-//void	clear_cmd_table(t_list **cmd_table);
-
-t_cmd    *make_cmd_table(char *line);
-void    clear_cmd_table(t_cmd *table);
-
+t_cmd	*make_cmd_table(char *line);
+void	clear_cmd_table(t_cmd *table);
 void	hash_envp(t_data *data, char **envp);
-
-/*
-** My own libft library, completed with previously implemented functions such as
-** get_next_line
-*/
-# include "../libft/libft.h"
-
 void	print_array(char **array);
-void	clear_data();
+void	clear_data(void);
 void	exit_minishell(t_cmd *cmd_table, t_pids_pipes *aux);
 void	free_pids_and_pipes(t_pids_pipes *aux);
 void	free_and_exit(t_pids_pipes *aux);
@@ -108,13 +87,12 @@ void	update_hashtable(char *key, void *new_value, t_list	**hash_table);
 void	builtin_echo(char **cmd);
 void	builtin_pwd(void);
 void	builtin_cd(char **cmd);
-void	builtin_env();
+void	builtin_env(void);
 void	builtin_export(char **cmd);
 void	builtin_unset(char **cmd);
-int 	is_builtin(char	**cmd);
+int		is_builtin(char	**cmd);
 void	run_builtin(t_cmd *cmd_table, t_pids_pipes *aux);
 void	run_builtin_fork(t_cmd *cmd_table, t_pids_pipes *aux);
-
 
 // ------ fork
 
@@ -125,6 +103,9 @@ void	open_fds(char **redir, t_pids_pipes *aux, int n_cmd, int *have_file);
 
 // ---utils fork_exec
 
+void	free_cmd_and_close_pipes(char **cmd, int n_cmd, t_pids_pipes *aux);
+void	if_absolute_path(t_list *temp, char **environ, char **args, \
+						char **cmd_path);
 int		**create_pipes(int n_cmd);
 void	close_pipes(int n_cmd, int **pipes, int i);
 void	close_pipes_main(int n_cmd, int **pipes);
@@ -141,6 +122,6 @@ void	signal_for_main(void);
 void	ctrlc_fork(int signal);
 
 //--- teste heredoc
-void prepare_heredoc(char **cmds);
+void	prepare_heredoc(char **cmds);
 
 #endif

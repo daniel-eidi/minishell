@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:55:34 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/10 15:07:42 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/10 18:49:00 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,7 @@ void	fork_open_exec(char **cmd, int n_cmd, t_pids_pipes *aux)
 	{
 		signal_for_child();
 		g_data->global_table = make_cmd_table(cmd[n_cmd]);
-		free_split((void **)cmd);
-		free(cmd);
-		close_pipes(aux->total_cmd, aux->pipes, n_cmd);
+		free_cmd_and_close_pipes(cmd, n_cmd, aux);
 		open_fds(g_data->global_table->redirections, aux, n_cmd, &have_file);
 		if (n_cmd != 0 || have_file == 1 || have_file == 3)
 			dup2(aux->pipes[n_cmd][0], STDIN_FILENO);
@@ -111,29 +109,12 @@ void	exec_cmd(t_cmd *cmd_table)
 
 	args = cmd_table->cmd_and_args;
 	environ = convert_hash_arr();
+	cmd_path = NULL;
 	temp = find_entry("PATH", g_data->hash_table);
 	if (*args[0] == '/' || *args[0] == '.' || *args[0] == '~')
 		cmd_path = find_absolute_path(args[0]);
 	else
-	{
-		if (temp == NULL)
-		{
-			free_pids_and_pipes(g_data->aux);
-			free_split((void **) environ);
-			free(environ);
-			clear_data();
-			error_fork("Error: path not found\n", 127);
-		}
-		if (!(cmd_path = get_path(&args[0], ((t_item *)temp->content)->value)))
-		{
-			write(2, args[0], ft_strlen(args[0]));
-			free_pids_and_pipes(g_data->aux);
-			free_split((void **) environ);
-			free(environ);
-			clear_data();
-			error_fork(": command not found\n", 127);
-		}
-	}
+		if_absolute_path(temp, environ, args, &cmd_path);
 	if (execve(cmd_path, args, environ) == -1)
 	{
 		write(1, cmd_path, ft_strlen(cmd_path));
