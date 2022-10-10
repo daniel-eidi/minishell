@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:32:57 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/09 10:00:17 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/10 08:24:46 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,10 +176,13 @@ static bool is_dir(char *absolute_path, char *cmd)
 static void	back_old_pwd(char **absolute_path)
 {
 	char	*s;
+	char	*str;
 
 	s = *absolute_path;
-	*absolute_path = ft_strdup(get_var_value("OLDPWD"));
+	str = get_var_value("OLDPWD");
+	*absolute_path = ft_strdup(str);
 	free(s);
+	free(str);
 	write(1, *absolute_path, ft_strlen(*absolute_path));
 	write(1, "\n", 1);
 }

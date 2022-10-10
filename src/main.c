@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:00:46 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/08 16:36:15 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/10 11:32:01 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,14 @@ int looping(char *line, char **cwd)
 	free_ptr((void *)cwd);
 	free_ptr((void *)&s);
 
-
 	i = 0;
-	while ((line[i] == ' ') || (line[i] == '\t'))
-		i++;
-	if (!line[i])
+	if (!line)
 	{
 		free(line);
-		return (2);
+		return (0);
 	}
-
+	while ((line[i] == ' ') || (line[i] == '\t'))
+		i++;
 	if ( !line || ft_strcmp(line, "exit") == 0)
 	{
 		free(line);

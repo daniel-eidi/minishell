@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 22:32:00 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/08 20:59:55 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/10 08:32:17 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	hash_envp(t_data *data, char **envp);
 */
 # include "../libft/libft.h"
 
-void print_array(char **array);
+void	print_array(char **array);
 void	clear_data();
 void	exit_minishell(t_cmd *cmd_table, t_pids_pipes *aux);
 void	free_pids_and_pipes(t_pids_pipes *aux);
@@ -127,7 +127,7 @@ void	close_pipes(int n_cmd, int **pipes, int i);
 void	close_pipes_main(int n_cmd, int **pipes);
 pid_t	*create_pids(int n_cmd);
 char	*get_path(char **cmd, const char *path);
-int	open_ok(char *file, int flag, int inout);
+int		open_ok(char *file, int flag, int inout);
 void	error(const char *s, int i);
 void	error_fork(const char *s, int i);
 

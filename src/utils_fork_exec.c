@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_fork_exec.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:48:08 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/08 21:04:52 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/10 12:17:30 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ char	*get_path(char **cmd, const char *path)
 		if (access(file, X_OK) == 0)
 			return (file);
 		free(file);
-		if (ft_strlen(path) < (size_t)diff)
-			break ;
+		//if (ft_strlen(path) < (size_t)diff)
+		//	break ;
 		path += diff;
 		if (*path)
 			path++;

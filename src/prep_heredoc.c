@@ -3,42 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   prep_heredoc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 08:09:33 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/07 04:19:42 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/10 14:24:53 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
+static void	ctrl_d_msg(char *redir)
+{
+	write(2, "warning: here-document delimited", 32);
+	write(2 ," by end-of-file (wanted `", 26);
+	write(2, redir, ft_strlen(redir));
+	write(2, "')\n", 3);
+}
+
 static void	process_heredoc(char *redir, int n_cmd, int *fd)
 {
 	char	*s;
 	char	*n_cmd_str;
-	char	*name;
 
 	if (fd[0])
 		close(fd[0]);
 	n_cmd_str = ft_itoa(n_cmd);
-	name = ft_strjoin("/tmp/inputfile", n_cmd_str);
+	s = ft_strjoin("/tmp/inputfile", n_cmd_str);
 	free(n_cmd_str);
-	fd[0] = open_ok(name, O_WRONLY | O_CREAT | O_TRUNC, 1);
+	fd[0] = open_ok(s, O_WRONLY | O_CREAT | O_TRUNC, 1);
+	free(s);
 	s = readline("> ");
 	while (s != NULL && ft_strcmp(s, redir))
 	{
 		write(fd[0], s, ft_strlen(s));
 		write(fd[0], "\n", 1);
+		free(s);
 		s = readline("> ");
 	}
 	if (!s)
-	{
-		write(2, "warning: here-document delimited", 32);
-		write(2 ," by end-of-file (wanted `", 26);
-		write(2, redir, ft_strlen(redir));
-		write(2, "')\n", 3);
-	}	
+		ctrl_d_msg(redir);
 	close(fd[0]);
+	free(s);
 }
 
 static void	open_heredoc(char **redir, int n_cmd)

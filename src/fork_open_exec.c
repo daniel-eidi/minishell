@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork_open_exec.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:55:34 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/08 20:59:13 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/10 12:08:45 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,8 +120,13 @@ void	exec_cmd(t_cmd *cmd_table)
 	{
 		if (temp == NULL)
 		{
-			ft_putstr_fd("Error: path not found\n", STDERR_FILENO);
-			exit(EXIT_FAILURE);
+			//ft_putstr_fd("Error: path not found\n", STDERR_FILENO);
+			//exit(EXIT_FAILURE);
+			free_pids_and_pipes(g_data->aux);
+			free_split((void **) environ);
+			free(environ);
+			clear_data();
+			error_fork("Error: path not found\n", 127);
 		}
 		if(!(cmd_path = get_path(&args[0], ((t_item *)temp->content)->value)))
 		{
