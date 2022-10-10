@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exp_var.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/10 16:52:40 by mgaldino          #+#    #+#             */
+/*   Updated: 2022/10/10 16:53:24 by mgaldino         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 
 int	get_var_ind(char *s)
@@ -52,8 +64,8 @@ char	*exp_var(char *line, t_list **table)
 	ind = get_var_ind(line);
 	if (ind == -1)
 	{
-		 new_line = ft_strdup(line);
-		 free_ptr((void *)&line);
+		new_line = ft_strdup(line);
+		free_ptr((void *)&line);
 		return (new_line);
 	}
 	while (ind > -1)

@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 15:16:16 by mgaldino          #+#    #+#             */
-/*   Updated: 2022/10/10 15:20:31 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/10 17:08:20 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,13 @@ char	*get_var_value(char *key)
 	if (temp == NULL)
 		return ("");
 	return (ft_strdup(((t_item *)temp->content)->value));
+}
+
+char	*free_args_and_return(char **args, char *absolute_path)
+{
+	free_split((void **)args);
+	free_ptr((void *) &args);
+	return (absolute_path);
 }
 
 char	*find_absolute_path(char *path)
@@ -48,9 +55,7 @@ char	*find_absolute_path(char *path)
 		else
 			absolute_path = go_down_to_dir(absolute_path, args[i]);
 	}
-	free_split((void **)args);
-	free_ptr((void *) &args);
-	return (absolute_path);
+	return (free_args_and_return(args, absolute_path));
 }
 
 void	go_up_one_dir(char *path)

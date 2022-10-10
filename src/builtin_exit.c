@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 13:45:16 by mgaldino          #+#    #+#             */
-/*   Updated: 2022/10/10 11:24:12 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/10 16:52:01 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,33 @@ int	first_argument_not_numeric(char **cmd)
 	return (0);
 }
 
-void exit_minishell(t_cmd *cmd_table, t_pids_pipes *aux)
+int	set_exit_code(char **cmd, int n)
+{
+	int		s;
+
+	if (cmd[1])
+	{
+		if (n)
+			s = 2;
+		else
+			s = ft_atoi(cmd[1]);
+	}
+	else
+		s = 0;
+	return (s);
+}
+
+void	free_global_main_cmd(void)
+{
+	free_split((void **)g_data->main_cmd);
+	free_ptr((void *)&g_data->main_cmd);
+}
+
+void	exit_minishell(t_cmd *cmd_table, t_pids_pipes *aux)
 {
 	char	**cmd;
-	int		s;
 	int		n;
+	int		s;
 
 	printf("exit\n");
 	if (cmd_table == NULL)
@@ -55,16 +77,9 @@ void exit_minishell(t_cmd *cmd_table, t_pids_pipes *aux)
 	}
 	if (!cmd)
 		exit(0);
+	s = set_exit_code(cmd, n);
+	free_global_main_cmd();
 	free_and_exit(aux);
-	if (cmd[1])
-	{
-		if (n)
-			s = 2;
-		else
-			s = ft_atoi(cmd[1]);
-	}
-	else
-		s = 0;
 	clear_cmd_table(cmd_table);
 	exit (s);
 }

@@ -30,6 +30,7 @@ SRC 		= 	main.c \
 				builtin_pwd.c\
 				builtin_cd.c\
 				builtin_cd2.c\
+				builtin_cd3.c\
 				env_builtins.c\
 				builtin_export.c\
 				builtin_exit.c\
