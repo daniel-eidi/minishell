@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:32:57 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/11 11:01:17 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/11 18:31:37 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,7 @@ void	builtin_cd(char **cmd)
 		update_hashtable("PWD", absolute_path, g_data->hash_table);
 		free_ptr((void *) &actual_pwd);
 	}
+	else
+		g_data->exit_code = 1;
 	free_ptr((void *)&absolute_path);
 }

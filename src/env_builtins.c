@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 18:08:13 by mgaldino          #+#    #+#             */
-/*   Updated: 2022/10/10 18:08:14 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/11 18:36:56 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,5 @@ void	builtin_unset(char **cmd)
 	i = 0;
 	while (cmd[++i])
 		unset_cmd(cmd[i]);
+	g_data->exit_code = 0;
 }

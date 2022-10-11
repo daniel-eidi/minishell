@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 22:32:00 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/11 14:42:24 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/11 18:01:42 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ void	fork_open_exec(char **cmd, int n_cmd, t_pids_pipes *pid_pipe);
 void	after_fork(int n_cmd, int **pipes, pid_t *pid);
 void	open_fds(char **redir, t_pids_pipes *aux, int n_cmd, int *have_file);
 void	open_fdsfrk(char **redir, t_pids_pipes *aux, int n_cmd, int *have_file);
+void	set_infile_flags(int *fd, char *redir, int *flags, int *have_file);
+void	set_outfile_flags(int *fd, char *redir, int *flags, int *have_file);
 void	free_data_after_exec_cmd(char **environ);
 
 // ---utils fork_exec
