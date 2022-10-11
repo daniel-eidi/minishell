@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 17:49:23 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/07 06:02:01 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/11 09:47:32 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void	builtin_echo(char **cmd)
 		end_line = "";
 		i++;
 	}
-	ft_printf("%s", cmd[i++]);
+	if (cmd[i])
+		ft_printf("%s", cmd[i++]);
 	while (cmd[i])
 		ft_printf(" %s", cmd[i++]);
 	ft_printf("%s", end_line);
