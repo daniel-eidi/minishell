@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:48:08 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/11 14:48:10 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/11 15:58:19 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	open_ok(char *file_str, int flag, int inout)
 	if ((inout == 0) && (access(file, F_OK) == -1))
 	{
 		write(2, file_str, ft_strlen(file_str));
-		//error(": No such file or directory\n", 1);
+		error(": No such file or directory\n", 1);
 	}
 	else
 	{
@@ -48,7 +48,7 @@ int	open_ok(char *file_str, int flag, int inout)
 		if (fd == -1)
 		{
 			write(2, file_str, ft_strlen(file_str));
-		//	error(": Permission denied\n", 1);
+			error(": Permission denied\n", 1);
 		}
 	}
 	free(file);
