@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_cmd_table.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 16:58:51 by mgaldino          #+#    #+#             */
-/*   Updated: 2022/10/08 16:46:04 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/11 10:33:26 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ t_cmd	*alloc_cmd(char **split)
 	i = -1;
 	while (split[++i])
 	{
-		if ((split[i][0] == '>') || (split[i][0] == '<'))
+		if ((!ft_strcmp(split[i], ">")) || (!ft_strcmp(split[i], "<")) || \
+			(!ft_strcmp(split[i], ">>")) || (!ft_strcmp(split[i], "<<")))
 		{
 			n_redir += 2;
 			i++;
@@ -77,7 +78,8 @@ void	fill_cmd_table(t_cmd *table, char **split)
 	i = -1;
 	while (split[++i])
 	{
-		if ((split[i][0] == '>') || (split[i][0] == '<'))
+		if ((!ft_strcmp(split[i], ">")) || (!ft_strcmp(split[i], "<")) || \
+			(!ft_strcmp(split[i], ">>")) || (!ft_strcmp(split[i], "<<")))
 		{
 			table->redirections[++redir_ind] = ft_strdup(split[i]);
 			table->redirections[++redir_ind] = ft_strdup(split[++i]);
