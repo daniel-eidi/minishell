@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork_open_exec3.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 15:51:27 by mgaldino          #+#    #+#             */
-/*   Updated: 2022/10/10 18:45:01 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/11 11:48:02 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,11 @@
 void	free_data_after_exec_cmd(char **environ)
 {
 	free_pids_and_pipes(g_data->aux);
-	free_split((void **) environ);
-	free(environ);
+	if (environ)
+	{
+		free_split((void **) environ);
+		free(environ);
+	}
 	clear_data();
 }
 

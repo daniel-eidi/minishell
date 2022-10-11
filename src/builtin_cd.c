@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:32:57 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/10 15:44:29 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/11 11:01:17 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	builtin_cd(char **cmd)
 	g_data->exit_code = 0;
 	absolute_path = NULL;
 	if (cmd[i] == NULL)
-		absolute_path = ft_strdup(get_var_value("HOME"));
+		absolute_path = get_var_value("HOME");
 	else if (!ft_strcmp(cmd[i], "-"))
 		back_old_pwd(&absolute_path);
 	else if (cmd[i] && cmd[i + 1])

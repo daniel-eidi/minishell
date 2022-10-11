@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:00:46 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/11 10:18:10 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/11 14:55:00 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int	looping(char *line, char **cwd)
 
 	signal_for_main();
 	i = read_and_check_line(line, cwd);
+	dprintf(2, "i = %d\n", i);
 	if (!i)
 		return (0);
 	if (i == 1)

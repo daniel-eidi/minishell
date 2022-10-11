@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 15:16:16 by mgaldino          #+#    #+#             */
-/*   Updated: 2022/10/10 17:08:20 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/11 14:10:40 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,10 @@ char	*go_down_to_dir(char *path, char *dir)
 	char	*s;
 
 	if (path[ft_strlen(path) - 1] != '/')
-	{
 		s = ft_strjoin(path, "/");
-		free(path);
-	}
+	else
+		s = ft_strdup(path);
+	free(path);
 	path = ft_strjoin(s, dir);
 	free(s);
 	return (path);

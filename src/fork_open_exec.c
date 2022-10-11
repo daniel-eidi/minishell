@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork_open_exec.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:55:34 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/10 18:49:00 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/11 14:43:16 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	fork_open_exec(char **cmd, int n_cmd, t_pids_pipes *aux)
 		signal_for_child();
 		g_data->global_table = make_cmd_table(cmd[n_cmd]);
 		free_cmd_and_close_pipes(cmd, n_cmd, aux);
-		open_fds(g_data->global_table->redirections, aux, n_cmd, &have_file);
+		open_fdsfrk(g_data->global_table->redirections, aux, n_cmd, &have_file);
 		if (n_cmd != 0 || have_file == 1 || have_file == 3)
 			dup2(aux->pipes[n_cmd][0], STDIN_FILENO);
 		if (n_cmd != (aux->total_cmd - 1) || have_file > 1)

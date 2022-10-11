@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_fork_exec.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:48:08 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/10 14:52:32 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/11 14:48:10 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	open_ok(char *file_str, int flag, int inout)
 	if ((inout == 0) && (access(file, F_OK) == -1))
 	{
 		write(2, file_str, ft_strlen(file_str));
-		error(": No such file or directory\n", 1);
+		//error(": No such file or directory\n", 1);
 	}
 	else
 	{
@@ -48,7 +48,37 @@ int	open_ok(char *file_str, int flag, int inout)
 		if (fd == -1)
 		{
 			write(2, file_str, ft_strlen(file_str));
-			error(": Permission denied\n", 1);
+		//	error(": Permission denied\n", 1);
+		}
+	}
+	free(file);
+	return (fd);
+}
+
+int	open_ok_fork(char *file_str, int flag, int inout)
+{
+	int		fd;
+	char	*file;
+
+	dprintf(2, "aqui\n");
+	fd = 0;
+	file = find_absolute_path(file_str);
+	if ((inout == 0) && (access(file, F_OK) == -1))
+	{
+		write(2, file_str, ft_strlen(file_str));
+		free_data_after_exec_cmd(NULL);
+		free(file);
+		error_fork(": No such file or directory\n", 1);
+	}
+	else
+	{
+		fd = open(file, flag, 0644);
+		if (fd == -1)
+		{
+			write(2, file_str, ft_strlen(file_str));
+			free_data_after_exec_cmd(NULL);
+			free(file);
+			error_fork(": Permission denied\n", 1);
 		}
 	}
 	free(file);

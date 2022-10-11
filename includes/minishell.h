@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 22:32:00 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/10 19:17:41 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/11 14:42:24 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ void	before_fork(char **cmd, t_pids_pipes **pid_pipe);
 void	fork_open_exec(char **cmd, int n_cmd, t_pids_pipes *pid_pipe);
 void	after_fork(int n_cmd, int **pipes, pid_t *pid);
 void	open_fds(char **redir, t_pids_pipes *aux, int n_cmd, int *have_file);
+void	open_fdsfrk(char **redir, t_pids_pipes *aux, int n_cmd, int *have_file);
+void	free_data_after_exec_cmd(char **environ);
 
 // ---utils fork_exec
 
@@ -112,6 +114,7 @@ void	close_pipes_main(int n_cmd, int **pipes);
 pid_t	*create_pids(int n_cmd);
 char	*get_path(char **cmd, const char *path);
 int		open_ok(char *file, int flag, int inout);
+int		open_ok_fork(char *file_str, int flag, int inout);
 void	error(const char *s, int i);
 void	error_fork(const char *s, int i);
 
