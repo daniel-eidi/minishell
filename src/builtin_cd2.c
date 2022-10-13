@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 15:16:16 by mgaldino          #+#    #+#             */
-/*   Updated: 2022/10/13 15:15:48 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/13 16:06:16 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*find_absolute_path(char *path)
 	i = -1;
 	if (!ft_strcmp(args[0], "~"))
 	{
-		absolute_path = get_var_value("HOME");
+		set_absolute_path_with_home_value(&absolute_path);
 		i++;
 	}
 	else

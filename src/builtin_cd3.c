@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 15:43:02 by mgaldino          #+#    #+#             */
-/*   Updated: 2022/10/13 15:35:26 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/13 16:06:29 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,17 @@ int	get_absolute_path(char **cmd, int i, char **absolute_path)
 	else
 		*absolute_path = find_absolute_path(cmd[i]);
 	return (1);
+}
+
+void	set_absolute_path_with_home_value(char **absolute_path)
+{
+	char	*s;
+
+	*absolute_path = get_var_value("HOME");
+	if (!ft_strcmp(*absolute_path, ""))
+	{
+		s = get_var_value("USER");
+		*absolute_path = ft_strjoin("/home/", s);
+		free(s);
+	}
 }
