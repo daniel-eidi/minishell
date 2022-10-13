@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 15:43:02 by mgaldino          #+#    #+#             */
-/*   Updated: 2022/10/13 16:06:29 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/13 16:10:03 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	get_absolute_path(char **cmd, int i, char **absolute_path)
 		if (!ft_strcmp(*absolute_path, ""))
 		{
 			write(2, "cd: HOME not set\n", 17);
+			g_data->exit_code = 1;
 			return (0);
 		}
 	}
