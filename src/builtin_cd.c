@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:32:57 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/11 11:01:17 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/13 15:36:07 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static bool	is_dir(char *absolute_path, char *cmd)
 	return (true);
 }
 
-static void	back_old_pwd(char **absolute_path)
+void	back_old_pwd(char **absolute_path)
 {
 	char	*s;
 	char	*str;
@@ -92,14 +92,8 @@ void	builtin_cd(char **cmd)
 	i = 1;
 	g_data->exit_code = 0;
 	absolute_path = NULL;
-	if (cmd[i] == NULL)
-		absolute_path = get_var_value("HOME");
-	else if (!ft_strcmp(cmd[i], "-"))
-		back_old_pwd(&absolute_path);
-	else if (cmd[i] && cmd[i + 1])
-		cd_many_args_msg();
-	else
-		absolute_path = find_absolute_path(cmd[i]);
+	if (!get_absolute_path(cmd, i, &absolute_path))
+		return ;
 	if (is_dir(absolute_path, cmd[i]))
 	{
 		actual_pwd = get_var_value("PWD");
@@ -107,5 +101,6 @@ void	builtin_cd(char **cmd)
 		update_hashtable("PWD", absolute_path, g_data->hash_table);
 		free_ptr((void *) &actual_pwd);
 	}
-	free_ptr((void *)&absolute_path);
+	if (ft_strcmp(absolute_path, ""))
+		free_ptr((void *)&absolute_path);
 }
