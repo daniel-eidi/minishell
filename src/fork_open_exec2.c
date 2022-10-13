@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 15:35:59 by mgaldino          #+#    #+#             */
-/*   Updated: 2022/10/13 06:32:38 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/13 06:55:26 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,19 +86,19 @@ void	open_fdsfrk(char **redir, t_pids_pipes *aux, int n_cmd, int *have_file)
 	i = -1;
 	while (redir[++i])
 	{
-		if (redir[i][0] == '>')
+		if (ft_strcmp (redir[i], ">") == 0 && redir[i + 1])
 		{
 			set_outfile_flags(fd, redir[i], &flags, have_file);
 			fd[1] = open_ok_fork(redir[++i], flags, 1);
 			aux->pipes[n_cmd + 1][1] = fd[1];
 		}
-		if (ft_strcmp (redir[i], "<") == 0)
+		if (ft_strcmp (redir[i], "<") == 0 && redir[i + 1])
 		{
 			set_infile_flags(fd, redir[i], &flags, have_file);
 			fd[0] = open_ok_fork(redir[++i], O_RDONLY, 0);
 			aux->pipes[n_cmd][0] = fd[0];
 		}
-		if (ft_strcmp (redir[i], "<<") == 0)
+		if (ft_strcmp (redir[i], "<<") == 0 && redir[i + 1])
 			get_heredoc_fork(aux, n_cmd, fd, have_file);
 	}
 }
@@ -114,19 +114,19 @@ void	open_fds(char **redir, t_pids_pipes *aux, int n_cmd, int *have_file)
 	i = -1;
 	while (redir[++i])
 	{
-		if (redir[i][0] == '>')
+		if (ft_strcmp (redir[i], ">") == 0 && redir[i + 1])
 		{
 			set_outfile_flags(fd, redir[i], &flags, have_file);
 			fd[1] = open_ok(redir[++i], flags, 1);
 			aux->pipes[n_cmd + 1][1] = fd[1];
 		}
-		if (ft_strcmp (redir[i], "<") == 0)
+		if (ft_strcmp (redir[i], "<") == 0 && redir[i + 1])
 		{
 			set_infile_flags(fd, redir[i], &flags, have_file);
 			fd[0] = open_ok(redir[++i], O_RDONLY, 0);
 			aux->pipes[n_cmd][0] = fd[0];
 		}
-		if (ft_strcmp (redir[i], "<<") == 0)
+		if (ft_strcmp (redir[i], "<<") == 0 && redir[i + 1])
 			get_heredoc(aux, n_cmd, fd, have_file);
 	}
 }
