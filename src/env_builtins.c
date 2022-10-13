@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 18:08:13 by mgaldino          #+#    #+#             */
-/*   Updated: 2022/10/10 18:08:14 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/13 10:29:28 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	builtin_env(void)
 		aux = (g_data->hash_table[i]);
 		while (aux)
 		{
-			ft_printf("%s=%s\n", ((t_item *) aux->content)->key, \
+			if (((t_item *) aux->content)->key != NULL)
+				ft_printf("%s=%s\n", ((t_item *) aux->content)->key, \
 					((t_item *) aux->content)->value);
 			aux = aux->next;
 		}
