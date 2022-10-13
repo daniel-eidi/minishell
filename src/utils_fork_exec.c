@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_fork_exec.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
+/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/27 12:48:08 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/11 15:58:19 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/13 06:31:53 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int	open_ok_fork(char *file_str, int flag, int inout)
 	int		fd;
 	char	*file;
 
-	dprintf(2, "aqui\n");
 	fd = 0;
 	file = find_absolute_path(file_str);
 	if ((inout == 0) && (access(file, F_OK) == -1))
