@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:00:46 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/11 15:58:59 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/13 12:15:00 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	looping(char *line, char **cwd)
 	i = read_and_check_line(line, cwd);
 	if (!i)
 		return (0);
-	if (i == 1)
+	if ((g_data->main_cmd) && (i == 1))
 	{
 		before_fork(g_data->main_cmd, &g_data->aux);
 		prepare_heredoc(g_data->main_cmd);
@@ -85,7 +85,8 @@ int	looping(char *line, char **cwd)
 			fork_open_exec(g_data->main_cmd, i, g_data->aux);
 		after_fork(i, g_data->aux->pipes, g_data->aux->pids);
 	}
-	free_split((void **)g_data->main_cmd);
+	if ((g_data->main_cmd))
+		free_split((void **)g_data->main_cmd);
 	free_ptr((void *)&g_data->aux);
 	free_ptr((void *)&g_data->main_cmd);
 	return (1);

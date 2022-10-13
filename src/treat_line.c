@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 23:24:49 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/11 09:43:48 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/13 12:18:48 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,18 @@ char	**token_line(char *line)
 
 	str = treat_line(line);
 	process_quotes(str);
-	split = ft_split(str, '|');
-	i = -1;
-	while (split[++i])
+	if (invalid_syntax_redir(str))
+		split = NULL;
+	else
 	{
-		process_quotes2(split[i]);
+		split = ft_split(str, '|');
+		i = -1;
+		while (split[++i])
+		{
+			process_quotes2(split[i]);
+		}
+		restore_char(split, -3, '|');
 	}
-	restore_char(split, -3, '|');
 	free_ptr((void *)&line);
 	free_ptr((void *)&str);
 	return (split);

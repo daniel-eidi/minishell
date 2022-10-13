@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 22:32:00 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/11 14:42:24 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/13 12:08:51 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_data
 extern t_data	*g_data;
 t_data	*init_data(void);
 
+int		invalid_syntax_redir(char *str);
 t_cmd	*make_cmd_table(char *line);
 void	clear_cmd_table(t_cmd *table);
 void	hash_envp(t_data *data, char **envp);
