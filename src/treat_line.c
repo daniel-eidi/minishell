@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 23:24:49 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/13 12:18:48 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/13 12:29:14 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,10 @@ char	**token_line(char *line)
 	str = treat_line(line);
 	process_quotes(str);
 	if (invalid_syntax_redir(str))
+	{
+		g_data->exit_code = 2;
 		split = NULL;
+	}
 	else
 	{
 		split = ft_split(str, '|');

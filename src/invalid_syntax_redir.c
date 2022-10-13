@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:07:05 by mgaldino          #+#    #+#             */
-/*   Updated: 2022/10/13 12:17:51 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/13 12:36:31 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	is_special_string(char *aux_i)
 	i = -1;
 	while (tokens[++i])
 	{
-		if (ft_strcmp(aux_i, tokens[i]))
+		if (!ft_strcmp(aux_i, tokens[i]))
 			r = 1;
 	}
 	free_ptr((void *)&tokens);
@@ -69,6 +69,7 @@ int	invalid_syntax_redir(char *str)
 			{
 				write(2, "syntax error near unexpected token `newline'\n", 45);
 				r = 1;
+				break ;
 			}
 		}		
 	}
