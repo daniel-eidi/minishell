@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 15:35:59 by mgaldino          #+#    #+#             */
-/*   Updated: 2022/10/13 12:19:09 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/13 18:54:05 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static void	get_heredoc_fork(t_pids_pipes *aux, int n_cmd, \
 		*have_file = 3;
 	else
 		*have_file = 1;
+	free(name);
 }
 
 static void	get_heredoc(t_pids_pipes *aux, int n_cmd, int *fd, int *have_file)
@@ -47,6 +48,7 @@ static void	get_heredoc(t_pids_pipes *aux, int n_cmd, int *fd, int *have_file)
 		*have_file = 3;
 	else
 		*have_file = 1;
+	free(name);
 }
 
 static void	set_outfile_flags(int *fd, char *redir, int *flags, int *have_file)

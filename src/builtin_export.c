@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 15:56:49 by mgaldino          #+#    #+#             */
-/*   Updated: 2022/10/04 14:47:34 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/13 20:04:57 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,22 @@ int	indentifier_not_valid(char *arg)
 	return (0);
 }
 
+int	arg_not_valid(char *arg, int *i)
+{
+	if (indentifier_not_valid(arg))
+	{
+		ft_printf("export: `%s': not a valid indentifier\n", arg);
+		g_data->exit_code = 1;
+		return (1);
+	}
+	*i = 0;
+	while ((arg[*i]) && (arg[*i] != '='))
+		++*i;
+	if (arg[*i] == '\0')
+		return (1);
+	return (0);
+}
+
 int	export_cmd(char	*s)
 {
 	int		i;
@@ -50,17 +66,11 @@ int	export_cmd(char	*s)
 	char	*new_value;
 
 	arg = ft_strdup(s);
-	if (indentifier_not_valid(arg))
+	if (arg_not_valid(arg, &i))
 	{
-		ft_printf("export: `%s': not a valid indentifier\n", arg);
-		g_data->exit_code = 1;
+		free(arg);
 		return (1);
 	}
-	i = 0;
-	while ((arg[i]) && (arg[i] != '='))
-		++i;
-	if (arg[i] == '\0')
-		return (1);
 	arg[i] = 0;
 	new_value = ft_strdup(arg + i + 1);
 	new_key = ft_strdup(arg);
