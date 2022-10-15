@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
+/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 22:32:00 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/13 16:04:43 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/15 12:15:43 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,12 @@ typedef struct s_data
 	t_pids_pipes	*aux;
 	t_cmd			*global_table;
 	char			**main_cmd;
+	int				not_run;
 }	t_data;
 extern t_data	*g_data;
 t_data	*init_data(void);
 
+void	free_global_main_cmd(void);
 int		invalid_syntax_redir(char *str);
 t_cmd	*make_cmd_table(char *line);
 void	clear_cmd_table(t_cmd *table);
