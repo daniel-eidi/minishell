@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 16:52:40 by mgaldino          #+#    #+#             */
-/*   Updated: 2022/10/10 16:53:24 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/17 14:05:23 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,13 @@ int	get_var_ind(char *s)
 	i = -1;
 	while (s[++i])
 	{
-		if ((s[i] == -2) && \
-			(ft_isalpha(s[i + 1]) || (s[i + 1] == '_') || s[i + 1] == '?'))
-			return (i);
+		if (s[i] == -2)
+		{
+			if (ft_isalnum(s[i + 1]) || (s[i + 1] == '_') || s[i + 1] == '?')
+				return (i);
+			else
+				s[i] = '$';
+		}
 	}
 	return (-1);
 }
@@ -71,8 +75,11 @@ char	*exp_var(char *line, t_list **table)
 	while (ind > -1)
 	{
 		end = ind + 1;
-		while (ft_isalnum(line[end + 1]) || (line[end + 1] == '_'))
-			end++;
+		if (ft_isalpha(line[end]) || (line[end] == '_') || line[end] == '?')
+		{
+			while (ft_isalnum(line[end + 1]) || (line[end + 1] == '_'))
+				end++;
+		}
 		line = get_line_with_var_expanded(line, ind, end, table);
 		ind = get_var_ind(line);
 	}
