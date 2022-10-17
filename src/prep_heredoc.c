@@ -6,61 +6,51 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 08:09:33 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/17 10:21:40 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/17 11:06:44 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static void	ctrl_d_msg(char *redir)
+static void	free_exit_child_hd(void)
 {
-	write(2, "warning: here-document delimited", 32);
-	write(2, " by end-of-file (wanted `", 26);
-	write(2, redir, ft_strlen(redir));
-	write(2, "')\n", 3);
-}
-static void ctrlc_hd(int signal)
-{
-	(void)signal;
-
-	write(2, "\n", 1);
 	free_global_main_cmd();
 	free_pids_and_pipes(g_data->aux);
 	clear_data();
-	exit (130);
+	exit(0);
 }
 
-void	ctrlc_parent_hd(int signal)
+static void	child_heredoc(char *redir, int n_cmd, int *fd)
 {
-	(void)signal;
-	if (signal == SIGINT)
+	char	*n_cmd_str;
+	char	*s;
+
+	signal_heredoc_on();
+	if (fd[0])
+		close(fd[0]);
+	n_cmd_str = ft_itoa(n_cmd);
+	s = ft_strjoin("/tmp/inputfile", n_cmd_str);
+	free(n_cmd_str);
+	fd[0] = open_ok(s, O_WRONLY | O_CREAT | O_TRUNC, 1);
+	free(s);
+	s = readline("> ");
+	while (s != NULL && ft_strcmp(s, redir))
 	{
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		g_data->exit_code = 130;
-		g_data->not_run = 1;
+		write(fd[0], s, ft_strlen(s));
+		write(fd[0], "\n", 1);
+		free(s);
+		s = readline("> ");
 	}
-}
-
-static void	signal_heredoc_on (void)
-{
-	signal(SIGINT, ctrlc_hd);
-}
-
-static void	wait_children(void)
-{
-	int	wstatus;
-
-	waitpid(-1, &wstatus, 0);
-	g_data->exit_code = WEXITSTATUS(wstatus);
-	return ;
+	if (!s)
+		ctrl_d_msg(redir);
+	close(fd[0]);
+	free(s);
+	free_exit_child_hd();
 }
 
 static void	process_heredoc(char *redir, int n_cmd, int *fd)
 {
-	char	*s;
-	char	*n_cmd_str;
-	pid_t 	pid;
+	pid_t	pid;
 
 	pid = fork();
 	if (pid < 0)
@@ -68,32 +58,7 @@ static void	process_heredoc(char *redir, int n_cmd, int *fd)
 	if (pid > 0)
 		signal(SIGINT, ctrlc_parent_hd);
 	if (pid == 0)
-	{
-		signal_heredoc_on();
-		if (fd[0])
-			close(fd[0]);
-		n_cmd_str = ft_itoa(n_cmd);
-		s = ft_strjoin("/tmp/inputfile", n_cmd_str);
-		free(n_cmd_str);
-		fd[0] = open_ok(s, O_WRONLY | O_CREAT | O_TRUNC, 1);
-		free(s);
-		s = readline("> ");
-		while (s != NULL && ft_strcmp(s, redir))
-		{
-			write(fd[0], s, ft_strlen(s));
-			write(fd[0], "\n", 1);
-			free(s);
-			s = readline("> ");
-		}
-		if (!s)
-			ctrl_d_msg(redir);
-		close(fd[0]);
-		free(s);
-		free_global_main_cmd();
-		free_pids_and_pipes(g_data->aux);
-		clear_data();
-		exit(0);
-	}
+		child_heredoc(redir, n_cmd, fd);
 	wait_children();
 }
 
@@ -115,7 +80,6 @@ static void	open_heredoc(char **redir, int n_cmd)
 void	prepare_heredoc(char **cmds)
 {
 	int		i;
-	//t_cmd	*cmd_table;
 
 	i = -1;
 	while (cmds[++i])

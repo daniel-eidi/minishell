@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:00:46 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/17 10:40:43 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/17 11:20:56 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,14 @@ int	read_and_check_line(char *line, char **cwd)
 	return (n);
 }
 
+void	free_main_cmd_and_aux(void)
+{
+	if ((g_data->main_cmd))
+		free_split((void **)g_data->main_cmd);
+	free_ptr((void *)&g_data->aux);
+	free_ptr((void *)&g_data->main_cmd);
+}
+
 int	looping(char *line, char **cwd)
 {
 	int	i;
@@ -79,20 +87,17 @@ int	looping(char *line, char **cwd)
 	{
 		before_fork(g_data->main_cmd, &g_data->aux);
 		prepare_heredoc(g_data->main_cmd);
-		if (!g_data->not_run) 
+		if (!g_data->not_run)
 		{
-		i = -1;
-		if (g_data->main_cmd[0] && !g_data->main_cmd[1])
-			check_run_not_fork(g_data->main_cmd, &i, g_data->aux);
-		while (g_data->main_cmd[++i] != NULL)
-			fork_open_exec(g_data->main_cmd, i, g_data->aux);
+			i = -1;
+			if (g_data->main_cmd[0] && !g_data->main_cmd[1])
+				check_run_not_fork(g_data->main_cmd, &i, g_data->aux);
+			while (g_data->main_cmd[++i] != NULL)
+				fork_open_exec(g_data->main_cmd, i, g_data->aux);
 		}
 		after_fork(i, g_data->aux->pipes, g_data->aux->pids);
 	}
-	if ((g_data->main_cmd))
-		free_split((void **)g_data->main_cmd);
-	free_ptr((void *)&g_data->aux);
-	free_ptr((void *)&g_data->main_cmd);
+	free_main_cmd_and_aux();
 	return (1);
 }
 

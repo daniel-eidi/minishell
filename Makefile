@@ -46,6 +46,7 @@ SRC 		= 	main.c \
 				ft_get_next_line_lim.c\
 				signals.c\
 				prep_heredoc.c\
+				prep_heredoc2.c\
 				clear_data.c\
 				invalid_syntax_redir.c\
 #				ft_get_next_line.c\

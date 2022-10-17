@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork_open_exec2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
+/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 15:35:59 by mgaldino          #+#    #+#             */
-/*   Updated: 2022/10/13 18:54:05 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/17 11:10:20 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,32 +49,6 @@ static void	get_heredoc(t_pids_pipes *aux, int n_cmd, int *fd, int *have_file)
 	else
 		*have_file = 1;
 	free(name);
-}
-
-static void	set_outfile_flags(int *fd, char *redir, int *flags, int *have_file)
-{
-	if (fd[1])
-		close(fd[1]);
-	if (ft_strcmp (redir, ">>") == 0)
-		*flags = O_WRONLY | O_CREAT | O_APPEND;
-	if (ft_strcmp (redir, ">") == 0)
-		*flags = O_WRONLY | O_CREAT | O_TRUNC;
-	if (*have_file == 1 || *have_file == 3)
-		*have_file = 3;
-	else
-		*have_file = 2;
-}
-
-static void	set_infile_flags(int *fd, char *redir, int *flags, int *have_file)
-{
-	if (fd[0])
-		close(fd[0]);
-	if (ft_strcmp (redir, "<") == 0)
-		*flags = O_RDONLY;
-	if (*have_file == 2 || *have_file == 3)
-		*have_file = 3;
-	else
-		*have_file = 1;
 }
 
 void	open_fdsfrk(char **redir, t_pids_pipes *aux, int n_cmd, int *have_file)

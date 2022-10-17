@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 19:41:44 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/12 13:01:05 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/17 11:14:55 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,6 @@ void	signal_for_main(void)
 	signal(SIGINT, ctrlc_main);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGTERM, ctrlc_main);
-}
-
-void	ctrlc_heredoc(int signal)
-{
-	(void)signal;
-	if (signal == SIGINT)
-		error("", 130);
 }
 
 static void	ctrlc_child(int signal)

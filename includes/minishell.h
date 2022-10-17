@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 22:32:00 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/15 12:15:43 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/17 11:11:32 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ void	after_fork(int n_cmd, int **pipes, pid_t *pid);
 void	open_fds(char **redir, t_pids_pipes *aux, int n_cmd, int *have_file);
 void	open_fdsfrk(char **redir, t_pids_pipes *aux, int n_cmd, int *have_file);
 void	free_data_after_exec_cmd(char **environ);
+void	set_outfile_flags(int *fd, char *redir, int *flags, int *have_file);
+void	set_infile_flags(int *fd, char *redir, int *flags, int *have_file);
 
 // ---utils fork_exec
 
@@ -130,7 +132,12 @@ void	signal_for_child(void);
 void	signal_for_main(void);
 void	ctrlc_fork(int signal);
 
-//--- teste heredoc
+//--- heredoc
 void	prepare_heredoc(char **cmds);
+void	ctrl_d_msg(char *redir);
+void	ctrlc_hd(int signal);
+void	ctrlc_parent_hd(int signal);
+void	signal_heredoc_on(void);
+void	wait_children(void);
 
 #endif
