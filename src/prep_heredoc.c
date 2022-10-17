@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 08:09:33 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/17 07:35:03 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/17 07:41:44 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void ctrlc_hd(int signal)
 
 	write(2, "\n", 1);
 	free_global_main_cmd();
-	clear_cmd_table(g_data->global_table);
+	free_pids_and_pipes(g_data->aux);
 	clear_data();
 	exit (130);
 }
@@ -91,7 +91,6 @@ static void	process_heredoc(char *redir, int n_cmd, int *fd)
 		free(s);
 		free_global_main_cmd();
 		free_pids_and_pipes(g_data->aux);
-		//clear_cmd_table(g_data->global_table);
 		clear_data();
 		exit(0);
 	}
