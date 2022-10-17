@@ -6,7 +6,7 @@
 /*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 08:09:33 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/15 12:30:12 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/17 07:35:03 by daeidi-h         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ static void	process_heredoc(char *redir, int n_cmd, int *fd)
 		close(fd[0]);
 		free(s);
 		free_global_main_cmd();
-		clear_cmd_table(g_data->global_table);
+		free_pids_and_pipes(g_data->aux);
+		//clear_cmd_table(g_data->global_table);
 		clear_data();
 		exit(0);
 	}
@@ -115,13 +116,13 @@ static void	open_heredoc(char **redir, int n_cmd)
 void	prepare_heredoc(char **cmds)
 {
 	int		i;
-	t_cmd	*cmd_table;
+	//t_cmd	*cmd_table;
 
 	i = -1;
 	while (cmds[++i])
 	{
-		cmd_table = make_cmd_table(cmds[i]);
-		open_heredoc(cmd_table->redirections, i);
-		clear_cmd_table (cmd_table);
+		g_data->global_table = make_cmd_table(cmds[i]);
+		open_heredoc(g_data->global_table->redirections, i);
+		clear_cmd_table (g_data->global_table);
 	}
 }
