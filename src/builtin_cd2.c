@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 15:16:16 by mgaldino          #+#    #+#             */
-/*   Updated: 2022/10/13 16:06:16 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/17 15:20:30 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*get_var_value(char *key)
 
 	temp = find_entry(key, g_data->hash_table);
 	if (temp == NULL)
-		return ("");
+		return (ft_strdup(""));
 	return (ft_strdup(((t_item *)temp->content)->value));
 }
 

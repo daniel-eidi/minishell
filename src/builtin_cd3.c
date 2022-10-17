@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 15:43:02 by mgaldino          #+#    #+#             */
-/*   Updated: 2022/10/13 16:10:03 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/17 15:55:21 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	set_absolute_path_with_home_value(char **absolute_path)
 	if (!ft_strcmp(*absolute_path, ""))
 	{
 		s = get_var_value("USER");
+		free(*absolute_path);
 		*absolute_path = ft_strjoin("/home/", s);
 		free(s);
 	}

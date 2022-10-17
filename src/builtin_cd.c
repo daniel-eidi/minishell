@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 20:32:57 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/13 15:36:07 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/17 15:56:06 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ static bool	is_dir(char *absolute_path, char *cmd)
 			write(2, ": Not a directory\n", 18);
 		else
 			write(2, ": No such file or directory\n", 28);
+		g_data->exit_code = 1;
 		return (false);
 	}
 	return (true);
@@ -92,15 +93,15 @@ void	builtin_cd(char **cmd)
 	i = 1;
 	g_data->exit_code = 0;
 	absolute_path = NULL;
-	if (!get_absolute_path(cmd, i, &absolute_path))
-		return ;
-	if (is_dir(absolute_path, cmd[i]))
+	if (get_absolute_path(cmd, i, &absolute_path))
 	{
-		actual_pwd = get_var_value("PWD");
-		update_hashtable("OLDPWD", actual_pwd, g_data->hash_table);
-		update_hashtable("PWD", absolute_path, g_data->hash_table);
-		free_ptr((void *) &actual_pwd);
+		if (is_dir(absolute_path, cmd[i]))
+		{
+			actual_pwd = get_var_value("PWD");
+			update_hashtable("OLDPWD", actual_pwd, g_data->hash_table);
+			update_hashtable("PWD", absolute_path, g_data->hash_table);
+			free_ptr((void *) &actual_pwd);
+		}		
 	}
-	if (ft_strcmp(absolute_path, ""))
-		free_ptr((void *)&absolute_path);
+	free_ptr((void *)&absolute_path);
 }

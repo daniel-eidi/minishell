@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:00:46 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/17 11:20:56 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/17 16:48:04 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ int	looping(char *line, char **cwd)
 				fork_open_exec(g_data->main_cmd, i, g_data->aux);
 		}
 		after_fork(i, g_data->aux->pipes, g_data->aux->pids);
+		if ((g_data->main_cmd[0]) && (!ft_strlen(g_data->main_cmd[0])))
+			g_data->exit_code = 127;
 	}
 	free_main_cmd_and_aux();
 	return (1);

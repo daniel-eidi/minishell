@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:07:05 by mgaldino          #+#    #+#             */
-/*   Updated: 2022/10/13 12:36:31 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/17 17:36:01 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,14 @@ int	is_special_string(char *aux_i)
 	int		i;
 	int		r;
 
-	tokens = (char **) malloc(6 * sizeof(char *));
+	tokens = (char **) malloc(7 * sizeof(char *));
 	tokens[0] = "<";
 	tokens[1] = ">";
 	tokens[2] = "<<";
 	tokens[3] = ">>";
 	tokens[4] = "|";
-	tokens[5] = NULL;
+	tokens[5] = "||";
+	tokens[6] = NULL;
 	r = 0;
 	i = -1;
 	while (tokens[++i])
@@ -50,6 +51,25 @@ int	not_null(char *aux_i, int *r)
 	return (1);
 }
 
+int	check_next_string(char **aux, int *i, int *r)
+{
+	if (!ft_strcmp(aux[0], "|"))
+	{
+		write(2, "syntax error near unexpected token `|'\n", 39);
+		*r = 1;
+		return (1);
+	}
+	if (not_null(aux[++*i], r))
+		return (1);
+	else
+	{
+		write(2, "syntax error near unexpected token `newline'\n", 45);
+		*r = 1;
+		return (1);
+	}
+	return (0);
+}
+
 int	invalid_syntax_redir(char *str)
 {
 	int		i;
@@ -63,14 +83,8 @@ int	invalid_syntax_redir(char *str)
 	{
 		if (is_special_string(aux[i]))
 		{
-			if (not_null(aux[++i], &r))
+			if (check_next_string(aux, &i, &r))
 				break ;
-			else
-			{
-				write(2, "syntax error near unexpected token `newline'\n", 45);
-				r = 1;
-				break ;
-			}
 		}		
 	}
 	free_split((void **)aux);
