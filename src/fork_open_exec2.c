@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork_open_exec2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 15:35:59 by mgaldino          #+#    #+#             */
-/*   Updated: 2022/10/17 11:10:20 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/18 11:03:40 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,4 +105,14 @@ void	open_fds(char **redir, t_pids_pipes *aux, int n_cmd, int *have_file)
 		if (ft_strcmp (redir[i], "<<") == 0)
 			get_heredoc(aux, n_cmd, fd, have_file);
 	}
+}
+
+void	print_error_on_failed_execve(char *cmd_path)
+{
+	dprintf(2, "cmd_path dentro da print error = %s\n", cmd_path);
+	write(2, cmd_path, ft_strlen(cmd_path));
+	if (chdir(cmd_path) == 0)
+		write(2, ": Is a directory\n", 18);
+	else
+		write(2, ": no such file or directory\n", 28);	
 }

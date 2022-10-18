@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 22:55:34 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/13 20:27:07 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/18 10:52:52 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,10 +117,12 @@ void	exec_cmd(t_cmd *cmd_table)
 		if_absolute_path(temp, environ, args, &cmd_path);
 	if (execve(cmd_path, args, environ) == -1)
 	{
-		write(1, cmd_path, ft_strlen(cmd_path));
-		write(1, ": no such file or directory\n", 28);
+		print_error_on_failed_execve(cmd_path);
 		free(cmd_path);
 		free_split((void **) environ);
 		free(environ);
+		clear_cmd_table(g_data->global_table);
+		free_and_exit(g_data->aux);
+		exit (126);
 	}
 }

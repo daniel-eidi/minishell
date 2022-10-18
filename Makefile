@@ -49,6 +49,8 @@ SRC 		= 	main.c \
 				prep_heredoc2.c\
 				clear_data.c\
 				invalid_syntax_redir.c\
+				ft_uatoi.c\
+				invalid_uatoi.c\
 #				ft_get_next_line.c\
 
 

@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 11:07:05 by mgaldino          #+#    #+#             */
-/*   Updated: 2022/10/17 17:36:01 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/18 10:11:54 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,29 @@ int	is_special_string(char *aux_i)
 	tokens[4] = "|";
 	tokens[5] = "||";
 	tokens[6] = NULL;
+	r = 0;
+	i = -1;
+	while (tokens[++i])
+	{
+		if (!ft_strcmp(aux_i, tokens[i]))
+			r = 1;
+	}
+	free_ptr((void *)&tokens);
+	return (r);
+}
+
+int	is_redirection_string(char *aux_i)
+{
+	char	**tokens;
+	int		i;
+	int		r;
+
+	tokens = (char **) malloc(5 * sizeof(char *));
+	tokens[0] = "<";
+	tokens[1] = ">";
+	tokens[2] = "<<";
+	tokens[3] = ">>";
+	tokens[4] = NULL;
 	r = 0;
 	i = -1;
 	while (tokens[++i])
@@ -81,11 +104,11 @@ int	invalid_syntax_redir(char *str)
 	i = -1;
 	while (aux[++i])
 	{
-		if (is_special_string(aux[i]))
+		if (is_redirection_string(aux[i]))
 		{
 			if (check_next_string(aux, &i, &r))
 				break ;
-		}		
+		}
 	}
 	free_split((void **)aux);
 	free_ptr((void *)&aux);

@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 13:45:16 by mgaldino          #+#    #+#             */
-/*   Updated: 2022/10/10 16:52:01 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/18 10:13:31 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@ int	first_argument_not_numeric(char **cmd)
 	if ((!cmd) || (cmd && !cmd[1]))
 		return (0);
 	i = -1;
+	if (cmd && ((cmd[1][0] == '+') || (cmd && cmd[1][0] == '-')))
+		i++;
 	while (cmd && cmd[1][++i])
 	{
-		if (!ft_isdigit(cmd[1][i]))
+		if ((invalid_uatoi(cmd[1])) || (!ft_isdigit(cmd[1][i])))
 		{
 			write(2, "exit: ", 6);
 			write(2, cmd[1], ft_strlen(cmd[1]));
@@ -35,14 +37,14 @@ int	first_argument_not_numeric(char **cmd)
 
 int	set_exit_code(char **cmd, int n)
 {
-	int		s;
+	int	s;
 
 	if (cmd[1])
 	{
 		if (n)
 			s = 2;
 		else
-			s = ft_atoi(cmd[1]);
+			s = ft_uatoi(cmd[1]);
 	}
 	else
 		s = 0;

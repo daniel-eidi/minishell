@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daeidi-h <daeidi-h@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 22:32:00 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/17 11:11:32 by daeidi-h         ###   ########.fr       */
+/*   Updated: 2022/10/18 10:53:27 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ void	hash_envp(t_data *data, char **envp);
 void	print_array(char **array);
 void	clear_data(void);
 void	exit_minishell(t_cmd *cmd_table, t_pids_pipes *aux);
+unsigned int	ft_uatoi(const char *str);
+unsigned int	invalid_uatoi(const char *str);
 void	free_pids_and_pipes(t_pids_pipes *aux);
 void	free_and_exit(t_pids_pipes *aux);
 char	*ft_get_next_line_lim(int fd, char *limiter);
@@ -125,6 +127,7 @@ int		open_ok(char *file, int flag, int inout);
 int		open_ok_fork(char *file_str, int flag, int inout);
 void	error(const char *s, int i);
 void	error_fork(const char *s, int i);
+void	print_error_on_failed_execve(char *cmd_path);
 
 // --- signals
 

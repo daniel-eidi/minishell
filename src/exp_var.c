@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 16:52:40 by mgaldino          #+#    #+#             */
-/*   Updated: 2022/10/17 14:05:23 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/18 11:03:13 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char	*exp_var(char *line, t_list **table)
 	while (ind > -1)
 	{
 		end = ind + 1;
-		if (ft_isalpha(line[end]) || (line[end] == '_') || line[end] == '?')
+		if (ft_isalpha(line[end]) || (line[end] == '_'))
 		{
 			while (ft_isalnum(line[end + 1]) || (line[end + 1] == '_'))
 				end++;
