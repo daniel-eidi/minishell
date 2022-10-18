@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/29 18:10:53 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/18 09:35:08 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/18 15:46:49 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 unsigned int	invalid_uatoi(const char *str)
 {
 	unsigned long long	nbr;
-	int	sign;
-	unsigned int	i;
+	int					sign;
+	unsigned int		i;
 
 	nbr = 0;
 	sign = 1;

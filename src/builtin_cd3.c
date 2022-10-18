@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 15:43:02 by mgaldino          #+#    #+#             */
-/*   Updated: 2022/10/17 15:55:21 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/18 15:38:23 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	cd_many_args_msg(void)
 {
-	printf("cd: too many arguments\n");
+	write(2, "cd: too many arguments\n", 23);
 	g_data->exit_code = 1;
 	return ;
 }
@@ -34,7 +34,10 @@ int	get_absolute_path(char **cmd, int i, char **absolute_path)
 	else if (!ft_strcmp(cmd[i], "-"))
 		back_old_pwd(&*absolute_path);
 	else if (cmd[i] && cmd[i + 1])
+	{
 		cd_many_args_msg();
+		return (0);
+	}
 	else
 		*absolute_path = find_absolute_path(cmd[i]);
 	return (1);

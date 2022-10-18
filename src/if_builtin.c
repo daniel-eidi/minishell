@@ -6,14 +6,40 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 16:39:10 by daeidi-h          #+#    #+#             */
-/*   Updated: 2022/10/18 11:49:45 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/18 15:01:05 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
+void	erase_starting_empty_strings(char **cmd)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (cmd[i] && (!ft_strcmp(cmd[i], "")))
+		i++;
+	if (!i)
+		return ;
+	j = 0;
+	while (cmd[i])
+	{
+		free(cmd[j]);
+		cmd[j] = ft_strdup(cmd[i]);
+		i++;
+		j++;
+	}
+	while (cmd[j])
+	{
+		free(cmd[j]);
+		cmd[j] = NULL;
+	}
+}
+
 int	is_builtin(char **cmd)
 {
+	erase_starting_empty_strings(cmd);
 	if (!cmd[0])
 		return (3);
 	if (!ft_strcmp(cmd[0], "echo") || !ft_strcmp(cmd[0], "pwd") \

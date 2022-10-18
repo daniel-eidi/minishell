@@ -6,7 +6,7 @@
 /*   By: mgaldino <mgaldino@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 15:35:59 by mgaldino          #+#    #+#             */
-/*   Updated: 2022/10/18 11:03:40 by mgaldino         ###   ########.fr       */
+/*   Updated: 2022/10/18 15:47:20 by mgaldino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,12 +107,22 @@ void	open_fds(char **redir, t_pids_pipes *aux, int n_cmd, int *have_file)
 	}
 }
 
-void	print_error_on_failed_execve(char *cmd_path)
+int	print_error_on_failed_execve(char *cmd_path)
 {
-	dprintf(2, "cmd_path dentro da print error = %s\n", cmd_path);
 	write(2, cmd_path, ft_strlen(cmd_path));
+	if (access(cmd_path, F_OK) == -1)
+	{
+		write(2, ": No such file or directory\n", 28);
+		return (127);
+	}
+	if (access(cmd_path, X_OK) == -1)
+	{
+		write(2, ": Permission denied\n", 20);
+		return (126);
+	}
 	if (chdir(cmd_path) == 0)
 		write(2, ": Is a directory\n", 18);
 	else
-		write(2, ": no such file or directory\n", 28);	
+		write(2, ": No such file or directory\n", 28);
+	return (126);
 }
